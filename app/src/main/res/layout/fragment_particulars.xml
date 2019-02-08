@@ -1,0 +1,16 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="addam.com.my.chinlaicustomer.feature.destination.fragment.ParticularsFragment">
+
+    <data>
+        <variable name="model" type="addam.com.my.chinlaicustomer.rest.model.Particular"/>
+    </data>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/view_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/space_large_24dp"
+            android:layout_marginEnd="@dimen/space_large_24dp"
+    />
+</layout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="image" type="addam.com.my.chinlaicustomer.rest.model.Image"/>
+    </data>
+    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@android:color/transparent"
+    >
+        <ImageView
+                android:id="@+id/img"
+                android:layout_width="@dimen/header_image_height"
+                android:layout_height="@dimen/space_massive_200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@android:color/transparent"
+        />
+        <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="@dimen/back_button_width"
+                android:layout_height="@dimen/back_button_width"
+                app:layout_constraintEnd_toEndOf="@id/img"
+                app:layout_constraintBottom_toTopOf="@id/img"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_cancel"
+        />
+    </android.support.constraint.ConstraintLayout>
+</layout>

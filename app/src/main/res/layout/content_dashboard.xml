@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".feature.delivery.DashboardActivity">
+    <data>
+        <variable
+                name="viewModel"
+                type="addam.com.my.chinlaicustomer.feature.delivery.DashboardViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <!-- Dummy item to prevent EditText from receiving focus -->
+        <LinearLayout
+                android:id="@+id/ll_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/space_small_12dp"
+                android:layout_marginLeft="@dimen/space_large_24dp"
+                android:layout_marginRight="@dimen/space_large_24dp"
+                android:background="@drawable/edit_text_normal">
+            <LinearLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_width="0px"
+                    android:layout_height="0px"/>
+            <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/space_tiny_4dp"
+                    android:src="@drawable/ic_search"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            <EditText
+                    android:background="@null"
+                    android:id="@+id/et_search"
+                    android:maxLines="1"
+                    android:layout_marginStart="@dimen/space_small_8dp"
+                    android:layout_marginEnd="@dimen/space_small_8dp"
+                    android:hint="@string/search_job_id"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+                android:paddingLeft="@dimen/space_large_24dp"
+                android:paddingRight="@dimen/space_large_24dp"
+                android:paddingTop="@dimen/space_small_12dp"
+                android:paddingBottom="@dimen/space_small_12dp"
+                android:id="@+id/tv_total_trips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/greyish"
+                android:text="@{`Found ` + viewModel.tripCount + ` Delivery trips`}"/>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_trips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>
+
+

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivity">
+    <data>
+        <variable
+                name="viewModel"
+                type="addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsViewModel"/>
+        <variable
+                name="toolbarModel"
+                type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_with_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:model="@{toolbarModel}" />
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <LinearLayout
+                        android:layout_marginStart="@dimen/space_small_12dp"
+                        android:layout_marginEnd="@dimen/space_small_12dp"
+                        android:layout_marginTop="@dimen/space_small_8dp"
+                        android:layout_marginBottom="@dimen/space_small_8dp"
+                        android:id="@+id/ll_top_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <ImageView
+                            android:id="@+id/iv_icon"
+                            android:layout_width="@dimen/space_huge_48dp"
+                            android:layout_height="@dimen/space_huge_48dp"
+                            app:srcCompat="@drawable/ic_truck"/>
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                            <TextView
+                                    android:textSize="@dimen/large_text_20sp"
+                                    android:id="@+id/tv_id"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/space_small_8dp"
+                                    android:layout_marginEnd="@dimen/space_small_8dp"
+                                    android:text="@{`#` + viewModel.id}"/>
+                            <TextView
+                                    android:paddingTop="@dimen/space_small_8dp"
+                                    android:paddingBottom="@dimen/space_small_8dp"
+                                    android:paddingStart="@dimen/space_small_12dp"
+                                    android:paddingEnd="@dimen/space_small_12dp"
+                                    android:textSize="@dimen/medium_text_16sp"
+                                    android:textColor="@color/white"
+                                    android:textAllCaps="true"
+                                    android:id="@+id/tv_status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.isCompleted ? `Completed` : `Pending`}"
+                                    android:background="@{viewModel.isCompleted ? @color/colorGreen : @color/colorRed }"/>
+                        </LinearLayout>
+
+                        <TextView
+                                android:textSize="@dimen/small_text_12sp"
+                                android:textColor="@color/greyish"
+                                android:id="@+id/tv_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_small_8dp"
+                                android:text="@{viewModel.createOn}"/>
+                        <RelativeLayout android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/space_small_8dp"
+                        >
+                            <TextView
+                                    android:textSize="@dimen/medium_text_14sp"
+                                    android:id="@+id/tv_vehicle_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.vehicleModel}"/>
+                            <TextView
+                                    android:textSize="@dimen/medium_text_14sp"
+                                    android:id="@+id/tv_divider"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@+id/tv_vehicle_name"
+                                    android:text=" / "/>
+                            <TextView
+                                    android:textSize="@dimen/medium_text_14sp"
+                                    android:id="@+id/tv_vehicle_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@+id/tv_divider"
+                                    android:text="@{viewModel.vehiclePlate}"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+                <android.support.design.widget.AppBarLayout
+                        app:layout_constraintTop_toBottomOf="@id/ll_top_layout"
+                        android:id="@+id/app_bar_layout"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:theme="@style/AppTheme.AppBarOverlay">
+                    <android.support.design.widget.TabLayout
+                            android:background="@color/colorRed"
+                            app:tabIndicatorColor="@color/white"
+                            android:id="@+id/tab_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tabMode="fixed"
+                            app:tabGravity="fill"/>
+                </android.support.design.widget.AppBarLayout>
+                <TextView
+                        android:padding="@dimen/space_small_12dp"
+                        android:background="@color/grey_light_medium"
+                        android:id="@+id/tv_total_trips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{`Showing total ` + viewModel.totalDestination + ` destination`}"/>
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_destination"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</layout>
+
