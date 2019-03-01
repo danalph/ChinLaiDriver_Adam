@@ -80,7 +80,7 @@
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
     <string name="title_activity_profile">Profile</string>
-    <string name="crm_name">CRM System Driver Login</string>
+    <string name="crm_name">CRM System \n Customer Login</string>
     <string name="title_activity_destination">VIew Destination</string>
     <string name="tab_destination_1">Information</string>
     <string name="tab_destination_2">Particulars</string>
@@ -117,5 +117,6 @@
     <string name="waze">Waze</string>
     <string name="no_map_found">No Google Map Application found</string>
     <string name="error_getting_response">Error getting response from server</string>
+    <string name="forgot_password">Forgot Password?</string>
 
 </resources>

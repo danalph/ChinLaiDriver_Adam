@@ -67,6 +67,10 @@ class LoginViewModel(
         })
     }
 
+    fun onForgotClicked(){
+//        TODO go to forgot password
+    }
+
     private fun loginUser(keys: String) {
         callUserLogin(keys).subscribeBy(onSuccess = {
             if(it.status){

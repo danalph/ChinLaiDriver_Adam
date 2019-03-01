@@ -9,7 +9,7 @@ android {
         config {
             keyAlias 'chinlaiDriver'
             keyPassword 'chinlaiDriver012345'
-            storeFile file('C:/Users/Owner/Desktop/chinlaicustomer.jks')
+            storeFile file('~/Documents/chinlai.jks')
             storePassword 'Ch1nl@i12345'
         }
     }
