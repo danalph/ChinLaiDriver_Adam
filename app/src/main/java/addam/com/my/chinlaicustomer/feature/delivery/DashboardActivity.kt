@@ -17,12 +17,16 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.github.ajalt.timberkt.Timber
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -87,9 +91,9 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         })
 
         viewModel.errorResponse.observe(this){
-            val snackbar = Snackbar.make(rv_trips, it.toString(), Snackbar.LENGTH_SHORT)
+            val snackbar = Snackbar.make(rv_categories, it.toString(), Snackbar.LENGTH_SHORT)
             val tv = snackbar.view.findViewById<TextView>(R.id.snackbar_text)
-            tv.setTextColor(resources.getColor(R.color.white))
+            tv.setTextColor(ContextCompat.getColor(this@DashboardActivity, R.color.white))
             snackbar.show()
             swipe_refresh_layout.isRefreshing = false
         }
@@ -98,67 +102,31 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     private fun setupView(){
         KeyboardManager.hideKeyboard(this)
         supportActionBar?.setDisplayShowTitleEnabled(true)
-        supportActionBar?.title = getString(R.string.my_delivery_trips)
+        supportActionBar?.title = getString(R.string.category)
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        configureTabLayout()
         setupRecyclerView()
-
-        et_search
-            .textChanges()
-            .debounce(200, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                if(et_search.hasFocus()){
-                    adapter.filter.filter(it)
-                    viewModel.tripCount.set(adapter.itemCount)
-                }
-            }.addTo(disposable)
 
         swipe_refresh_layout.setOnRefreshListener {
             viewModel.getTrips()
         }
     }
 
-    private fun configureTabLayout() {
-        tabs.addTab(tabs.newTab().setText(getString(R.string.delivery_all)))
-        tabs.addTab(tabs.newTab().setText(getString(R.string.delivery_pending)))
-        tabs.addTab(tabs.newTab().setText(getString(R.string.delivery_completed)))
-
-        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabSelected(p0: TabLayout.Tab?) {
-                reset()
-                adapter.item = viewModel.getSortedItem(p0?.text.toString().toLowerCase(), trips)
-                adapter.notifyDataSetChanged()
-                viewModel.tripCount.set(adapter.itemCount)
-            }
-
-        })
-    }
 
     private fun setupRecyclerView() {
-        rv_trips.layoutManager = LinearLayoutManager(this)
+        rv_categories.layoutManager = GridLayoutManager(this,2)
         //rv_trips.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         adapter = DashboardAdapter(trips, R.layout.dashboard_adapter_layout,object: BaseRecyclerViewAdapter.OnItemClickListener<TripsResponse.Data.Trip>{
             override fun onItemClick(item: TripsResponse.Data.Trip, view: View) {
                 viewModel.startDeliveryDetailActivity(item.id)
             }
         })
-        rv_trips.adapter = adapter
-        rv_trips.isFocusable = false
+        rv_categories.adapter = adapter
+        rv_categories.isFocusable = false
     }
 
     override fun onBackPressed() {
@@ -171,14 +139,21 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun reset(){
         KeyboardManager.hideKeyboard(this)
-        et_search.clearFocus()
-        et_search.setText("")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.delivery_trips -> {
+            R.id.btn_browse_product -> {
+
+            }
+            R.id.btn_my_order -> {
+
+            }
+            R.id.btn_my_invoice -> {
+
+            }
+            R.id.btn_my_statement -> {
 
             }
             R.id.profile -> {
@@ -197,5 +172,18 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     override fun onDestroy() {
         super.onDestroy()
         disposable.clear()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.dashboard, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_cart){
+            //TODO go to cart
+            Timber.d { "Shopping cart" }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

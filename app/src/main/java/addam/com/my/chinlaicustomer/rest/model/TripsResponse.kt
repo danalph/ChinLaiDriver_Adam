@@ -11,24 +11,16 @@ data class TripsResponse(
     val status: Boolean
 ) {
     data class Data(
-        @SerializedName("trips")
+        @SerializedName("categories")
         val trips: List<Trip>
     ) {
         data class Trip(
-            @SerializedName("create_on")
-            val createOn: String,
             @SerializedName("id")
             val id: String,
-            @SerializedName("status")
-            val status: String,
-            @SerializedName("total_do")
-            val totalDo: String,
-            @SerializedName("total_gt")
-            val totalGt: String,
-            @SerializedName("vehicleModel")
-            val vehicleModel: String,
-            @SerializedName("vehiclePlate")
-            val vehiclePlate: String
+            @SerializedName("category_en")
+            val categoryEn: String,
+            @SerializedName("category_cn")
+            val categoryCn: String
         )
     }
 }
