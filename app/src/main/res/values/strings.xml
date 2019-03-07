@@ -118,5 +118,10 @@
     <string name="no_map_found">No Google Map Application found</string>
     <string name="error_getting_response">Error getting response from server</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="contact_no">Contact No</string>
+	<string name="address">Address</string>
+	<string name="edit">Edit</string>
+	<string name="sales_person">Salesperson Name</string>
+	<string name="sales_person_contact">Salesperson Contact No</string>
 
 </resources>
