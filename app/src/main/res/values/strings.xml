@@ -124,5 +124,8 @@
 	<string name="sales_person">Salesperson Name</string>
 	<string name="sales_person_contact">Salesperson Contact No</string>
 	<string name="title_activity_reset_password">EDIT PASSWORD</string>
+	<string name="current_password">Current Password</string>
+	<string name="new_password">New Password</string>
+	<string name="new_password_confirm">Confirm New Password</string>
 
 </resources>
