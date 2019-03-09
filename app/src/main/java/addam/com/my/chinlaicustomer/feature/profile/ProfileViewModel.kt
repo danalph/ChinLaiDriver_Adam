@@ -1,6 +1,9 @@
 package addam.com.my.chinlaicustomer.feature.profile
 
 import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.ViewModel
@@ -19,5 +22,11 @@ class ProfileViewModel(
     var password = ObservableString("********")
     var salesPerson = ObservableString("KENJI")
     var salesPersonContact = ObservableString("012-203329123")
+
+    val startActivityEvent: StartActivityEvent = StartActivityEvent()
+
+    fun onEditPasswordClicked(){
+        startActivityEvent.value = StartActivityModel(Router.Destination.RESET_PASSWORD, hasResults = false, clearHistory = false)
+    }
 
 }

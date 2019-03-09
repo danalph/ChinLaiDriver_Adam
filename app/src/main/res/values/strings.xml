@@ -1,127 +1,128 @@
 <resources>
-    <string name="app_name">Chinlai</string>
-    <string name="password_show">Show</string>
-    <string name="password_hide">Hide</string>
-    <string name="next">Next</string>
-
-    <string name="error_no_connection">Offline. Please enable your Internet connection</string>
-    <string name="error_invalid_username_password">Your mobile number and password do not match</string>
-    <string name="error_password_not_match">Password does not match</string>
-    <string name="login_not_match">Invalid mobile number or password</string>
-    <string name="keyboard_address" translatable="false">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&amp;()-,./@#:</string>
-    <string name="keyboard_city" translatable="false">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="keyboard_car_reg_no" translatable="false">
+	<string name="app_name">Chinlai</string>
+	<string name="password_show">Show</string>
+	<string name="password_hide">Hide</string>
+	<string name="next">Next</string>
+	
+	<string name="error_no_connection">Offline. Please enable your Internet connection</string>
+	<string name="error_invalid_username_password">Your mobile number and password do not match</string>
+	<string name="error_password_not_match">Password does not match</string>
+	<string name="login_not_match">Invalid mobile number or password</string>
+	<string name="keyboard_address" translatable="false">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&amp;()-,./@#:</string>
+	<string name="keyboard_city" translatable="false">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+	<string name="keyboard_car_reg_no" translatable="false">
         abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-
     </string>
-    <string name="keyboard_mykad_organization" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_mykad_organization" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-/().:
     </string>
-    <string name="keyboard_mykad" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_mykad" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-*
     </string>
-    <string name="keyboard_mykad_basic" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_mykad_basic" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
     </string>
-    <string name="keyboard_mykad_no_asterisk" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_mykad_no_asterisk" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-
     </string>
-    <string name="keyboard_mykad_passport_army_police" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_mykad_passport_army_police" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-/
     </string>
-    <string name="keyboard_passport" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_passport" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-
     </string>
-    <string name="keyboard_number_only" translatable="false">0123456789</string>
-    <string name="keyboard_alphanumeric" translatable="false">
+	<string name="keyboard_number_only" translatable="false">0123456789</string>
+	<string name="keyboard_alphanumeric" translatable="false">
         abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
     </string>
-    <string name="keyboard_name" translatable="false">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ`@()\'/.-
+	<string name="keyboard_name" translatable="false">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ`@()\'/.-
     </string>
-    <string name="keyboard_username" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_username" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ`@()\'/.~!$%^-*_=+}{\
     </string>
-    <string name="keyboard_username_new" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_username_new" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ
     </string>
-    <string name="keyboard_password" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_password" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&amp;'()*+,-./:;&lt;=>?@[\]^_`{|}~
     </string>
-    <string name="keyboard_email" translatable="false">abcdefghijklmnopqrstuvwxyz
+	<string name="keyboard_email" translatable="false">abcdefghijklmnopqrstuvwxyz
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@~!$%^.&amp;*_=+}{\'?
     </string>
-    <string name="login">Login</string>
-
-    <!--Menu-->
-    <string name="menu_transactions">Transactions</string>
-    <string name="menu_help">Help &amp; Support</string>
-    <string name="menu_about">About Us</string>
-    <string name="menu_logout">Logout</string>
-    <string name="menu_setting">Settings</string>
-    <string name="menu_promotion">Promotion</string>
-    <string name="username">Username</string>
-    <string name="testLogin">Test Login</string>
-    <string name="password">Password</string>
-    <string name="title_activity_map">Map View</string>
-
-
-    <!--Delivery-->
-    <string name="delivery_all">All</string>
-    <string name="delivery_pending">Pending</string>
-    <string name="delivery_completed">Completed</string>
-    <string name="title_activity_dashboard">DashboardActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="total_delivery_trips">Found %d Delivery Trips</string>
-    <string name="my_delivery_trips">My Delivery Trips</string>
-    <string name="profile">Profile</string>
-    <string name="logout">Logout</string>
-    <string name="title_activity_profile">Profile</string>
-    <string name="crm_name">CRM System \n Customer Login</string>
-    <string name="title_activity_destination">VIew Destination</string>
-    <string name="tab_destination_1">Information</string>
-    <string name="tab_destination_2">Particulars</string>
-    <string name="tab_destination_3">Photos</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="mark_complete">Mark \n Complete</string>
-    <string name="map_view">Map \n View</string>
-    <string name="update_photo">Update \n Photo</string>
-    <string name="info_type">TYPE</string>
-    <string name="info_DO">DELIVERY</string>
-    <string name="info_GT">PICK-UP</string>
-    <string name="info_qty">TOTAL QTY</string>
-    <string name="info_tracking_no">TRACKING NO.</string>
-    <string name="info_amount">AMOUNT</string>
-    <string name="info_weight">WEIGHT</string>
-    <string name="info_recipient">RECIPIENT NAME</string>
-    <string name="info_contact">CONTACT_NO</string>
-    <string name="info_address">ADDRESS</string>
-    <string name="info_description">DESCRIPTION</string>
-    <string name="info_no">No.</string>
-    <string name="pick_photo">Select Photo</string>
-    <string name="camera">Camera</string>
-    <string name="gallery">Gallery</string>
-    <string name="search_job_id">Search Job ID</string>
-    <string name="view_delivery_trip">View Delivery Trip</string>
-    <string name="chin_lai">CHIN LAI</string>
-    <string name="crm_system">CRM SYSTEM</string>
-    <string name="alert_update_documents">Confirm mark as complete?</string>
-    <string name="no_waze_found">No Waze Found</string>
-    <string name="select_navigation">Open Navigation With</string>
-    <string name="google_maps">Google Maps</string>
-    <string name="waze">Waze</string>
-    <string name="no_map_found">No Google Map Application found</string>
-    <string name="error_getting_response">Error getting response from server</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="contact_no">Contact No</string>
+	<string name="login">Login</string>
+	
+	<!--Menu-->
+	<string name="menu_transactions">Transactions</string>
+	<string name="menu_help">Help &amp; Support</string>
+	<string name="menu_about">About Us</string>
+	<string name="menu_logout">Logout</string>
+	<string name="menu_setting">Settings</string>
+	<string name="menu_promotion">Promotion</string>
+	<string name="username">Username</string>
+	<string name="testLogin">Test Login</string>
+	<string name="password">Password</string>
+	<string name="title_activity_map">Map View</string>
+	
+	
+	<!--Delivery-->
+	<string name="delivery_all">All</string>
+	<string name="delivery_pending">Pending</string>
+	<string name="delivery_completed">Completed</string>
+	<string name="title_activity_dashboard">DashboardActivity</string>
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="nav_header_title">Android Studio</string>
+	<string name="nav_header_subtitle">android.studio@android.com</string>
+	<string name="nav_header_desc">Navigation header</string>
+	<string name="action_settings">Settings</string>
+	<string name="total_delivery_trips">Found %d Delivery Trips</string>
+	<string name="my_delivery_trips">My Delivery Trips</string>
+	<string name="profile">Profile</string>
+	<string name="logout">Logout</string>
+	<string name="title_activity_profile">Profile</string>
+	<string name="crm_name">CRM System \n Customer Login</string>
+	<string name="title_activity_destination">VIew Destination</string>
+	<string name="tab_destination_1">Information</string>
+	<string name="tab_destination_2">Particulars</string>
+	<string name="tab_destination_3">Photos</string>
+	
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="mark_complete">Mark \n Complete</string>
+	<string name="map_view">Map \n View</string>
+	<string name="update_photo">Update \n Photo</string>
+	<string name="info_type">TYPE</string>
+	<string name="info_DO">DELIVERY</string>
+	<string name="info_GT">PICK-UP</string>
+	<string name="info_qty">TOTAL QTY</string>
+	<string name="info_tracking_no">TRACKING NO.</string>
+	<string name="info_amount">AMOUNT</string>
+	<string name="info_weight">WEIGHT</string>
+	<string name="info_recipient">RECIPIENT NAME</string>
+	<string name="info_contact">CONTACT_NO</string>
+	<string name="info_address">ADDRESS</string>
+	<string name="info_description">DESCRIPTION</string>
+	<string name="info_no">No.</string>
+	<string name="pick_photo">Select Photo</string>
+	<string name="camera">Camera</string>
+	<string name="gallery">Gallery</string>
+	<string name="search_job_id">Search Job ID</string>
+	<string name="view_delivery_trip">View Delivery Trip</string>
+	<string name="chin_lai">CHIN LAI</string>
+	<string name="crm_system">CRM SYSTEM</string>
+	<string name="alert_update_documents">Confirm mark as complete?</string>
+	<string name="no_waze_found">No Waze Found</string>
+	<string name="select_navigation">Open Navigation With</string>
+	<string name="google_maps">Google Maps</string>
+	<string name="waze">Waze</string>
+	<string name="no_map_found">No Google Map Application found</string>
+	<string name="error_getting_response">Error getting response from server</string>
+	<string name="forgot_password">Forgot Password?</string>
+	<string name="contact_no">Contact No</string>
 	<string name="address">Address</string>
 	<string name="edit">Edit</string>
 	<string name="sales_person">Salesperson Name</string>
 	<string name="sales_person_contact">Salesperson Contact No</string>
+	<string name="title_activity_reset_password">EDIT PASSWORD</string>
 
 </resources>

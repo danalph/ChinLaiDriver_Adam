@@ -5,6 +5,7 @@ import addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
+import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 
 /**
@@ -17,7 +18,9 @@ class Router {
         DASHBOARD,
         DELIVERY_DETAIL,
         MAP,
-        DESTINATION
+        DESTINATION,
+
+        RESET_PASSWORD
     }
 
     enum class Parameter{
@@ -39,6 +42,7 @@ class Router {
             return when (destination) {
                 Destination.LOGIN -> LoginActivity::class.java
                 Destination.PROFILE -> ProfileActivity::class.java
+                Destination.RESET_PASSWORD -> ResetPasswordActivity::class.java
                 Destination.DASHBOARD -> DashboardActivity::class.java
                 Destination.MAP -> MapActivity::class.java
                 Destination.DELIVERY_DETAIL -> DeliveryDetailsActivity::class.java
