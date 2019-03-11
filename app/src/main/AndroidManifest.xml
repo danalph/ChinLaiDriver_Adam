@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -15,17 +15,21 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-            android:name="addam.com.my.chinlaicustomer.AppApplication"
+            android:name=".AppApplication"
             android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
+            android:largeHeap="true"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:usesCleartextTraffic="true"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:largeHeap="true"
+            android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+        <uses-library
+                android:name="org.apache.http.legacy"
+                android:required="false"/>
+
         <provider
                 android:name="android.support.v4.content.FileProvider"
                 android:authorities="${applicationId}.fileprovider"
@@ -33,10 +37,11 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/provider_paths" />
+                    android:resource="@xml/provider_paths"/>
         </provider>
+
         <activity
-                android:name="addam.com.my.chinlaicustomer.feature.login.LoginActivity"
+                android:name=".feature.login.LoginActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -46,29 +51,35 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="addam.com.my.chinlaicustomer.feature.destination.DestinationActivity"
+                android:name=".feature.destination.DestinationActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name="addam.com.my.chinlaicustomer.feature.profile.ProfileActivity"
+                android:name=".feature.profile.ProfileActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name="addam.com.my.chinlaicustomer.feature.delivery.DashboardActivity"
-                android:exported="true"
+                android:name=".feature.delivery.DashboardActivity"
                 android:label="@string/title_activity_dashboard"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name="addam.com.my.chinlaicustomer.feature.map.MapActivity"
+                android:name=".feature.map.MapActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".feature.delivery.DeliveryDetailsActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".feature.product.ProductListActivity"
+                android:screenOrientation="portrait"
+                android:exported="true"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

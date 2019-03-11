@@ -121,5 +121,7 @@
     <string name="my_invoice">My Invoice</string>
     <string name="my_statement">My Statement</string>
     <string name="category">Category</string>
+    <string name="product_list">Product List</string>
+    <string name="search_item_name">Search Item Name</string>
 
 </resources>

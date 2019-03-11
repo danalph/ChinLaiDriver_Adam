@@ -122,7 +122,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         //rv_trips.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         adapter = DashboardAdapter(trips, R.layout.dashboard_adapter_layout,object: BaseRecyclerViewAdapter.OnItemClickListener<TripsResponse.Data.Trip>{
             override fun onItemClick(item: TripsResponse.Data.Trip, view: View) {
-                viewModel.startDeliveryDetailActivity(item.id)
+                viewModel.startProductListActivity(item.id)
             }
         })
         rv_categories.adapter = adapter

@@ -54,8 +54,8 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
         tripResponse.postValue(trip)
     }
 
-    fun startDeliveryDetailActivity(tripId: String){
-        startActivityEvent.value = StartActivityModel(Router.Destination.DELIVERY_DETAIL,
+    fun startProductListActivity(tripId: String){
+        startActivityEvent.value = StartActivityModel(Router.Destination.PRODUCT,
                 hashMapOf(Pair(Router.Parameter.TRIP_ID, tripId)), hasResults = false, clearHistory = false)
     }
 }
