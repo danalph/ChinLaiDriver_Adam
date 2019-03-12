@@ -133,5 +133,6 @@
     <string name="category">Category</string>
     <string name="product_list">Product List</string>
     <string name="search_item_name">Search Item Name</string>
+    <string name="browse_product">Browse Product</string>
 
 </resources>
