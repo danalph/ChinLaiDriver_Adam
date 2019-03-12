@@ -12,6 +12,8 @@ import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivityModule
+import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
+import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivityModule
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivityModule
 import dagger.Module
@@ -43,5 +45,8 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ProductListActivityModule::class)])
     abstract fun bindProductListActivity(): ProductListActivity
+
+    @ContributesAndroidInjector(modules = [(ProductDetailActivityModule::class)])
+    abstract fun bindProductDetailActivity(): ProductDetailActivity
 
 }

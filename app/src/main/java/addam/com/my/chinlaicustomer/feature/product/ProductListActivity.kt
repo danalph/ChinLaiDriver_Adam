@@ -9,12 +9,14 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProductListBinding
 import addam.com.my.chinlaicustomer.rest.model.ProductList
+import addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel
 import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import com.github.ajalt.timberkt.Timber
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,7 +46,7 @@ class ProductListActivity : BaseActivity() {
         AndroidInjection.inject(this)
         val binding: ActivityProductListBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
         binding.viewModel = viewModel
-        binding.toolbarModel = ToolbarWithBackModel(getString(R.string.product_list), true, this::onBackPressed)
+        binding.toolbarModel = ToolbarBackWithButtonModel(getString(R.string.product_list), true,true, this::onCartPressed, this::onBackPressed)
         viewModel.getItem(this@ProductListActivity)
         setupView()
         setupObserver()
@@ -77,7 +79,7 @@ class ProductListActivity : BaseActivity() {
         rv_product.layoutManager = GridLayoutManager(this, 2)
         adapter = ProductListAdapter(productList, R.layout.product_adapter_layout , object : BaseRecyclerViewAdapter.OnItemClickListener<ProductList> {
             override fun onItemClick(item: ProductList, view: View) {
-
+                viewModel.onItemSelected()
             }
         })
         rv_product.adapter = adapter
@@ -93,6 +95,10 @@ class ProductListActivity : BaseActivity() {
                     //TODO filter search
                 }
             }.addTo(disposable)
+    }
+
+    private fun onCartPressed(){
+        Timber.d { "Cart open" }
     }
 
     override fun onDestroy() {

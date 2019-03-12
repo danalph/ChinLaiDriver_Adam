@@ -2,7 +2,9 @@ package addam.com.my.chinlaicustomer.feature.product
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
+import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
@@ -28,6 +30,10 @@ class ProductListViewModel(private val schedulerProvider: SchedulerProvider, pri
         productList.add(ProductList("4", "Item 4", "Item 4", "500", ContextCompat.getDrawable(context,R.drawable.test4)))
         productList.add(ProductList("5", "Item 5", "Item 5", "600", ContextCompat.getDrawable(context,R.drawable.test5)))
         productsResponse.postValue(productList)
+    }
+
+    fun onItemSelected(){
+        startActivityEvent.value = StartActivityModel(Router.Destination.PRODUCT_DETAIL, hasResults = false, clearHistory = false)
     }
 
 }

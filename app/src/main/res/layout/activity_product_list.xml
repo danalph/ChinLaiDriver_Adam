@@ -9,7 +9,7 @@
                 type="addam.com.my.chinlaicustomer.feature.product.ProductListViewModel"/>
         <variable
                 name="toolbarModel"
-                type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel"/>
+                type="addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel"/>
     </data>
     <LinearLayout
             android:orientation="vertical"
@@ -18,7 +18,7 @@
 
         <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar_with_back"
+                layout="@layout/toolbar_with_back_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:model="@{toolbarModel}" />
