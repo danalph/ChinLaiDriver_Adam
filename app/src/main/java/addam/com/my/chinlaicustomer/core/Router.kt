@@ -7,6 +7,7 @@ import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
+import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 
 /**
@@ -20,6 +21,7 @@ class Router {
         DELIVERY_DETAIL,
         MAP,
         DESTINATION,
+        RESET_PASSWORD,
         PRODUCT,
         PRODUCT_DETAIL
     }
@@ -43,6 +45,7 @@ class Router {
             return when (destination) {
                 Destination.LOGIN -> LoginActivity::class.java
                 Destination.PROFILE -> ProfileActivity::class.java
+                Destination.RESET_PASSWORD -> ResetPasswordActivity::class.java
                 Destination.DASHBOARD -> DashboardActivity::class.java
                 Destination.MAP -> MapActivity::class.java
                 Destination.DELIVERY_DETAIL -> DeliveryDetailsActivity::class.java

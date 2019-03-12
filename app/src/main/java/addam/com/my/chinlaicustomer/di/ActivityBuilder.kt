@@ -10,6 +10,8 @@ import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivityModule
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
+import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
+import addam.com.my.chinlaicustomer.feature.password.ResetPasswordModule
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivityModule
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
@@ -33,6 +35,9 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ProfileActivityModule::class)])
     abstract fun bindProfileActivity() : ProfileActivity
+
+    @ContributesAndroidInjector(modules = [(ResetPasswordModule::class)])
+    abstract fun bindResetPasswordActivity() : ResetPasswordActivity
 
     @ContributesAndroidInjector(modules = [(MapActivityModule::class)])
     abstract fun bindMapActivity() : MapActivity

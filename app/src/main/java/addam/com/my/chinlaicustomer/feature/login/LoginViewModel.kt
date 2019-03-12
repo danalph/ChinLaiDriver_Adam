@@ -55,30 +55,38 @@ class LoginViewModel(
 
     fun onLoginClicked(){
         isLoading.set(true)
-        callPassswordEncryptApi().subscribeBy(onSuccess = {
-            Timber.d{"Success for Encrypt"}
-            loginUser(it.data.keys)
-            isLoading.set(false)
-//            startPinActivityEvent.value = StartActivityModel(Router.Destination.MAIN,
-//                hashMapOf(Pair(Router.Parameter.USERNAME, it.name)), hasResults = false)
-        }, onError = {
-            isLoading.set(false)
-            Timber.e { it.message.toString() }
-        })
+//        callPassswordEncryptApi().subscribeBy(onSuccess = {
+//            Timber.d{"Success for Encrypt"}
+//            loginUser(it.data.keys)
+//            isLoading.set(false)
+////            startPinActivityEvent.value = StartActivityModel(Router.Destination.MAIN,
+////                hashMapOf(Pair(Router.Parameter.USERNAME, it.name)), hasResults = false)
+//        }, onError = {
+//            isLoading.set(false)
+//            Timber.e { it.message.toString() }
+//        })
+        loginUser("2103918230")
+    }
+
+    fun onForgotClicked(){
+//        TODO go to forgot password
     }
 
     private fun loginUser(keys: String) {
-        callUserLogin(keys).subscribeBy(onSuccess = {
-            if(it.status){
-                appPreference.setLoggedIn(true)
-                saveUserPreference(it.data)
-                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
-                    hasResults = false, clearHistory = true)
-            }else loginCallback.loginError()
-        }, onError = {
-            Timber.e{it.message.toString()}
-        })
+        startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+            hashMapOf(Pair(Router.Parameter.USERNAME, "Herpderp")),
+            hasResults = false, clearHistory = true)
+//        callUserLogin(keys).subscribeBy(onSuccess = {
+//            if(it.status){
+//                appPreference.setLoggedIn(true)
+//                saveUserPreference(it.data)
+//                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+//                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
+//                    hasResults = false, clearHistory = true)
+//            }else loginCallback.loginError()
+//        }, onError = {
+//            Timber.e{it.message.toString()}
+//        })
     }
 
     private fun saveUserPreference(data: UserData) {

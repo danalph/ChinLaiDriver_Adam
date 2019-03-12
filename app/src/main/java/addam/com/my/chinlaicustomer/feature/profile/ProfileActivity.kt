@@ -3,6 +3,9 @@ package addam.com.my.chinlaicustomer.feature.profile
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProfileBinding
 import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
 import android.databinding.DataBindingUtil
@@ -39,6 +42,17 @@ class ProfileActivity : BaseActivity() {
         }catch (e: Exception){
             Timber.e { e.toString() }
         }
+
+        viewModel.startActivityEvent.observe(this, object: StartActivityEvent.StartActivityObserver{
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@ProfileActivity, Router.getClass(data.to), clearHistory = data.clearHistory)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+                startActivity(this@ProfileActivity, Router.getClass(data.to), clearHistory = data.clearHistory)
+            }
+
+        })
 
     }
 }
