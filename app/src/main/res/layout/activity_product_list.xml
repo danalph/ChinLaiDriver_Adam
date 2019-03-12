@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="addam.com.my.chinlaicustomer.feature.product.ProductListActivity">
+    <data>
+        <variable
+                name="viewModel"
+                type="addam.com.my.chinlaicustomer.feature.product.ProductListViewModel"/>
+        <variable
+                name="toolbarModel"
+                type="addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel"/>
+    </data>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_with_back_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:model="@{toolbarModel}" />
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <LinearLayout
+                        android:background="@color/colorRed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <EditText
+                            android:id="@+id/et_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:layout_marginStart="@dimen/space_small_12dp"
+                            android:layout_marginEnd="@dimen/space_small_12dp"
+                            android:layout_marginBottom="@dimen/space_tiny_4dp"
+                            android:layout_marginTop="@dimen/space_tiny_4dp"
+                            android:padding="@dimen/space_small_8dp"
+                            android:drawablePadding="@dimen/space_tiny_4dp"
+                            android:hint="@string/search_item_name"
+                            android:drawableStart="@drawable/ic_search"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</layout>
+

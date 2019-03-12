@@ -32,7 +32,7 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
     }
 
     fun getTrips(){
-        generalRepository.getTrips(appPreference.getUser().id,"0", "20", "all")
+        /*generalRepository.getTrips(appPreference.getUser().id,"0", "20", "all")
             .compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
                 onSuccess = {
                     if (it.status){
@@ -42,35 +42,20 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
                     }
                 }, onError = {
                     errorResponse.postValue(R.string.error_getting_response)
-                })
-    }
-
-    fun startDeliveryDetailActivity(tripId: String){
-        startActivityEvent.value = StartActivityModel(Router.Destination.DELIVERY_DETAIL,
-                hashMapOf(Pair(Router.Parameter.TRIP_ID, tripId)), hasResults = false, clearHistory = false)
-    }
-
-    fun getSortedItem(text: CharSequence?, trips: ArrayList<TripsResponse.Data.Trip>): ArrayList<TripsResponse.Data.Trip> {
-        var filteredItem = ArrayList<TripsResponse.Data.Trip>()
-        when(text){
-            "all" ->{
-                filteredItem = trips
-            }
-            "pending" ->{
-                for (trip in trips){
-                    if(trip.status == "2"){
-                        filteredItem.add(trip)
-                    }
-                }
-            }
-            "completed" ->{
-                for (trip in trips){
-                    if(trip.status == "1"){
-                        filteredItem.add(trip)
-                    }
-                }
-            }
+                })*/
+        val item = TripsResponse.Data.Trip("1", "Adhesive, Glue & Tape", "胶粘剂，胶水和胶带")
+        val categories = arrayListOf<TripsResponse.Data.Trip>()
+        for (i in 1..10){
+            categories.add(item)
         }
-        return filteredItem
+
+        val data = TripsResponse.Data(categories)
+        val trip = TripsResponse(data,"", false)
+        tripResponse.postValue(trip)
+    }
+
+    fun startProductListActivity(tripId: String){
+        startActivityEvent.value = StartActivityModel(Router.Destination.PRODUCT,
+                hashMapOf(Pair(Router.Parameter.TRIP_ID, tripId)), hasResults = false, clearHistory = false)
     }
 }

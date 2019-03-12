@@ -1,85 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-                name="model"
-                type="addam.com.my.chinlaicustomer.rest.model.TripsResponse.Data.Trip"/>
-        <import type="android.view.View" />
+            name="model"
+            type="addam.com.my.chinlaicustomer.rest.model.TripsResponse.Data.Trip"/>
+        <import type="android.view.View"/>
     </data>
     <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        android:layout_margin="@dimen/space_tiny_4dp"
+        app:cardCornerRadius="@dimen/space_tiny_4dp">
+        <addam.com.my.chinlaicustomer.widgets.SquareLinearLayout
+            android:paddingTop="@dimen/space_small_8dp"
+            android:paddingBottom="@dimen/space_small_8dp"
+            android:paddingLeft="@dimen/space_small_8dp"
+            android:paddingRight="@dimen/space_small_8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="@dimen/space_tiny_4dp">
-        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/gray_shadowed_bg">
+            <TextView
+                android:layout_margin="@dimen/space_small_8dp"
                 android:gravity="center"
-                android:paddingTop="@dimen/space_tiny_4dp"
-                android:paddingBottom="@dimen/space_tiny_4dp"
+                android:id="@+id/tv_item_name_en"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/white">
-            <ImageView
-                    android:id="@+id/iv_icon"
-                    android:layout_margin="@dimen/space_small_12dp"
-                    android:layout_width="@dimen/space_huge_48dp"
-                    android:layout_height="@dimen/space_huge_48dp"
-                    android:src="@drawable/ic_truck"/>
-            <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                <TextView
-                        android:id="@+id/tv_job_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{`#` +model.id}"
-                        android:textSize="@dimen/large_text_20sp"/>
-                <TextView
-                        android:id="@+id/tv_date"
-                        android:text="@{model.createOn}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/small_text_8sp"
-                        android:textColor="@color/grey_medium"/>
-                <TextView
-                        android:textSize="@dimen/medium_text_14sp"
-                        android:id="@+id/tv_vehicle_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{model.vehicleModel + ` / ` + model.vehiclePlate}"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:layout_width="@dimen/space_extra_huge_120dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                <TextView
-                        android:id="@+id/tv_destination"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_maps_and_flags"
-                        android:text="@{Integer.parseInt(model.totalDo) + Integer.parseInt(model.totalGt) +``}"
-                        android:textSize="@dimen/large_text_20sp"/>
-                <TextView
-                        android:layout_marginTop="@dimen/space_tiny_4dp"
-                        android:id="@+id/tv_status"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{(model.status.equals(`1`)) ? `Completed` : `Pending` }"
-                        android:textColor="@color/white"
-                        android:textAllCaps="true"
-                        android:paddingTop="@dimen/space_tiny_4dp"
-                        android:paddingBottom="@dimen/space_tiny_4dp"
-                        android:paddingStart="@dimen/space_small_8dp"
-                        android:paddingEnd="@dimen/space_small_8dp"
-                        android:textSize="@dimen/medium_text_14sp"
-                        android:background="@{(model.status.equals(`1`)) ? @color/colorGreen : @color/colorRed}"/>
-            </LinearLayout>
-
-        </LinearLayout>
+                android:text="@{model.categoryEn}"
+                style="@style/BaseTextView.OpenSansSemiBold"
+                android:textSize="@dimen/medium_text_16sp"/>
+            <TextView
+                android:layout_margin="@dimen/space_small_8dp"
+                android:gravity="center"
+                android:id="@+id/tv_item_name_cn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.categoryCn}"
+                style="@style/BaseTextView.OpenSansSemiBold"
+                android:textSize="@dimen/medium_text_16sp"/>
+        </addam.com.my.chinlaicustomer.widgets.SquareLinearLayout>
     </android.support.v7.widget.CardView>
 
 

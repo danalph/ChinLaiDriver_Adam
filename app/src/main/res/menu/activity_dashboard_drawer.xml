@@ -5,9 +5,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/delivery_trips"
+            android:id="@+id/btn_browse_product"
             android:icon="@drawable/ic_truck_dashboard"
-            android:title="@string/my_delivery_trips" />
+            android:title="@string/browse_product" />
+        <item
+            android:id="@+id/btn_my_order"
+            android:icon="@drawable/ic_truck_dashboard"
+            android:title="@string/my_order"/>
+        <item
+            android:id="@+id/btn_my_invoice"
+            android:icon="@drawable/ic_truck_dashboard"
+            android:title="@string/my_invoice"/>
+        <item
+            android:id="@+id/btn_my_statement"
+            android:icon="@drawable/ic_truck_dashboard"
+            android:title="@string/my_statement"/>
         <item
             android:id="@+id/profile"
             android:icon="@drawable/ic_user"
