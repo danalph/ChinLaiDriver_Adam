@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
 import android.view.MenuItem
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -78,5 +79,17 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.statement, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_delete){
+            //TODO delete row
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
