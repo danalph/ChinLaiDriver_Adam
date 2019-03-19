@@ -16,27 +16,20 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.github.ajalt.timberkt.Timber
-import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.app_bar_dashboard.*
 import kotlinx.android.synthetic.main.content_dashboard.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -145,7 +138,6 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.btn_browse_product -> {
-
             }
             R.id.btn_my_order -> {
 
@@ -154,7 +146,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.btn_my_statement -> {
-
+                startActivity(this@DashboardActivity, Router.getClass(Router.Destination.STATEMENT), clearHistory = true)
             }
             R.id.profile -> {
                 startActivity(this@DashboardActivity, Router.getClass(Router.Destination.PROFILE))
