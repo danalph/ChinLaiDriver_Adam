@@ -1,4 +1,4 @@
-package addam.com.my.chinlaicustomer.feature.login
+package addam.com.my.chinlaicustomer.feature.salesperson
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.core.Router
@@ -18,14 +18,18 @@ import android.databinding.ObservableBoolean
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
-class LoginViewModel(
+/**
+ * Created by owner on 22/03/2019
+ */
+
+class SalesLoginViewModel(
     private val schdulerProvider: SchedulerProvider,
-    private val generalRepository: GeneralRepository, private val appPreference: AppPreference) : ViewModel() {
+    private val generalRepository: GeneralRepository, private val appPreference: AppPreference) : ViewModel(){
 
     var username = ObservableString("")
     var password = ObservableString("")
     val startPinActivityEvent: StartActivityEvent = StartActivityEvent()
-    lateinit var loginCallback: LoginCallback
+    lateinit var loginCallback: SalesLoginViewModel.LoginCallback
 
     var isUsernameValid = ObservableBoolean(false)
     var isPasswordValid = ObservableBoolean(false)
@@ -42,7 +46,7 @@ class LoginViewModel(
             startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD, clearHistory = true, hasResults = false)
         }
     }
-    private fun callPassswordEncryptApi(): Single<PasswordEncryptResponse>{
+    private fun callPassswordEncryptApi(): Single<PasswordEncryptResponse> {
         return generalRepository.getPasswordEncrypt(password.get().toString()).compose(schdulerProvider.getSchedulersForSingle())
     }
 
@@ -71,11 +75,12 @@ class LoginViewModel(
     }
 
     fun onSalesClicked(){
-        startPinActivityEvent.value = StartActivityModel(Router.Destination.SALES_LOGIN, hasResults = false, clearHistory = true)
+        startPinActivityEvent.value = StartActivityModel(Router.Destination.LOGIN, hasResults = false, clearHistory = true)
     }
 
     private fun loginUser(keys: String) {
-        startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+        startPinActivityEvent.value = StartActivityModel(
+            Router.Destination.DASHBOARD,
             hashMapOf(Pair(Router.Parameter.USERNAME, "Herpderp")),
             hasResults = false, clearHistory = true)
 //        callUserLogin(keys).subscribeBy(onSuccess = {
@@ -94,6 +99,7 @@ class LoginViewModel(
     private fun saveUserPreference(data: UserData) {
         appPreference.setUser(data)
     }
+
 
     interface LoginCallback{
         fun loginError()
