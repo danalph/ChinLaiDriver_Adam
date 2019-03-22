@@ -1,5 +1,6 @@
 package addam.com.my.chinlaicustomer
 
+import addam.com.my.chinlaicustomer.rest.model.SalesData
 import addam.com.my.chinlaicustomer.rest.model.UserData
 import android.content.Context
 import android.content.SharedPreferences
@@ -20,6 +21,7 @@ class AppPreference() {
         const val address = "address"
         const val remark = "remark"
         const val status = "status"
+        const val salesId = "sales"
     }
 
     private lateinit var prefs: SharedPreferences
@@ -61,6 +63,15 @@ class AppPreference() {
         edit.apply()
     }
 
+    fun setSales(data: SalesData){
+        val edit = prefs.edit()
+        edit.putString(salesId, data.id)
+        edit.putString(name, data.firstName)
+        edit.putString(contact, data.contact)
+        edit.putString(address, data.address)
+        edit.apply()
+    }
+
     fun getUser(): UserData{
         val user = UserData(prefs.getString(id, "")!!,
             prefs.getString(name, "")!!,
@@ -70,5 +81,9 @@ class AppPreference() {
             prefs.getString(remark,"")!!,
             prefs.getString(status,"")!!)
         return user
+    }
+
+    fun getSalesId(): String{
+        return prefs.getString(salesId, "0")!!
     }
 }

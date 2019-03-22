@@ -11,8 +11,11 @@ interface GeneralService {
     @GET("auth/encryption/{password}")
     fun getPasswordEncrypt(@Path("password") password: String): Single<PasswordEncryptResponse>
 
-    @POST("auth/driver/login")
+    @POST("auth/customer/login")
     fun getlogin(@Body userLoginRequest: UserLoginRequest): Single<UserLoginResponse>
+
+    @POST("auth/salesperson/login")
+    fun getSalesLogin(@Body userLoginRequest: UserLoginRequest): Single<SalesLoginResponse>
 
     @GET("driver/{driverId}/trips")
     fun getTrips(@Path("driverId") driverId: String, @Query("offset") offset: String,

@@ -6,17 +6,18 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
-import addam.com.my.chinlaicustomer.rest.model.PasswordEncryptResponse
-import addam.com.my.chinlaicustomer.rest.model.UserData
+import addam.com.my.chinlaicustomer.rest.model.SalesData
+import addam.com.my.chinlaicustomer.rest.model.SalesLoginResponse
 import addam.com.my.chinlaicustomer.rest.model.UserLoginRequest
-import addam.com.my.chinlaicustomer.rest.model.UserLoginResponse
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import addam.com.my.chinlaicustomer.utilities.Validator
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
+import com.github.ajalt.timberkt.Timber
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.subscribeBy
 
 /**
  * Created by owner on 22/03/2019
@@ -46,28 +47,30 @@ class SalesLoginViewModel(
             startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD, clearHistory = true, hasResults = false)
         }
     }
-    private fun callPassswordEncryptApi(): Single<PasswordEncryptResponse> {
-        return generalRepository.getPasswordEncrypt(password.get().toString()).compose(schdulerProvider.getSchedulersForSingle())
-    }
 
-    private fun callUserLogin(keys: String): Single<UserLoginResponse> {
-        val userLoginRequest = UserLoginRequest(username.get().toString(), keys)
-        return generalRepository.getLogin(userLoginRequest).compose(schdulerProvider.getSchedulersForSingle())
+    private fun callUserLogin(): Single<SalesLoginResponse> {
+        val userLoginRequest = UserLoginRequest(username.get().toString(), password.get().toString())
+        return generalRepository.getSalesLogin(userLoginRequest).compose(schdulerProvider.getSchedulersForSingle())
     }
 
     fun onLoginClicked(){
         isLoading.set(true)
-//        callPassswordEncryptApi().subscribeBy(onSuccess = {
-//            Timber.d{"Success for Encrypt"}
-//            loginUser(it.data.keys)
-//            isLoading.set(false)
-////            startPinActivityEvent.value = StartActivityModel(Router.Destination.MAIN,
-////                hashMapOf(Pair(Router.Parameter.USERNAME, it.name)), hasResults = false)
-//        }, onError = {
-//            isLoading.set(false)
-//            Timber.e { it.message.toString() }
-//        })
-        loginUser("2103918230")
+        callUserLogin().subscribeBy(onSuccess = {
+            if(it.status){
+                appPreference.setLoggedIn(true)
+                saveUserPreference(it.data)
+                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.firstName)),
+                    hasResults = false, clearHistory = true)
+            }else {
+                isLoading.set(false)
+                loginCallback.loginError()
+            }
+        }, onError = {
+            isLoading.set(false)
+            Timber.e{it.message.toString()}
+        })
+//        loginUser("2103918230")
     }
 
     fun onForgotClicked(){
@@ -96,8 +99,8 @@ class SalesLoginViewModel(
 //        })
     }
 
-    private fun saveUserPreference(data: UserData) {
-        appPreference.setUser(data)
+    private fun saveUserPreference(data: SalesData) {
+        appPreference.setSales(data = data)
     }
 
 
