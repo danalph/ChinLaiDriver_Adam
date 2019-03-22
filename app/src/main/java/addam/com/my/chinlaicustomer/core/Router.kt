@@ -5,10 +5,11 @@ import addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
+import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
-import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
+import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
 
 /**
  * Created by Addam on 7/1/2019.
@@ -23,7 +24,8 @@ class Router {
         DESTINATION,
         RESET_PASSWORD,
         PRODUCT,
-        PRODUCT_DETAIL
+        PRODUCT_DETAIL,
+        STATEMENT
     }
 
     enum class Parameter{
@@ -52,6 +54,7 @@ class Router {
                 Destination.DESTINATION -> DestinationActivity::class.java
                 Destination.PRODUCT -> ProductListActivity::class.java
                 Destination.PRODUCT_DETAIL -> ProductDetailActivity::class.java
+                Destination.STATEMENT -> StatementActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

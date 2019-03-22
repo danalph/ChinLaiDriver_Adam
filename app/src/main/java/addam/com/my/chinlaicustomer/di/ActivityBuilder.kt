@@ -18,6 +18,8 @@ import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivityModule
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivityModule
+import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
+import addam.com.my.chinlaicustomer.feature.statement.StatementActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -53,5 +55,8 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ProductDetailActivityModule::class)])
     abstract fun bindProductDetailActivity(): ProductDetailActivity
+
+    @ContributesAndroidInjector(modules = [(StatementActivityModule::class)])
+    abstract fun bindStatementActivity(): StatementActivity
 
 }
