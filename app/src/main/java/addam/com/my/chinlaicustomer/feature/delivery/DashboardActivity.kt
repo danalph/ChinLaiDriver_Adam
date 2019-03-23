@@ -102,6 +102,10 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+        if(appPreference.getSalesId() != "0"){
+            nav_view.menu.findItem(R.id.customers).isVisible = true
+            nav_view.menu.findItem(R.id.profile).isVisible = false
+        }
         setupRecyclerView()
 
         swipe_refresh_layout.setOnRefreshListener {
@@ -136,26 +140,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.btn_browse_product -> {
-            }
-            R.id.btn_my_order -> {
-
-            }
-            R.id.btn_my_invoice -> {
-
-            }
-            R.id.btn_my_statement -> {
-                startActivity(this@DashboardActivity, Router.getClass(Router.Destination.STATEMENT), clearHistory = true)
-            }
-            R.id.profile -> {
-                startActivity(this@DashboardActivity, Router.getClass(Router.Destination.PROFILE))
-            }
-            R.id.logout -> {
-                appPreference.setLoggedIn(false)
-                startActivity(this@DashboardActivity, Router.getClass(Router.Destination.LOGIN), clearHistory = true)
-            }
-        }
+        setNavigation(item, appPreference, this@DashboardActivity::class.java.simpleName)
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true

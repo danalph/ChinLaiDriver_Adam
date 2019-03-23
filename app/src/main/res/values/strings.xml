@@ -137,5 +137,7 @@
 	<string name="browse_product">Browse Product</string>
 	<string name="download_multiple">Download Multiple?</string>
 	<string name="download">Download</string>
+	<string name="my_customers">My Customers</string>
+	<string name="my_customer_list">My Customer List</string>
 
 </resources>

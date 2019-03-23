@@ -72,6 +72,12 @@ class AppPreference() {
         edit.apply()
     }
 
+    fun resetSales(){
+        val edit = prefs.edit()
+        edit.putString(salesId, "0")
+        edit.apply()
+    }
+
     fun getUser(): UserData{
         val user = UserData(prefs.getString(id, "")!!,
             prefs.getString(name, "")!!,
