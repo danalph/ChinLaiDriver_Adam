@@ -1,5 +1,6 @@
 package addam.com.my.chinlaicustomer
 
+import addam.com.my.chinlaicustomer.rest.model.Customers
 import addam.com.my.chinlaicustomer.rest.model.SalesData
 import addam.com.my.chinlaicustomer.rest.model.UserData
 import android.content.Context
@@ -75,6 +76,12 @@ class AppPreference() {
     fun resetSales(){
         val edit = prefs.edit()
         edit.putString(salesId, "0")
+        edit.apply()
+    }
+
+    fun setCustomerId(customers: Customers){
+        val edit = prefs.edit()
+        edit.putString(id, customers.id)
         edit.apply()
     }
 
