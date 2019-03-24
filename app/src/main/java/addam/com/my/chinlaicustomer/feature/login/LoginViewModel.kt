@@ -37,10 +37,6 @@ class LoginViewModel(
         password.observe().map { Validator.ReasonValidator.validate(it) }.subscribe {isPasswordValid.set(it) }
         io.reactivex.Observable.combineLatest(isUsernameValid.observe(), isPasswordValid.observe(),
             BiFunction { a: Boolean, b: Boolean -> a&&b }).subscribe { isValid.set(it) }
-
-        if(appPreference.isLoggedIn()){
-            startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD, clearHistory = true, hasResults = false)
-        }
     }
     private fun callPassswordEncryptApi(): Single<PasswordEncryptResponse>{
         return generalRepository.getPasswordEncrypt(password.get().toString()).compose(schdulerProvider.getSchedulersForSingle())
@@ -93,6 +89,12 @@ class LoginViewModel(
 
     private fun saveUserPreference(data: UserData) {
         appPreference.setUser(data)
+    }
+
+    fun checkLogin() {
+        if(appPreference.isLoggedIn()){
+            startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD, clearHistory = true, hasResults = false)
+        }
     }
 
     interface LoginCallback{

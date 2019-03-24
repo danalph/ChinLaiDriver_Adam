@@ -32,16 +32,6 @@ class AppPreference() {
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    fun isFirstRun() : Boolean {
-        return prefs.getBoolean(FIRST_RUN, true)
-    }
-
-    fun setFirstRun(hasRun: Boolean = false) {
-        val edit = prefs.edit()
-        edit.putBoolean(FIRST_RUN, hasRun)
-        edit.apply()
-    }
-
     fun isLoggedIn(): Boolean {
         return prefs.getBoolean(IS_LOGGED_IN, false)
     }
