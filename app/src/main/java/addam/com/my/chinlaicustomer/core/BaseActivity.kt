@@ -192,6 +192,7 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
             }
             R.id.logout -> {
                 appPreference.setLoggedIn(false)
+                appPreference.logout()
                 appPreference.resetSales()
                 startActivity(this, Router.getClass(Router.Destination.LOGIN), clearHistory = true)
             }

@@ -69,6 +69,18 @@ class AppPreference() {
         edit.apply()
     }
 
+    fun logout(){
+        val edit = prefs.edit()
+        edit.putString(id, "")
+        edit.putString(name, "")
+        edit.putString(contact, "")
+        edit.putString(identity, "")
+        edit.putString(address, "")
+        edit.putString(remark, "")
+        edit.putString(status, "")
+        edit.apply()
+    }
+
     fun setCustomerId(customers: Customers){
         val edit = prefs.edit()
         edit.putString(id, customers.id)
