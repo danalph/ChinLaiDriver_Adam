@@ -17,6 +17,9 @@ interface GeneralService {
     @POST("auth/salesperson/login")
     fun getSalesLogin(@Body userLoginRequest: UserLoginRequest): Single<SalesLoginResponse>
 
+    @GET("supplier/{id}/customers")
+    fun getSalesCustomerList(@Path("id") id: String): Single<CustomerListResponse>
+
     @GET("driver/{driverId}/trips")
     fun getTrips(@Path("driverId") driverId: String, @Query("offset") offset: String,
                  @Query("limit") limit: String,

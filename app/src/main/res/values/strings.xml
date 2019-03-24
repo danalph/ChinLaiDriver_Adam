@@ -139,5 +139,7 @@
 	<string name="download">Download</string>
 	<string name="my_customers">My Customers</string>
 	<string name="my_customer_list">My Customer List</string>
+	<string name="confirm_select_customer">Confirm Select Customer?</string>
+	<string name="confirm">Confirm</string>
 
 </resources>

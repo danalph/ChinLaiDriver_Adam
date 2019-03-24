@@ -18,7 +18,7 @@
 		<ImageView
 				android:layout_width="@dimen/default_icon_size"
 				android:layout_height="@dimen/default_icon_size"
-				android:layout_gravity="center"
+				android:layout_gravity="center_vertical"
 				android:padding="@dimen/space_small_8dp"
 				android:tint="@color/colorRed"
 				app:srcCompat="@drawable/ic_user"/>

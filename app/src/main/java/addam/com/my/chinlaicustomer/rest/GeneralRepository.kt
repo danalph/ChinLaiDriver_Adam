@@ -20,6 +20,9 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
     fun getSalesLogin(userLoginRequest: UserLoginRequest): Single<SalesLoginResponse> =
             api.getSalesLogin(userLoginRequest)
 
+    fun getCustomerList(id: String): Single<CustomerListResponse> =
+            api.getSalesCustomerList(id)
+
     fun getTrips(driverId: String, offset: String, limit: String, status: String): Single<TripsResponse> =
             api.getTrips(driverId, offset, limit, status)
 
