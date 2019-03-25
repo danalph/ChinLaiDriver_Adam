@@ -17,12 +17,17 @@ class AppPreference() {
         const val IS_LOGGED_IN = "isLogin"
         const val id = "id"
         const val name = "name"
+        const val personName = "person"
         const val contact = "contact"
-        const val identity = "identity"
-        const val address = "address"
-        const val remark = "remark"
-        const val status = "status"
+        const val address1 = "address1"
+        const val address2 = "address2"
+        const val address3 = "address3"
+        const val stateName = "state"
+        const val areaName = "areaName"
+        const val postcode = "postcode"
+        const val password = "password"
         const val salesId = "sales"
+        const val address = "address"
     }
 
     private lateinit var prefs: SharedPreferences
@@ -46,11 +51,15 @@ class AppPreference() {
         val edit =  prefs.edit()
         edit.putString(id, data.id)
         edit.putString(name, data.name)
-        edit.putString(contact, data.contact)
-        edit.putString(identity, data.identity)
-        edit.putString(address, data.address)
-        edit.putString(remark, data.remark)
-        edit.putString(status, data.status)
+        edit.putString(personName, data.person_name)
+        edit.putString(contact, data.person_contact)
+        edit.putString(address1, data.address1)
+        edit.putString(address2, data.address2)
+        edit.putString(address3, data.address3)
+        edit.putString(stateName, data.stateName)
+        edit.putString(areaName, data.areaName)
+        edit.putString(postcode, data.postcode)
+        edit.putString(password, data.password)
         edit.apply()
     }
 
@@ -73,11 +82,12 @@ class AppPreference() {
         val edit = prefs.edit()
         edit.putString(id, "")
         edit.putString(name, "")
+        edit.putString(personName, "")
         edit.putString(contact, "")
-        edit.putString(identity, "")
-        edit.putString(address, "")
-        edit.putString(remark, "")
-        edit.putString(status, "")
+        edit.putString(address,"")
+        edit.putString(stateName, "")
+        edit.putString(postcode, "")
+        edit.putString(password, "")
         edit.apply()
     }
 
@@ -88,13 +98,19 @@ class AppPreference() {
     }
 
     fun getUser(): UserData{
-        val user = UserData(prefs.getString(id, "")!!,
+        val user = UserData(
+        prefs.getString(id, "")!!,
             prefs.getString(name, "")!!,
+            prefs.getString(personName, "")!!,
             prefs.getString(contact, "")!!,
-            prefs.getString(identity, "")!!,
-            prefs.getString(address,"")!!,
-            prefs.getString(remark,"")!!,
-            prefs.getString(status,"")!!)
+            prefs.getString(address1,"")!!,
+            prefs.getString(address2,"")!!,
+            prefs.getString(address3,"")!!,
+            prefs.getString(stateName, "")!!,
+            prefs.getString(areaName, "")!!,
+            prefs.getString(postcode, "")!!,
+            prefs.getString(password, "")!!
+        )
         return user
     }
 

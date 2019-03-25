@@ -15,8 +15,10 @@ import addam.com.my.chinlaicustomer.utilities.Validator
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
+import com.github.ajalt.timberkt.Timber
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.subscribeBy
 
 class LoginViewModel(
     private val schdulerProvider: SchedulerProvider,
@@ -49,17 +51,14 @@ class LoginViewModel(
 
     fun onLoginClicked(){
         isLoading.set(true)
-//        callPassswordEncryptApi().subscribeBy(onSuccess = {
-//            Timber.d{"Success for Encrypt"}
-//            loginUser(it.data.keys)
-//            isLoading.set(false)
-////            startPinActivityEvent.value = StartActivityModel(Router.Destination.MAIN,
-////                hashMapOf(Pair(Router.Parameter.USERNAME, it.name)), hasResults = false)
-//        }, onError = {
-//            isLoading.set(false)
-//            Timber.e { it.message.toString() }
-//        })
-        loginUser("2103918230")
+        callPassswordEncryptApi().subscribeBy(onSuccess = {
+            Timber.d{"Success for Encrypt"}
+            loginUser(it.data.keys)
+        }, onError = {
+            isLoading.set(false)
+            Timber.e { it.message.toString() }
+        })
+//        loginUser("2103918230")
     }
 
     fun onForgotClicked(){
@@ -71,20 +70,17 @@ class LoginViewModel(
     }
 
     private fun loginUser(keys: String) {
-        startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-            hashMapOf(Pair(Router.Parameter.USERNAME, "Herpderp")),
-            hasResults = false, clearHistory = true)
-//        callUserLogin(keys).subscribeBy(onSuccess = {
-//            if(it.status){
-//                appPreference.setLoggedIn(true)
-//                saveUserPreference(it.data)
-//                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-//                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
-//                    hasResults = false, clearHistory = true)
-//            }else loginCallback.loginError()
-//        }, onError = {
-//            Timber.e{it.message.toString()}
-//        })
+        callUserLogin(keys).subscribeBy(onSuccess = {
+            if(it.status){
+                appPreference.setLoggedIn(true)
+                saveUserPreference(it.data)
+                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
+                    hasResults = false, clearHistory = true)
+            }else loginCallback.loginError()
+        }, onError = {
+            Timber.e{it.message.toString()}
+        })
     }
 
     private fun saveUserPreference(data: UserData) {

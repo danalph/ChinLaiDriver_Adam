@@ -6,6 +6,7 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
+import addam.com.my.chinlaicustomer.rest.model.PasswordEncryptResponse
 import addam.com.my.chinlaicustomer.rest.model.SalesData
 import addam.com.my.chinlaicustomer.rest.model.SalesLoginResponse
 import addam.com.my.chinlaicustomer.rest.model.UserLoginRequest
@@ -48,29 +49,29 @@ class SalesLoginViewModel(
         }
     }
 
-    private fun callUserLogin(): Single<SalesLoginResponse> {
-        val userLoginRequest = UserLoginRequest(username.get().toString(), password.get().toString())
+    private fun callEncryption(): Single<PasswordEncryptResponse>{
+        return generalRepository.getPasswordEncrypt(password.get().toString()).compose(schdulerProvider.getSchedulersForSingle())
+    }
+
+    private fun callUserLogin(password: String): Single<SalesLoginResponse> {
+        val userLoginRequest = UserLoginRequest(username.get().toString(), password)
         return generalRepository.getSalesLogin(userLoginRequest).compose(schdulerProvider.getSchedulersForSingle())
     }
 
     fun onLoginClicked(){
         isLoading.set(true)
-        callUserLogin().subscribeBy(onSuccess = {
+        callEncryption().subscribeBy (onSuccess = {
             if(it.status){
-                appPreference.setLoggedIn(true)
-                saveUserPreference(it.data)
-                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.firstName)),
-                    hasResults = false, clearHistory = true)
+                loginUser(it.data.keys)
             }else {
                 isLoading.set(false)
                 loginCallback.loginError()
             }
         }, onError = {
-            isLoading.set(false)
             Timber.e{it.message.toString()}
+            isLoading.set(false)
+            loginCallback.loginError()
         })
-//        loginUser("2103918230")
     }
 
     fun onForgotClicked(){
@@ -82,21 +83,17 @@ class SalesLoginViewModel(
     }
 
     private fun loginUser(keys: String) {
-        startPinActivityEvent.value = StartActivityModel(
-            Router.Destination.DASHBOARD,
-            hashMapOf(Pair(Router.Parameter.USERNAME, "Herpderp")),
-            hasResults = false, clearHistory = true)
-//        callUserLogin(keys).subscribeBy(onSuccess = {
-//            if(it.status){
-//                appPreference.setLoggedIn(true)
-//                saveUserPreference(it.data)
-//                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-//                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
-//                    hasResults = false, clearHistory = true)
-//            }else loginCallback.loginError()
-//        }, onError = {
-//            Timber.e{it.message.toString()}
-//        })
+        callUserLogin(keys).subscribeBy(onSuccess = {
+            if(it.status){
+                appPreference.setLoggedIn(true)
+                saveUserPreference(it.data)
+                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.firstName)),
+                    hasResults = false, clearHistory = true)
+            }else loginCallback.loginError()
+        }, onError = {
+            Timber.e{it.message.toString()}
+        })
     }
 
     private fun saveUserPreference(data: SalesData) {
