@@ -3,7 +3,6 @@ package addam.com.my.chinlaicustomer.feature.statement
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
-import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.databinding.ActivityStatementBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.StatementResponseModel
@@ -73,6 +72,10 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+        if(appPreference.getSalesId() != "0"){
+            nav_view.menu.findItem(R.id.customers).isVisible = true
+            nav_view.menu.findItem(R.id.profile).isVisible = false
+        }
 
         snackbar = Snackbar.make(layout_statement, getString(R.string.download_multiple), Snackbar.LENGTH_INDEFINITE)
         val view = snackbar.view
@@ -88,26 +91,7 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.btn_browse_product -> {
-                startActivity(this@StatementActivity, Router.getClass(Router.Destination.DASHBOARD), clearHistory = true)
-            }
-            R.id.btn_my_order -> {
-
-            }
-            R.id.btn_my_invoice -> {
-
-            }
-            R.id.btn_my_statement -> {
-            }
-            R.id.profile -> {
-                startActivity(this@StatementActivity, Router.getClass(Router.Destination.PROFILE))
-            }
-            R.id.logout -> {
-                appPreference.setLoggedIn(false)
-                startActivity(this@StatementActivity, Router.getClass(Router.Destination.LOGIN), clearHistory = true)
-            }
-        }
+        setNavigation(item, appPreference, this@StatementActivity::class.java.simpleName)
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true

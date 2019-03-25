@@ -1,12 +1,11 @@
-package addam.com.my.chinlaicustomer.feature.login
+package addam.com.my.chinlaicustomer.feature.salesperson
 
-import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
-import addam.com.my.chinlaicustomer.databinding.ActivityLoginBinding
+import addam.com.my.chinlaicustomer.databinding.ActivitySalesLoginBinding
 import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.os.Build
@@ -17,34 +16,30 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
-class LoginActivity : BaseActivity(), LoginViewModel.LoginCallback {
+class SalesLoginActivity : BaseActivity(), SalesLoginViewModel.LoginCallback {
     @Inject
-    lateinit var viewModel: LoginViewModel
-
-    @Inject
-    lateinit var preference: AppPreference
+    lateinit var viewModel: SalesLoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
 
-        val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.viewmodel = viewModel
-        binding.lifecycleOwner = this
+        val mBinding: ActivitySalesLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_sales_login)
+        mBinding.viewmodel = viewModel
+        mBinding.lifecycleOwner = this
 
         setupEvents()
     }
 
     private fun setupEvents() {
-        viewModel.checkLogin()
         viewModel.loginCallback = this
         viewModel.startPinActivityEvent.observe(this, object: StartActivityEvent.StartActivityObserver{
             override fun onStartActivity(data: StartActivityModel) {
-                startActivity(this@LoginActivity, Router.getClass(data.to), data.parameters, clearHistory = true)
+                startActivity(this@SalesLoginActivity, Router.getClass(data.to), data.parameters, clearHistory = true)
             }
 
             override fun onStartActivityForResult(data: StartActivityModel) {
-                startActivity(this@LoginActivity, Router.getClass(data.to), data.parameters, clearHistory = true)
+                startActivity(this@SalesLoginActivity, Router.getClass(data.to), data.parameters, clearHistory = true)
             }
 
         })

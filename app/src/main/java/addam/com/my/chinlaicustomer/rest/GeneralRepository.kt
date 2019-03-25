@@ -15,7 +15,16 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
             api.getPasswordEncrypt(password)
 
     fun getLogin(userLoginRequest: UserLoginRequest): Single<UserLoginResponse> =
-            api.getlogin(userLoginRequest)
+            api.getLogin(userLoginRequest)
+
+    fun getChangePassword(id: String, password: ChangePasswordRequest): Single<ChangePasswordResponse> =
+            api.getChangePassword(id, password)
+
+    fun getSalesLogin(userLoginRequest: UserLoginRequest): Single<SalesLoginResponse> =
+            api.getSalesLogin(userLoginRequest)
+
+    fun getCustomerList(id: String): Single<CustomerListResponse> =
+            api.getSalesCustomerList(id)
 
     fun getTrips(driverId: String, offset: String, limit: String, status: String): Single<TripsResponse> =
             api.getTrips(driverId, offset, limit, status)

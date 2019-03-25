@@ -3,7 +3,7 @@
 	<string name="password_show">Show</string>
 	<string name="password_hide">Hide</string>
 	<string name="next">Next</string>
-
+	
 	<string name="error_no_connection">Offline. Please enable your Internet connection</string>
 	<string name="error_invalid_username_password">Your mobile number and password do not match</string>
 	<string name="error_password_not_match">Password does not match</string>
@@ -50,7 +50,7 @@
         ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@~!$%^.&amp;*_=+}{\'?
     </string>
 	<string name="login">Login</string>
-
+	
 	<!--Menu-->
 	<string name="menu_transactions">Transactions</string>
 	<string name="menu_help">Help &amp; Support</string>
@@ -62,8 +62,8 @@
 	<string name="testLogin">Test Login</string>
 	<string name="password">Password</string>
 	<string name="title_activity_map">Map View</string>
-
-
+	
+	
 	<!--Delivery-->
 	<string name="delivery_all">All</string>
 	<string name="delivery_pending">Pending</string>
@@ -81,11 +81,12 @@
 	<string name="logout">Logout</string>
 	<string name="title_activity_profile">Profile</string>
 	<string name="crm_name">CRM System \n Customer Login</string>
+	<string name="crm_name_sales">CRM System \n Sales Login</string>
 	<string name="title_activity_destination">VIew Destination</string>
 	<string name="tab_destination_1">Information</string>
 	<string name="tab_destination_2">Particulars</string>
 	<string name="tab_destination_3">Photos</string>
-
+	
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="mark_complete">Mark \n Complete</string>
@@ -127,14 +128,19 @@
 	<string name="current_password">Current Password</string>
 	<string name="new_password">New Password</string>
 	<string name="new_password_confirm">Confirm New Password</string>
-    <string name="my_order">My Order</string>
-    <string name="my_invoice">My Invoice</string>
-    <string name="my_statement">My Statement</string>
-    <string name="category">Category</string>
-    <string name="product_list">Product List</string>
-    <string name="search_item_name">Search Item Name</string>
-    <string name="browse_product">Browse Product</string>
+	<string name="my_order">My Order</string>
+	<string name="my_invoice">My Invoice</string>
+	<string name="my_statement">My Statement</string>
+	<string name="category">Category</string>
+	<string name="product_list">Product List</string>
+	<string name="search_item_name">Search Item Name</string>
+	<string name="browse_product">Browse Product</string>
 	<string name="download_multiple">Download Multiple?</string>
 	<string name="download">Download</string>
+	<string name="my_customers">My Customers</string>
+	<string name="my_customer_list">My Customer List</string>
+	<string name="confirm_select_customer">Confirm Select Customer?</string>
+	<string name="confirm">Confirm</string>
+	<string name="reset_password">Reset Password</string>
 
 </resources>

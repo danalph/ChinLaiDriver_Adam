@@ -9,6 +9,8 @@ import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
+import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
 
 /**
@@ -25,7 +27,10 @@ class Router {
         RESET_PASSWORD,
         PRODUCT,
         PRODUCT_DETAIL,
-        STATEMENT
+        STATEMENT,
+
+        SALES_LOGIN,
+        CUSTOMER_LIST
     }
 
     enum class Parameter{
@@ -55,6 +60,8 @@ class Router {
                 Destination.PRODUCT -> ProductListActivity::class.java
                 Destination.PRODUCT_DETAIL -> ProductDetailActivity::class.java
                 Destination.STATEMENT -> StatementActivity::class.java
+                Destination.SALES_LOGIN -> SalesLoginActivity::class.java
+                Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

@@ -36,9 +36,10 @@ class ProfileActivity : BaseActivity() {
     private fun setupEvents() {
         try{
             val user = appPreference.getUser()
+            val address = user.address1 + ", " + user.address2 + ", " + user.address3 + ", " + user.areaName + ", " + user.postcode + ", " + user.stateName
             viewModel.name.set(user.name)
-            viewModel.contact.set(user.contact)
-            viewModel.address.set(user.address)
+            viewModel.contact.set(user.person_contact)
+            viewModel.address.set(address)
         }catch (e: Exception){
             Timber.e { e.toString() }
         }
