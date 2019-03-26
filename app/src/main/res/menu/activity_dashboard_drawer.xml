@@ -24,6 +24,13 @@
             android:id="@+id/profile"
             android:icon="@drawable/ic_user"
             android:title="@string/profile" />
+    
+        <item
+                android:id="@+id/customers"
+                android:icon="@drawable/ic_user"
+                android:title="@string/my_customers"
+                android:visible="false"/>
+        
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_shutdown"
