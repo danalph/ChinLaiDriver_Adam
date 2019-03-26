@@ -2,6 +2,7 @@ package addam.com.my.chinlaicustomer.utilities
 
 import addam.com.my.chinlaicustomer.utilities.observables.ObservableBackground
 import addam.com.my.chinlaicustomer.widgets.CustomEditText
+import addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
 import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.graphics.drawable.BitmapDrawable
@@ -103,6 +104,13 @@ fun setText(view: CustomEditText, text: String?) {
 fun setHeaderText(textView: CustomEditText, headerText: String) {
     if (!TextUtils.isEmpty(headerText)) {
         textView.setHeaderText(headerText)
+    }
+}
+
+@BindingAdapter("android:text")
+fun setText(view: CustomTextViewPrefix, text: String?){
+    if (text != null && text != view.getText()) {
+        view.setText(text)
     }
 }
 

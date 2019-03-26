@@ -1,0 +1,35 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable
+				name="header"
+				type="String"/>
+	</data>
+	
+	<android.support.v7.widget.CardView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:elevation="@dimen/space_small_10dp">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					style="@style/BaseTextView.OpenSansBold"
+					android:padding="@dimen/space_small_8dp"
+					android:background="@color/greyish"
+					android:text="@{header}"
+					android:textColor="@color/black"
+					tools:text="March"/>
+			<android.support.v7.widget.RecyclerView
+					android:id="@+id/rv_invoice_items"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/space_small_8dp"/>
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
+	
+</layout>

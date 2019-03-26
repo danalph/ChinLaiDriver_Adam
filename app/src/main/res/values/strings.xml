@@ -142,5 +142,7 @@
 	<string name="confirm_select_customer">Confirm Select Customer?</string>
 	<string name="confirm">Confirm</string>
 	<string name="reset_password">Reset Password</string>
+	<string name="paid">PAID</string>
+	<string name="unpaid">UNPAID</string>
 
 </resources>

@@ -23,17 +23,21 @@ data class InvoiceListResponse(
 data class Invoices(
     @SerializedName("id")
     @Expose
-    var id: String,
+    var id: String = "",
 
     @SerializedName("date")
     @Expose
-    var date: String,
+    var date: String = "",
 
     @SerializedName("amount")
     @Expose
-    var amount: String,
+    var amount: String = "",
 
     @SerializedName("status")
     @Expose
-    var status: String
-)
+    var status: String = ""
+){
+    fun isPaid(): Boolean{
+        return status=="1"
+    }
+}
