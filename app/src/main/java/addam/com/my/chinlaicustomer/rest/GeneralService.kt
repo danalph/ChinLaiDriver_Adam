@@ -11,16 +11,16 @@ interface GeneralService {
     @GET("auth/encryption/{password}")
     fun getPasswordEncrypt(@Path("password") password: String): Single<PasswordEncryptResponse>
 
-    @POST("auth/customer/login")
+    @POST("mobile/auth/customer/login")
     fun getLogin(@Body userLoginRequest: UserLoginRequest): Single<UserLoginResponse>
 
-    @POST("auth/salesperson/login")
+    @POST("mobile/auth/salesperson/login")
     fun getSalesLogin(@Body userLoginRequest: UserLoginRequest): Single<SalesLoginResponse>
 
-    @GET("supplier/{id}/customers")
+    @GET("mobile/supplier/{id}/customers")
     fun getSalesCustomerList(@Path("id") id: String): Single<CustomerListResponse>
 
-    @PUT("customer/{id}/password")
+    @PUT("mobile/customer/{id}/password")
     fun getChangePassword(@Path("id") id: String, @Body changePasswordRequest: ChangePasswordRequest): Single<ChangePasswordResponse>
 
     @GET("driver/{driverId}/trips")
