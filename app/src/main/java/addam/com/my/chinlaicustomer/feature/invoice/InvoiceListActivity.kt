@@ -7,21 +7,31 @@ import addam.com.my.chinlaicustomer.databinding.ActivityInvoiceListBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.Invoices
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
+import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_statement.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_invoice_list.*
 import kotlinx.android.synthetic.main.app_bar_dashboard.*
 import kotlinx.android.synthetic.main.content_invoice_list.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, InvoiceAdapter.OnItemClickListener {
+class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, InvoiceAdapter.OnItemMonthClickListener,
+    InvoiceListItemAdapter.OnItemClickListener {
     @Inject
     lateinit var viewModel: InvoiceListViewModel
 
@@ -29,7 +39,10 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     lateinit var appPreference: AppPreference
 
     lateinit var binding: ActivityInvoiceListBinding
+
     lateinit var adapter: InvoiceAdapter
+    lateinit var searchAdapter: InvoiceListItemAdapter
+    private val disposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +60,39 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         setupRecyclerView()
     }
 
+    @SuppressLint("CheckResult")
     private fun setupRecyclerView() {
         invoice_list.layoutManager = LinearLayoutManager(this)
         adapter = InvoiceAdapter(viewModel.dummyData(), this)
         invoice_list.adapter = adapter
+
+        invoice_search_list.layoutManager = LinearLayoutManager(this)
+        searchAdapter = InvoiceListItemAdapter(viewModel.originalList, this)
+        invoice_search_list.adapter = searchAdapter
+
+        et_invoice_search.textChanges()
+            .debounce (200, TimeUnit.MILLISECONDS)
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if(it.isNotEmpty()){
+                    invoice_search_list.visibility = View.VISIBLE
+                    invoice_list.visibility = View.GONE
+                    viewModel.search(it.toString())
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            val diffResult = DiffUtil.calculateDiff(ListInvoiceDiffUtilCallback(viewModel.oldFilteredList, viewModel.filteredList))
+                            viewModel.oldFilteredList.clear()
+                            viewModel.oldFilteredList.addAll(viewModel.filteredList)
+                            diffResult.dispatchUpdatesTo(invoice_search_list.adapter as InvoiceListItemAdapter)
+                        }.addTo(disposable)
+                }
+                else {
+                    invoice_search_list.visibility = View.GONE
+                    invoice_list.visibility = View.VISIBLE
+                }
+            }
     }
 
     private fun setupView() {
@@ -77,7 +119,16 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         return true
     }
 
-    override fun onItemClicked(position: Int, item: Invoices) {
+    override fun onItemMonthClicked(position: Int, item: Invoices) {
         Toast.makeText(this@InvoiceListActivity, item.id, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemClicked(p1: Int, item: Invoices) {
+        Toast.makeText(this@InvoiceListActivity, item.id, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 }

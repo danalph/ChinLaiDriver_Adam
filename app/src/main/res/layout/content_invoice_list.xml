@@ -8,21 +8,63 @@
 				name="viewModel"
 				type="addam.com.my.chinlaicustomer.feature.invoice.InvoiceListViewModel"/>
 	</data>
-	<ScrollView
+	<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-		
-		<android.support.constraint.ConstraintLayout
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+		<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-			
-			<android.support.v7.widget.RecyclerView
-					android:id="@+id/invoice_list"
-					android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:padding="@dimen/space_small_8dp"
+				android:background="@color/colorRed"
+				android:weightSum="2">
+			<EditText
+					android:id="@+id/et_invoice_search"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"/>
-		</android.support.constraint.ConstraintLayout>
-	</ScrollView>
+					android:layout_weight="1"
+					style="@style/BaseTextView.RalewayRegular"
+					android:padding="@dimen/space_small_8dp"
+					android:background="@drawable/rounded_background"
+					android:drawableStart="@drawable/ic_search"
+					android:drawablePadding="@dimen/space_small_8dp"
+					android:hint="@string/search_invoice"/>
+			<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:layout_marginStart="@dimen/space_small_8dp"
+					android:background="@drawable/rounded_background">
+				<Spinner
+						android:id="@+id/spinner_invoice"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:prompt="@string/all"/>
+			</LinearLayout>
+		</LinearLayout>
+		<ScrollView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+			
+			<android.support.constraint.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				
+				<android.support.v7.widget.RecyclerView
+						android:id="@+id/invoice_list"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+				<android.support.v7.widget.RecyclerView
+						android:id="@+id/invoice_search_list"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+			</android.support.constraint.ConstraintLayout>
+		</ScrollView>
+	</LinearLayout>
 
 </layout>

@@ -13,7 +13,7 @@ import android.widget.LinearLayout
 /**
  * Created by owner on 26/03/2019
  */
-class InvoiceAdapter(var models: MutableList<InvoiceMonthModel>, var onItemClickListener: OnItemClickListener): RecyclerView.Adapter<InvoiceAdapter.InvoiceViewHolder>(),
+class InvoiceAdapter(var models: MutableList<InvoiceMonthModel>, var onItemMonthClickListener: OnItemMonthClickListener): RecyclerView.Adapter<InvoiceAdapter.InvoiceViewHolder>(),
                     InvoiceListItemAdapter.OnItemClickListener{
     private var layoutInflater: LayoutInflater? = null
 
@@ -60,10 +60,10 @@ class InvoiceAdapter(var models: MutableList<InvoiceMonthModel>, var onItemClick
         }
     }
     override fun onItemClicked(p1: Int, item: Invoices) {
-        onItemClickListener.onItemClicked(p1, item)
+        onItemMonthClickListener.onItemMonthClicked(p1, item)
     }
 
-    interface OnItemClickListener {
-        fun onItemClicked(position: Int, item: Invoices)
+    interface OnItemMonthClickListener {
+        fun onItemMonthClicked(position: Int, item: Invoices)
     }
 }
