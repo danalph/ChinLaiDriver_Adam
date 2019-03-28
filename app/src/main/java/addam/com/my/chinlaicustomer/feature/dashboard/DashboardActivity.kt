@@ -158,8 +158,8 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_cart){
-            //TODO go to cart
             Timber.d { "Shopping cart" }
+            viewModel.onOpenCart()
         }
         return super.onOptionsItemSelected(item)
     }

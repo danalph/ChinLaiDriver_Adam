@@ -7,20 +7,20 @@
         <variable
                 name="viewModel"
                 type="addam.com.my.chinlaicustomer.feature.productlist.ProductListViewModel"/>
-        <!--<variable
+        <variable
                 name="toolbarModel"
-                type="addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel"/>-->
+                type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel"/>
     </data>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-       <!-- <include
+        <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar_back_with_button"
+                layout="@layout/toolbar_with_back_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:model="@{toolbarModel}" />-->
+                app:model="@{toolbarModel}" />
         <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh_layout"
                 android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                             android:layout_marginBottom="@dimen/space_tiny_4dp"
                             android:layout_marginTop="@dimen/space_tiny_4dp"
                             android:padding="@dimen/space_small_8dp"
+                            android:inputType="text"
                             android:drawablePadding="@dimen/space_tiny_4dp"
                             android:hint="@string/search_item_name"
                             android:drawableStart="@drawable/ic_search"/>
