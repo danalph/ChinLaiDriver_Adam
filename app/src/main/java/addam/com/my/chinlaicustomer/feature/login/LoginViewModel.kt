@@ -39,10 +39,6 @@ class LoginViewModel(
         password.observe().map { Validator.ReasonValidator.validate(it) }.subscribe {isPasswordValid.set(it) }
         io.reactivex.Observable.combineLatest(isUsernameValid.observe(), isPasswordValid.observe(),
             BiFunction { a: Boolean, b: Boolean -> a&&b }).subscribe { isValid.set(it) }
-
-        if(appPreference.isLoggedIn()){
-            startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD, clearHistory = true, hasResults = false)
-        }
     }
     private fun callPassswordEncryptApi(): Single<PasswordEncryptResponse>{
         return generalRepository.getPasswordEncrypt(password.get().toString()).compose(schdulerProvider.getSchedulersForSingle())
@@ -55,42 +51,46 @@ class LoginViewModel(
 
     fun onLoginClicked(){
         isLoading.set(true)
-//        callPassswordEncryptApi().subscribeBy(onSuccess = {
-//            Timber.d{"Success for Encrypt"}
-//            loginUser(it.data.keys)
-//            isLoading.set(false)
-////            startPinActivityEvent.value = StartActivityModel(Router.Destination.MAIN,
-////                hashMapOf(Pair(Router.Parameter.USERNAME, it.name)), hasResults = false)
-//        }, onError = {
-//            isLoading.set(false)
-//            Timber.e { it.message.toString() }
-//        })
-        loginUser("2103918230")
+        callPassswordEncryptApi().subscribeBy(onSuccess = {
+            Timber.d{"Success for Encrypt"}
+            loginUser(it.data.keys)
+        }, onError = {
+            isLoading.set(false)
+            Timber.e { it.message.toString() }
+        })
+//        loginUser("2103918230")
     }
 
     fun onForgotClicked(){
 //        TODO go to forgot password
     }
 
+    fun onSalesClicked(){
+        startPinActivityEvent.value = StartActivityModel(Router.Destination.SALES_LOGIN, hasResults = false, clearHistory = true)
+    }
+
     private fun loginUser(keys: String) {
-        startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-            hashMapOf(Pair(Router.Parameter.USERNAME, "Herpderp")),
-            hasResults = false, clearHistory = true)
-//        callUserLogin(keys).subscribeBy(onSuccess = {
-//            if(it.status){
-//                appPreference.setLoggedIn(true)
-//                saveUserPreference(it.data)
-//                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-//                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
-//                    hasResults = false, clearHistory = true)
-//            }else loginCallback.loginError()
-//        }, onError = {
-//            Timber.e{it.message.toString()}
-//        })
+        callUserLogin(keys).subscribeBy(onSuccess = {
+            if(it.status){
+                appPreference.setLoggedIn(true)
+                saveUserPreference(it.data)
+                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
+                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.name)),
+                    hasResults = false, clearHistory = true)
+            }else loginCallback.loginError()
+        }, onError = {
+            Timber.e{it.message.toString()}
+        })
     }
 
     private fun saveUserPreference(data: UserData) {
         appPreference.setUser(data)
+    }
+
+    fun checkLogin() {
+        if(appPreference.isLoggedIn()){
+            startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD, clearHistory = true, hasResults = false)
+        }
     }
 
     interface LoginCallback{

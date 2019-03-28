@@ -25,27 +25,43 @@ data class UserData(
     @Expose
     var id: String,
 
-    @SerializedName("name")
+    @SerializedName("company_name")
     @Expose
     var name: String,
 
-    @SerializedName("contact")
+    @SerializedName("person_name")
     @Expose
-    var contact: String,
+    var person_name: String,
 
-    @SerializedName("identity")
+    @SerializedName("person_contact")
     @Expose
-    var identity: String,
+    var person_contact: String,
 
-    @SerializedName("address")
+    @SerializedName("address1")
     @Expose
-    var address: String,
+    var address1: String,
 
-    @SerializedName("remark")
+    @SerializedName("address2")
     @Expose
-    var remark: String,
+    var address2: String,
 
-    @SerializedName("status")
+    @SerializedName("address3")
     @Expose
-    var status: String
+    var address3: String,
+
+    @SerializedName("stateName")
+    @Expose
+    var stateName: String,
+
+    @SerializedName("areaName")
+    @Expose
+    var areaName: String,
+
+    @SerializedName("postcode")
+    @Expose
+    var postcode: String,
+
+    @SerializedName("password")
+    @Expose
+    var password: String
 )

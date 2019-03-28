@@ -1,35 +1,32 @@
 package addam.com.my.chinlaicustomer.rest.model
 
-import android.graphics.drawable.Drawable
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ProductDetailResponse(
-    @SerializedName("status")
-    @Expose
-    val status: Boolean = false,
-    @SerializedName("message")
-    @Expose
-    val message: String? = null,
     @SerializedName("data")
-    @Expose
-    val data: ProductDetailData? = null
-)
-
-data class ProductDetailData(
-    @SerializedName("id")
-    @Expose
-    val id: String,
-    @SerializedName("productName")
-    @Expose
-    val productName: String,
-    @SerializedName("productDescription")
-    @Expose
-    val productDescription: String,
-    @SerializedName("price")
-    @Expose
-    val price: String,
-    @SerializedName("image")
-    @Expose
-    val images: ArrayList<String>?
-)
+    val `data`: Data,
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("status")
+    val status: Boolean
+) {
+    data class Data(
+        @SerializedName("product")
+        val product: Product,
+        @SerializedName("product_images")
+        val productImages: List<String>?,
+        @SerializedName("product_other")
+        val productOther: Any?
+    ) {
+        data class Product(
+            @SerializedName("description_1")
+            val description1: String,
+            @SerializedName("description_2")
+            val description2: String?,
+            @SerializedName("id")
+            val id: String,
+            @SerializedName("ref_price")
+            val refPrice: String
+        )
+    }
+}

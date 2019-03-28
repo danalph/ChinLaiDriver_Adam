@@ -1,10 +1,17 @@
 package addam.com.my.chinlaicustomer.core
 
+import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.util.PermissionHelper
+import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
+import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
+import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.WindowManager
 
 /**
@@ -153,4 +160,42 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
 //            }
 //        }
 //    }
+
+    fun setNavigation(item: MenuItem, appPreference: AppPreference, className: String){
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.btn_browse_product -> {
+                if(className != DashboardActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.DASHBOARD),clearHistory = true)
+                }
+            }
+            R.id.btn_my_order -> {
+
+            }
+            R.id.btn_my_invoice -> {
+
+            }
+            R.id.btn_my_statement -> {
+                if(className != StatementActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.STATEMENT), clearHistory = true)
+                }
+            }
+            R.id.profile -> {
+                if(className != ProfileActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.PROFILE))
+                }
+            }
+            R.id.customers ->{
+                if(className != CustomerListActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.CUSTOMER_LIST), clearHistory = true)
+                }
+            }
+            R.id.logout -> {
+                appPreference.setLoggedIn(false)
+                appPreference.logout()
+                appPreference.resetSales()
+                startActivity(this, Router.getClass(Router.Destination.LOGIN), clearHistory = true)
+            }
+        }
+    }
 }

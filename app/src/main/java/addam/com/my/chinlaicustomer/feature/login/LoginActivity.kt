@@ -30,12 +30,13 @@ class LoginActivity : BaseActivity(), LoginViewModel.LoginCallback {
 
         val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewmodel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         setupEvents()
     }
 
     private fun setupEvents() {
+        viewModel.checkLogin()
         viewModel.loginCallback = this
         viewModel.startPinActivityEvent.observe(this, object: StartActivityEvent.StartActivityObserver{
             override fun onStartActivity(data: StartActivityModel) {

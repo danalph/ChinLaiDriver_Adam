@@ -39,7 +39,7 @@ class AppModule {
     companion object {
         // API Repository
 //        private const val URL = "http://demo.itechbs.com/chinlai/api/"
-        private const val URL = "http://dev.axcom.my/~chinlaicustomer/api/"
+        private const val URL = "http://dev.axcom.my/~chinlai/api/"
 //        private const val URL = "https://my-json-server.typicode.com/addam01/demoJson/"
     }
 
@@ -78,6 +78,10 @@ class AppModule {
     @Provides
     @Singleton
     fun provideUserDao(db: AppDatabase) = db.userDao()
+
+    @Provides
+    @Singleton
+    fun provideCartDao(db: AppDatabase) = db.cartDao()
 
     /**
      * If your API has token and you need to refresh it with interceptor, use this

@@ -15,13 +15,24 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
             api.getPasswordEncrypt(password)
 
     fun getLogin(userLoginRequest: UserLoginRequest): Single<UserLoginResponse> =
-            api.getlogin(userLoginRequest)
+            api.getLogin(userLoginRequest)
 
-    fun getTrips(driverId: String, offset: String, limit: String, status: String): Single<TripsResponse> =
-            api.getTrips(driverId, offset, limit, status)
+    fun getChangePassword(id: String, password: ChangePasswordRequest): Single<ChangePasswordResponse> =
+            api.getChangePassword(id, password)
 
-    fun getSingleTrip(driverId: String, tripId: String, offset: String, limit: String, status: String): Single<ViewDeliveryTripResponse> =
-            api.getSingleTrip(driverId, tripId, offset, limit, status)
+    fun getSalesLogin(userLoginRequest: UserLoginRequest): Single<SalesLoginResponse> =
+            api.getSalesLogin(userLoginRequest)
+
+    fun getCustomerList(id: String): Single<CustomerListResponse> =
+            api.getSalesCustomerList(id)
+
+    fun getCategoryList(offset: String, limit: String, field: String, sortBy: String, filter: String): Single<CategoryListResponse> =
+            api.getCategoryList(offset, limit, field, sortBy, filter)
+
+    fun getProductList(id: String, offset: String, limit: String, field: String, sortBy: String, filter: String): Single<ProductListResponse> =
+            api.getProductList(id, offset, limit, field, sortBy, filter)
+
+    fun getProductDetail(id: String): Single<ProductDetailResponse> = api.getProductDetail(id)
 
     fun getDestination(driverID: String, tripID: String, type: String, docID: String): Single<DestinationResponse> =
             api.getDestination(driverID,tripID,type,docID)
@@ -31,4 +42,8 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
 
     fun uploadPhoto(driverID: String, tripID: String, type: String, uploadPhoto: UploadPhotoRequest): Single<UploadPhotoResponse> =
             api.uploadPhoto(driverID, tripID, type, uploadPhoto)
+
+    fun getBranches(customerId: String): Single<BranchesResponse> = api.getBranches(customerId)
+
+    fun createOrder(createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse> = api.createOrder(createOrderRequest)
 }

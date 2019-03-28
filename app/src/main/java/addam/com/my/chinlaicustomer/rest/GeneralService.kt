@@ -11,19 +11,35 @@ interface GeneralService {
     @GET("auth/encryption/{password}")
     fun getPasswordEncrypt(@Path("password") password: String): Single<PasswordEncryptResponse>
 
-    @POST("auth/driver/login")
-    fun getlogin(@Body userLoginRequest: UserLoginRequest): Single<UserLoginResponse>
+    @POST("mobile/auth/customer/login")
+    fun getLogin(@Body userLoginRequest: UserLoginRequest): Single<UserLoginResponse>
 
-    @GET("driver/{driverId}/trips")
-    fun getTrips(@Path("driverId") driverId: String, @Query("offset") offset: String,
+    @POST("mobile/auth/salesperson/login")
+    fun getSalesLogin(@Body userLoginRequest: UserLoginRequest): Single<SalesLoginResponse>
+
+    @GET("mobile/supplier/{id}/customers")
+    fun getSalesCustomerList(@Path("id") id: String): Single<CustomerListResponse>
+
+    @PUT("mobile/customer/{id}/password")
+    fun getChangePassword(@Path("id") id: String, @Body changePasswordRequest: ChangePasswordRequest): Single<ChangePasswordResponse>
+
+    @GET("mobile/category")
+    fun getCategoryList(@Query("offset") offset: String,
                  @Query("limit") limit: String,
-                 @Query("status") status: String): Single<TripsResponse>
+                 @Query("field") field: String,
+                 @Query("sortby") sortby: String,
+                 @Query("filters") filters: String): Single<CategoryListResponse>
 
-    @GET("driver/{driverId}/trip/{tripId}")
-    fun getSingleTrip(@Path("driverId") driverId: String, @Path("tripId") tripId: String,
+    @GET("mobile/products/{id}/")
+    fun getProductList(@Path("id") id: String,
                       @Query("offset") offset: String,
                       @Query("limit") limit: String,
-                      @Query("status") status: String): Single<ViewDeliveryTripResponse>
+                      @Query("field") field: String,
+                      @Query("sortby") sortby: String,
+                      @Query("filters") filters: String): Single<ProductListResponse>
+
+    @GET("mobile/product/{id}")
+    fun getProductDetail(@Path("id") id: String ): Single<ProductDetailResponse>
 
     @GET("driver/{id}/trip/{pID}/{type}/{docID}")
     fun getDestination(@Path("id") driverID: String,
@@ -42,4 +58,10 @@ interface GeneralService {
                     @Path("pID")tripID: String,
                     @Path("type")type: String,
                     @Body uploadPhotoRequest: UploadPhotoRequest): Single<UploadPhotoResponse>
+
+    @GET("mobile/customer/{customer_id}/branches")
+    fun getBranches(@Path("customer_id")customerId: String): Single<BranchesResponse>
+
+    @POST("mobile/order")
+    fun createOrder(@Body createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse>
 }
