@@ -1,4 +1,4 @@
-package addam.com.my.chinlaicustomer.feature.product
+package addam.com.my.chinlaicustomer.feature.productlist
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
@@ -8,9 +8,7 @@ import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProductListBinding
-import addam.com.my.chinlaicustomer.rest.model.ProductList
-import addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel
-import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
+import addam.com.my.chinlaicustomer.rest.model.ProductListResponse
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -37,7 +35,7 @@ class ProductListActivity : BaseActivity() {
 
     lateinit var adapter: ProductListAdapter
 
-    private val productList = arrayListOf<ProductList>()
+    private val productList = arrayListOf<ProductListResponse.Data.Product>()
 
     private val disposable = CompositeDisposable()
 
@@ -46,8 +44,10 @@ class ProductListActivity : BaseActivity() {
         AndroidInjection.inject(this)
         val binding: ActivityProductListBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
         binding.viewModel = viewModel
-        binding.toolbarModel = ToolbarBackWithButtonModel(getString(R.string.product_list), true,true, this::onCartPressed, this::onBackPressed)
-        viewModel.getItem(this@ProductListActivity)
+        /*binding.toolbarModel = ToolbarBackWithButtonModel(getString(R.string.product_list), true,true,
+            R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)*/
+        val productId = intent.getStringExtra(Router.Parameter.CATEGORY_ID.name)
+        viewModel.getItem(productId)
         setupView()
         setupObserver()
     }
@@ -57,7 +57,7 @@ class ProductListActivity : BaseActivity() {
             it?: return@observe
             adapter.run {
                 productList.clear()
-                productList.addAll(it)
+                productList.addAll(it.data.products)
                 adapter.notifyDataSetChanged()
                 swipe_refresh_layout.isRefreshing = false
             }
@@ -77,9 +77,9 @@ class ProductListActivity : BaseActivity() {
 
     private fun setupView() {
         rv_product.layoutManager = GridLayoutManager(this, 2)
-        adapter = ProductListAdapter(productList, R.layout.product_adapter_layout , object : BaseRecyclerViewAdapter.OnItemClickListener<ProductList> {
-            override fun onItemClick(item: ProductList, view: View) {
-                viewModel.onItemSelected()
+        adapter = ProductListAdapter(productList, R.layout.product_adapter_layout , object : BaseRecyclerViewAdapter.OnItemClickListener<ProductListResponse.Data.Product> {
+            override fun onItemClick(item: ProductListResponse.Data.Product, view: View) {
+                viewModel.onItemSelected(item.id)
             }
         })
         rv_product.adapter = adapter

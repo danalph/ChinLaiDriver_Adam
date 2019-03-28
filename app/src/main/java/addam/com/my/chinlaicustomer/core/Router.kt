@@ -1,12 +1,12 @@
 package addam.com.my.chinlaicustomer.core
 
-import addam.com.my.chinlaicustomer.feature.delivery.DashboardActivity
-import addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivity
+import addam.com.my.chinlaicustomer.feature.cart.CartActivity
+import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
-import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
+import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
@@ -21,14 +21,13 @@ class Router {
         LOGIN,
         PROFILE,
         DASHBOARD,
-        DELIVERY_DETAIL,
         MAP,
         DESTINATION,
         RESET_PASSWORD,
         PRODUCT,
         PRODUCT_DETAIL,
+        CART,
         STATEMENT,
-
         SALES_LOGIN,
         CUSTOMER_LIST
     }
@@ -43,8 +42,9 @@ class Router {
         ADDRESS,
         STATUS,
         TYPE,
-        TRIP_ID,
-        DOC_ID
+        CATEGORY_ID,
+        DOC_ID,
+        ITEM_ID
     }
 
     companion object {
@@ -55,10 +55,10 @@ class Router {
                 Destination.RESET_PASSWORD -> ResetPasswordActivity::class.java
                 Destination.DASHBOARD -> DashboardActivity::class.java
                 Destination.MAP -> MapActivity::class.java
-                Destination.DELIVERY_DETAIL -> DeliveryDetailsActivity::class.java
                 Destination.DESTINATION -> DestinationActivity::class.java
                 Destination.PRODUCT -> ProductListActivity::class.java
                 Destination.PRODUCT_DETAIL -> ProductDetailActivity::class.java
+                Destination.CART -> CartActivity::class.java
                 Destination.STATEMENT -> StatementActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java

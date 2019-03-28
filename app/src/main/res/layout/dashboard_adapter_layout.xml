@@ -4,7 +4,7 @@
     <data>
         <variable
             name="model"
-            type="addam.com.my.chinlaicustomer.rest.model.TripsResponse.Data.Trip"/>
+            type="addam.com.my.chinlaicustomer.rest.model.CategoryListResponse.Data.Category"/>
         <import type="android.view.View"/>
     </data>
     <android.support.v7.widget.CardView
@@ -29,7 +29,7 @@
                 android:id="@+id/tv_item_name_en"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{model.categoryEn}"
+                android:text="@{model.name}"
                 style="@style/BaseTextView.OpenSansSemiBold"
                 android:textSize="@dimen/medium_text_16sp"/>
             <TextView
@@ -38,7 +38,7 @@
                 android:id="@+id/tv_item_name_cn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{model.categoryCn}"
+                android:text="@{model.description}"
                 style="@style/BaseTextView.OpenSansSemiBold"
                 android:textSize="@dimen/medium_text_16sp"/>
         </addam.com.my.chinlaicustomer.widgets.SquareLinearLayout>

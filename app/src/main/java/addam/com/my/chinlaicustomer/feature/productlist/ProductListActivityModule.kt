@@ -1,4 +1,4 @@
-package addam.com.my.chinlaicustomer.feature.product
+package addam.com.my.chinlaicustomer.feature.productlist
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider

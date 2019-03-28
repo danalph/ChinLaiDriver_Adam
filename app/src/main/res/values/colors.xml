@@ -26,6 +26,8 @@
     <!--generic colors-->
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="grey">#6d6e70</color>
+    <color name="orange">#f6891f</color>
 
     <!--Text colors-->
     <color name="textColorDark">@color/colorGreyDark</color>

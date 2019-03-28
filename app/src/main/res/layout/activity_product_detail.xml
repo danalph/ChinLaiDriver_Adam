@@ -9,23 +9,22 @@
             name="viewModel"
             type="addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailViewModel"/>
 
-        <variable name="model" type="addam.com.my.chinlaicustomer.rest.model.ProductDetailData"/>
+        <variable name="model" type="addam.com.my.chinlaicustomer.rest.model.ProductDetailResponse.Data.Product"/>
 
-        <variable
+       <!-- <variable
             name="toolbarModel"
-            type="addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel"/>
+            type="addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel"/>-->
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include
+       <!-- <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_with_back_button"
+            layout="@layout/toolbar_back_with_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:model="@{toolbarModel}" />
+            app:model="@{toolbarModel}" />-->
         <ScrollView
-            android:layout_below="@id/toolbar"
             android:layout_above="@id/ll_bottom_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -48,7 +47,7 @@
                         android:id="@+id/tv_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{model.productName}"
+                        android:text="@{model.description1}"
                         android:textSize="@dimen/large_text_18sp"
                         android:layout_marginTop="@dimen/space_small_8dp"
                         android:textColor="@color/black"/>
@@ -56,19 +55,11 @@
                         android:id="@+id/tv_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{`RM ` + model.price}"
+                        android:text="@{`RM ` + model.refPrice}"
                         style="@style/BaseTextView.OpenSansBold"
                         android:textSize="@dimen/large_text_18sp"
                         android:layout_marginTop="@dimen/space_small_8dp"
                         android:textColor="@color/colorRed"/>
-                    <TextView
-                        android:id="@+id/tv_selection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Select Variation"
-                        android:textSize="@dimen/large_text_18sp"
-                        android:layout_marginTop="@dimen/space_small_8dp"
-                        android:textColor="@color/black"/>
                     <TextView
                         android:id="@+id/tv_detail_title"
                         android:layout_width="match_parent"
@@ -82,7 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_small_8dp"
-                        android:text="@{model.productDescription}"/>
+                        android:text="@{model.description2}"/>
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>

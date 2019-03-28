@@ -1,5 +1,6 @@
 package addam.com.my.chinlaicustomer.utilities
 
+import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.utilities.observables.ObservableBackground
 import addam.com.my.chinlaicustomer.widgets.CustomEditText
 import android.databinding.BindingAdapter
@@ -11,6 +12,7 @@ import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
+import com.squareup.picasso.Picasso
 
 /**
  * Created by Addam on 7/1/2019.
@@ -90,6 +92,15 @@ fun setSrcDrawable(view: ImageView, url: String?) {
     } else {
         view.visibility = View.GONE
     }
+}
+
+@BindingAdapter("android:src")
+fun setSrc(view: ImageView, imageUrl:String) {
+    Picasso.get()
+        .load(imageUrl)
+        .fit()
+        .placeholder(R.drawable.img_no_image)
+        .into(view)
 }
 
 @BindingAdapter("android:text")
