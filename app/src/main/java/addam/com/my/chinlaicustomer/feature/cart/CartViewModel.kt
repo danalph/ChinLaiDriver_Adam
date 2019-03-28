@@ -1,25 +1,36 @@
 package addam.com.my.chinlaicustomer.feature.cart
 
 import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.GenericSingleEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.database.Cart
 import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.BranchesResponse
 import addam.com.my.chinlaicustomer.rest.model.CreateOrderRequest
+import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableInt
 import com.github.ajalt.timberkt.Timber
+import io.reactivex.Completable
+import io.reactivex.CompletableObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
+import java.text.DecimalFormat
 
 class CartViewModel(private val schedulerProvider: SchedulerProvider, private val databaseRepository: DatabaseRepository, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel(){
 
-    val totalPrice = ObservableInt(0)
-    val cartTtems = MutableLiveData<ArrayList<Cart>>()
+    val startActivityEvent = StartActivityEvent()
+    val totalPrice = ObservableString("")
+    val cartItems = MutableLiveData<List<Cart>>()
     val branches = MutableLiveData<BranchesResponse>()
     val event = GenericSingleEvent()
+    val eventDelete = GenericSingleEvent()
 
     init {
         getBranches()
@@ -27,7 +38,14 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     }
 
     private fun getCartList() {
-        cartTtems.postValue(databaseRepository.getCart() as ArrayList<Cart>?)
+        databaseRepository.getCart().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { items ->
+                run {
+                    Timber.d { "item size is $items" }
+                    cartItems.postValue(items)
+                }
+            }
     }
 
     private fun getBranches(){
@@ -42,14 +60,15 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
             )
     }
 
-    fun getData(cartList: ArrayList<Cart>){
-        var price  = 0
+    fun setPrice(cartList: ArrayList<Cart>){
+        var price  = 0.0
+        val format = DecimalFormat("#,###,###,###.00")
         for (cart in cartList){
             if (cart.isChecked){
-                price += cart.productPrice.toInt() * cart.productQuantity
+                price += cart.productPrice.toDouble() * cart.productQuantity
             }
         }
-        totalPrice.set(price)
+        totalPrice.set(format.format(price))
     }
 
     fun onPlaceOrder(){
@@ -66,12 +85,52 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
         generalRepository.createOrder(orderRequest).compose(schedulerProvider.getSchedulersForSingle())
             .subscribeBy(
                 onSuccess = {
+                    if (it.status){
+                        Completable.fromAction{
+                            databaseRepository.clearTable()
+                        }.observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
+                            .subscribe(object: CompletableObserver{
+                                override fun onComplete() {
+                                    startActivityEvent.value = StartActivityModel(
+                                        Router.Destination.DASHBOARD , hasResults = false, clearHistory = false)
+                                }
+
+                                override fun onSubscribe(d: Disposable) {
+
+                                }
+
+                                override fun onError(e: Throwable) {
+
+                                }
+                            })
+                    }
 
                 },
                 onError = {
 
                 }
             )
+    }
+
+    fun onDeleteItem(item: Cart){
+        Completable.fromAction{
+            databaseRepository.deleteCart(item)
+        }.observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object: CompletableObserver{
+                override fun onComplete() {
+                    eventDelete.value = true
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+            })
     }
 
 }

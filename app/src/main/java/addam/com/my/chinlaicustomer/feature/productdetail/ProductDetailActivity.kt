@@ -7,6 +7,7 @@ import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProductDetailBinding
+import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -34,8 +35,8 @@ class ProductDetailActivity : BaseActivity() {
         AndroidInjection.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
         binding.viewModel = viewModel
-        /*binding.toolbarModel = ToolbarBackWithButtonModel("Professional Electric Cordless Drill", true,true,
-            R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)*/
+        binding.toolbarModel = ToolbarWithBackButtonModel("Professional Electric Cordless Drill", true,true,
+            R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)
         val itemId = intent.getStringExtra(Router.Parameter.ITEM_ID.name)
         viewModel.getDetail(itemId)
         setupView()
@@ -51,7 +52,11 @@ class ProductDetailActivity : BaseActivity() {
                 imageSliderAdapter
             }*/
             binding.model = it.data.product
-            imageSliderAdapter = ImageSliderAdapter(it.data.productImages!! as ArrayList<String>)
+            val listImages = ArrayList<String>()
+            if (it.data.productImages != null){
+                listImages.addAll(it.data.productImages)
+            }
+            imageSliderAdapter = ImageSliderAdapter(listImages)
             banner_slider.setAdapter(imageSliderAdapter)
         }
 
@@ -71,5 +76,6 @@ class ProductDetailActivity : BaseActivity() {
 
     private fun onCartPressed(){
         Timber.d { "cart pressed" }
+        viewModel.onOpenCart()
     }
 }

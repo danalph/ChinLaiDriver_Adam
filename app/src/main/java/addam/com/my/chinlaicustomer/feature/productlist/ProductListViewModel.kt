@@ -33,4 +33,8 @@ class ProductListViewModel(private val schedulerProvider: SchedulerProvider, pri
             hashMapOf(Pair(Router.Parameter.ITEM_ID, id)) , hasResults = false, clearHistory = false)
     }
 
+    fun onOpenCart(){
+        startActivityEvent.value = StartActivityModel(Router.Destination.CART, hasResults = false, clearHistory = false)
+    }
+
 }

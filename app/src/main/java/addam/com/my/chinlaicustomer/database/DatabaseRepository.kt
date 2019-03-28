@@ -13,9 +13,11 @@ class DatabaseRepository @Inject constructor(private val userDao: UserDao, priva
 
     fun insertUser(user: User) = userDao.insert(user)
 
-    fun getCart(): List<Cart> = cartDao.getAll()
+    fun getCart():Single<List<Cart>> = cartDao.getAll()
 
     fun addToCart(cart: Cart) = cartDao.addToCart(cart)
 
     fun deleteCart(cart: Cart) = cartDao.delete(cart)
+
+    fun clearTable() = cartDao.clearTable()
 }

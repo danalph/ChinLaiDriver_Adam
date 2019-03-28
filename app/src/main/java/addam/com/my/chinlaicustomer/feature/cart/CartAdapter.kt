@@ -2,6 +2,7 @@ package addam.com.my.chinlaicustomer.feature.cart
 
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.database.Cart
+import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -13,9 +14,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.jakewharton.rxbinding2.widget.checkedChanges
 import com.squareup.picasso.Picasso
+import java.text.DecimalFormat
 
 
-class CartAdapter(var list: MutableList<Cart>,  var itemClickListener: CartAdapter.OnItemClickListener) : RecyclerView.Adapter<CartAdapter.CartViewHolder>(){
+class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter.OnItemClickListener) : RecyclerView.Adapter<CartAdapter.CartViewHolder>(){
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CartViewHolder {
         val inflater = LayoutInflater.from(p0.context)
@@ -28,31 +30,43 @@ class CartAdapter(var list: MutableList<Cart>,  var itemClickListener: CartAdapt
     @SuppressLint("CheckResult")
     override fun onBindViewHolder(p0: CartViewHolder, p1: Int){
         val item = list[p1]
-        Picasso.get()
-            .load(item.productImagePath)
-            .placeholder(R.drawable.progress_animation)
-            .fit()
-            .into(p0.ivProductImage)
+        var quantity = item.productQuantity
+        if (item.productImagePath.isNotEmpty()){
+            Picasso.get()
+                .load(item.productImagePath)
+                .placeholder(R.drawable.img_no_image)
+                .fit()
+                .into(p0.ivProductImage)
+        }
         p0.cbChoose.isChecked = item.isChecked
         p0.cbChoose.checkedChanges().subscribe {
             item.isChecked = it
+            itemClickListener.onItemClick()
         }
         p0.tvProductName.text = item.productName
-        p0.tvQuantity.text = item.productQuantity.toString()
-        p0.tvProductPrice.text = "${item.productQuantity * item.productPrice.toIntOrNull()!!}"
+        p0.tvQuantity.text = quantity.toString()
+        p0.tvProductPrice.text = setPrice(item.productPrice, quantity.toString())
         p0.btnPlus.setOnClickListener {
-            item.productQuantity++
-            p0.tvQuantity.text = item.productQuantity.toString()
+            if (quantity >= 1){
+                quantity += 1
+                p0.tvQuantity.text = quantity.toString()
+                p0.tvProductPrice.text = setPrice(item.productPrice, quantity.toString())
+                item.productQuantity = quantity
+                itemClickListener.onItemClick()
+            }
         }
         p0.btnMinus.setOnClickListener {
             if (item.productQuantity > 1){
-                item.productQuantity--
-                p0.tvQuantity.text = item.productQuantity.toString()
+                quantity -= 1
+                p0.tvQuantity.text = quantity.toString()
+                p0.tvProductPrice.text = setPrice(item.productPrice, quantity.toString())
+                item.productQuantity = quantity
+                itemClickListener.onItemClick()
             }
         }
 
         p0.btnCancel.setOnClickListener {
-            delete(p1)
+            delete(p1,item)
         }
     }
 
@@ -60,15 +74,11 @@ class CartAdapter(var list: MutableList<Cart>,  var itemClickListener: CartAdapt
         val cbChoose = view.findViewById<CheckBox>(R.id.cb_choose)!!
         val ivProductImage = view.findViewById<ImageView>(R.id.iv_product_img)!!
         val tvProductName = view.findViewById<TextView>(R.id.tv_product_name)!!
-        val btnMinus = view.findViewById<Button>(R.id.btn_minus)!!
-        val btnPlus = view.findViewById<Button>(R.id.btn_plus)!!
+        val btnMinus = view.findViewById<TextView>(R.id.btn_minus)!!
+        val btnPlus = view.findViewById<TextView>(R.id.btn_plus)!!
         val tvQuantity = view.findViewById<TextView>(R.id.tv_quantity)!!
         val btnCancel = view.findViewById<ImageView>(R.id.btn_product_cancel)!!
         val tvProductPrice = view.findViewById<TextView>(R.id.tv_product_price)!!
-    }
-
-    fun updateui(holder: CartViewHolder, item: Cart){
-
     }
 
     fun getSelectedItem() : ArrayList<Cart>{
@@ -80,13 +90,20 @@ class CartAdapter(var list: MutableList<Cart>,  var itemClickListener: CartAdapt
         return selectedList
     }
 
-    private fun delete(position: Int){
+    private fun delete(position: Int, item:Cart){
         list.removeAt(position)
         notifyDataSetChanged()
+        itemClickListener.onDeleteItem(item)
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: Cart)
+        fun onItemClick()
+        fun onDeleteItem(item:Cart)
+    }
+
+    private fun setPrice(price: String, quantity: String) : String{
+        val format = DecimalFormat("#,###,###,###.00")
+        return "RM ${format.format(quantity.toInt() * price.toDouble())}"
     }
 
 }

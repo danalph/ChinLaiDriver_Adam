@@ -49,4 +49,8 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
         startActivityEvent.value = StartActivityModel(Router.Destination.PRODUCT,
                 hashMapOf(Pair(Router.Parameter.CATEGORY_ID, categoryId)), hasResults = false, clearHistory = false)
     }
+
+    fun onOpenCart(){
+        startActivityEvent.value = StartActivityModel(Router.Destination.CART, hasResults = false, clearHistory = false)
+    }
 }

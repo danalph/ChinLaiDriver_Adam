@@ -2,26 +2,32 @@ package addam.com.my.chinlaicustomer.feature.cart
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
+import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.GenericSingleEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.database.Cart
 import addam.com.my.chinlaicustomer.databinding.ActivityCartBinding
 import addam.com.my.chinlaicustomer.rest.model.BranchesResponse
+import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.app.Dialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.*
 import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cart.*
+import kotlinx.android.synthetic.main.dialog_select_branch.view.*
 import javax.inject.Inject
 
-class CartActivity : AppCompatActivity(), CartAdapter.OnItemClickListener{
+class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
     @Inject
     lateinit var viewModel: CartViewModel
@@ -30,8 +36,7 @@ class CartActivity : AppCompatActivity(), CartAdapter.OnItemClickListener{
     lateinit var appPreference: AppPreference
 
     lateinit var adapter: CartAdapter
-
-    private var selectedList = arrayListOf<Cart>()
+    private var list = arrayListOf<Cart>()
     private lateinit var branchesResponse: BranchesResponse
     private lateinit var dialog: Dialog
 
@@ -40,8 +45,8 @@ class CartActivity : AppCompatActivity(), CartAdapter.OnItemClickListener{
         AndroidInjection.inject(this)
         val binding: ActivityCartBinding = DataBindingUtil.setContentView(this, R.layout.activity_cart)
         binding.viewModel = viewModel
-       /* binding.toolbarModel = ToolbarBackWithButtonModel("My Cart", true, true,
-            R.drawable.ic_shopping_cart, this::onCartPressed, this:: onBackPressed)*/
+        binding.toolbarModel = ToolbarWithBackButtonModel("My Cart", true, true,
+            R.drawable.ic_shopping_cart, this::onCartPressed, this:: onBackPressed)
 
         setupView()
         setupObserver()
@@ -49,71 +54,101 @@ class CartActivity : AppCompatActivity(), CartAdapter.OnItemClickListener{
 
     private fun setupObserver() {
 
-        viewModel.cartTtems.observe(this){
+        viewModel.cartItems.observe(this){
             it?:return@observe
             adapter.run {
                 list.clear()
                 list.addAll(it)
                 notifyDataSetChanged()
+                viewModel.setPrice(adapter.getSelectedItem())
             }
         }
 
         viewModel.event.observe(this@CartActivity , object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-                selectedList = adapter.getSelectedItem()
-                selectBranchDialog(selectedList, "", "")
+                selectBranchDialog(adapter.getSelectedItem(), viewModel.totalPrice.get()!!, "")
             }
+        })
+
+        viewModel.eventDelete.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
         })
 
         viewModel.branches.observe(this@CartActivity){
             it?:return@observe
             branchesResponse = it
         }
+
+        viewModel.startActivityEvent.observe(this@CartActivity, object : StartActivityEvent.StartActivityObserver{
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@CartActivity, Router.getClass(data.to), data.parameters, data.hasResults)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+
+            }
+        })
     }
 
     private fun setupView() {
-        adapter = CartAdapter(selectedList, this)
+        adapter = CartAdapter(list, this)
         rv_cart.layoutManager = LinearLayoutManager(this@CartActivity)
         rv_cart.adapter = adapter
     }
 
 
     private fun selectBranchDialog(list: ArrayList<Cart>, totalPrice: String, salesPersonId: String) {
-        dialog = Dialog(this@CartActivity)
-        dialog.setContentView(R.layout.dialog_select_branch)
-        dialog.setCancelable(false)
-        val spinner = dialog.findViewById<Spinner>(R.id.sp_select_branch)
-        val address = dialog.findViewById<TextView>(R.id.tv_address)
-        val confirmBtn = dialog.findViewById<Button>(R.id.btn_confirm)
-        val cancelBtn = dialog.findViewById<Button>(R.id.btn_cancel)
+        val view = LayoutInflater.from(this@CartActivity).inflate(R.layout.dialog_select_branch,null)
+        val builder = AlertDialog.Builder(this@CartActivity)
+            .setView(view)
+            .setCancelable(false)
+        dialog = builder.show()
+        val spinner = view.sp_select_branch
+        val address = view.tv_address
+        val confirmBtn = view.btn_confirm
+        val cancelBtn = view.btn_cancel
         var branchId = ""
-        val adapter = ArrayAdapter(this@CartActivity, R.layout.spinner_item, branchesResponse.data.customerBranches)
+
+        val spinnerList: ArrayList<String> = ArrayList()
+        for (branches in branchesResponse.data.customerBranches){
+            spinnerList.add(branches.name)
+        }
+        val adapter = ArrayAdapter(this@CartActivity, R.layout.spinner_item, spinnerList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.setOnItemClickListener { _, _, position, _ ->
-            run {
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 address.text = getAddress(position)
                 branchId = branchesResponse.data.customerBranches[position].id
             }
+
         }
         spinner.adapter = adapter
         confirmBtn.setOnClickListener { viewModel.onConfirmOrder(list, branchId, totalPrice, salesPersonId) }
         cancelBtn.setOnClickListener { dialog.cancel() }
-        dialog.show()
     }
 
     private fun getAddress(position: Int) : String{
         val address = StringBuilder()
         address.append(branchesResponse.data.customerBranches[position].address1 + " ")
         address.append(branchesResponse.data.customerBranches[position].address2 + " ")
-        address.append(branchesResponse.data.customerBranches[position].address3 + " ")
-        address.append(branchesResponse.data.customerBranches[position].areaName + " ")
-        address.append(branchesResponse.data.customerBranches[position].postcode + " ")
-        address.append(branchesResponse.data.customerBranches[position].stateName)
+        address.append(branchesResponse.data.customerBranches[position].address3)
         return address.toString()
     }
 
-    override fun onItemClick(item: Cart) {
-        viewModel.getData(adapter.getSelectedItem())
+    override fun onItemClick() {
+        viewModel.setPrice(adapter.getSelectedItem())
+    }
+
+    override fun onDeleteItem(item: Cart) {
+        viewModel.onDeleteItem(item)
+        viewModel.setPrice(adapter.getSelectedItem())
     }
 
     private fun onCartPressed(){
