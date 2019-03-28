@@ -79,6 +79,10 @@ class AppModule {
     @Singleton
     fun provideUserDao(db: AppDatabase) = db.userDao()
 
+    @Provides
+    @Singleton
+    fun provideCartDao(db: AppDatabase) = db.cartDao()
+
     /**
      * If your API has token and you need to refresh it with interceptor, use this
      */

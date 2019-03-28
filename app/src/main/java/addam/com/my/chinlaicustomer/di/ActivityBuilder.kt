@@ -1,9 +1,9 @@
 package addam.com.my.chinlaicustomer.di
 
-import addam.com.my.chinlaicustomer.feature.delivery.DashboardActivity
-import addam.com.my.chinlaicustomer.feature.delivery.DashboardActivityModule
-import addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivity
-import addam.com.my.chinlaicustomer.feature.delivery.DeliveryDetailsActivityModule
+import addam.com.my.chinlaicustomer.feature.cart.CartActivity
+import addam.com.my.chinlaicustomer.feature.cart.CartActivityModule
+import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
+import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivityModule
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivityModule
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
@@ -14,8 +14,8 @@ import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordModule
-import addam.com.my.chinlaicustomer.feature.product.ProductListActivity
-import addam.com.my.chinlaicustomer.feature.product.ProductListActivityModule
+import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
+import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivityModule
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivityModule
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
@@ -53,9 +53,6 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [(MapActivityModule::class)])
     abstract fun bindMapActivity() : MapActivity
 
-    @ContributesAndroidInjector(modules = [(DeliveryDetailsActivityModule::class)])
-    abstract fun bindDeliveryDetailsActivity() : DeliveryDetailsActivity
-
     @ContributesAndroidInjector(modules = [(DestinationActivityModule::class)])
     abstract fun bindDestinationActivity(): DestinationActivity
 
@@ -64,6 +61,9 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ProductDetailActivityModule::class)])
     abstract fun bindProductDetailActivity(): ProductDetailActivity
+
+    @ContributesAndroidInjector(modules = [(CartActivityModule::class)])
+    abstract fun bindCartActivity(): CartActivity
 
     @ContributesAndroidInjector(modules = [(StatementActivityModule::class)])
     abstract fun bindStatementActivity(): StatementActivity

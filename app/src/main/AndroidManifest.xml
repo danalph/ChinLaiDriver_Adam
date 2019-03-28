@@ -45,6 +45,11 @@
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar"/>
 		
+		<activity android:name=".feature.cart.CartActivity"
+		          android:screenOrientation="portrait"
+		          android:theme="@style/AppTheme.NoActionBar">
+		</activity>
+		
 		<uses-library
 				android:name="org.apache.http.legacy"
 				android:required="false"/>
@@ -80,7 +85,7 @@
 				android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		<activity
-				android:name=".feature.delivery.DashboardActivity"
+				android:name=".feature.dashboard.DashboardActivity"
 				android:exported="true"
 				android:label="@string/title_activity_dashboard"
 				android:theme="@style/AppTheme.NoActionBar">
@@ -91,12 +96,7 @@
 				android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		<activity
-				android:name=".feature.delivery.DeliveryDetailsActivity"
-				android:screenOrientation="portrait"
-				android:theme="@style/AppTheme.NoActionBar">
-		</activity>
-		<activity
-				android:name=".feature.product.ProductListActivity"
+				android:name=".feature.productlist.ProductListActivity"
 				android:exported="true"
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar">

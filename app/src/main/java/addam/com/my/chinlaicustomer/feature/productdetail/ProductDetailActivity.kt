@@ -3,9 +3,10 @@ package addam.com.my.chinlaicustomer.feature.productdetail
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProductDetailBinding
-import addam.com.my.chinlaicustomer.utilities.model.ToolbarBackWithButtonModel
-import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -22,7 +23,7 @@ class ProductDetailActivity : BaseActivity() {
     @Inject
     lateinit var appPreference: AppPreference
 
-    lateinit var imageSliderAdapter: ImageSliderAdapter
+    private lateinit var imageSliderAdapter: ImageSliderAdapter
 
     private val imageList = arrayListOf<String>()
 
@@ -33,8 +34,10 @@ class ProductDetailActivity : BaseActivity() {
         AndroidInjection.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
         binding.viewModel = viewModel
-        binding.toolbarModel = ToolbarBackWithButtonModel("Professional Electric Cordless Drill", true,true, this::onCartPressed, this::onBackPressed)
-        binding.model = viewModel.detailResponse.value
+        /*binding.toolbarModel = ToolbarBackWithButtonModel("Professional Electric Cordless Drill", true,true,
+            R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)*/
+        val itemId = intent.getStringExtra(Router.Parameter.ITEM_ID.name)
+        viewModel.getDetail(itemId)
         setupView()
         setupObserver()
     }
@@ -47,10 +50,19 @@ class ProductDetailActivity : BaseActivity() {
                 imageList.addAll(it)
                 imageSliderAdapter
             }*/
-            binding.model = it
-            imageSliderAdapter = ImageSliderAdapter(it.images!!)
+            binding.model = it.data.product
+            imageSliderAdapter = ImageSliderAdapter(it.data.productImages!! as ArrayList<String>)
             banner_slider.setAdapter(imageSliderAdapter)
         }
+
+        viewModel.startActivityEvent.observe(this, object : StartActivityEvent.StartActivityObserver{
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@ProductDetailActivity, Router.getClass(data.to), data.parameters, data.hasResults)
+            }
+            override fun onStartActivityForResult(data: StartActivityModel) {
+
+            }
+        })
     }
 
     private fun setupView() {

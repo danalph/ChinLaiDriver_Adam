@@ -62,7 +62,7 @@ class DestinationActivity : BaseActivity(), DestinationItemModel.DestinationItem
         binding.toolbarModel = ToolbarWithBackModel(getString(R.string.title_activity_destination),true, this::onBackPressed)
         setupEvents()
         binding.viewModel = viewModel
-        viewModel.tripId = intent.getStringExtra(Router.Parameter.TRIP_ID.name)
+        viewModel.tripId = intent.getStringExtra(Router.Parameter.CATEGORY_ID.name)
         viewModel.type = intent.getStringExtra(Router.Parameter.TYPE.name)
         viewModel.docId = intent.getStringExtra(Router.Parameter.DOC_ID.name)
         viewModel.getDestination()

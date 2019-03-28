@@ -1,4 +1,4 @@
-package addam.com.my.chinlaicustomer.feature.delivery
+package addam.com.my.chinlaicustomer.feature.dashboard
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
@@ -9,6 +9,7 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityDashboardBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
+import addam.com.my.chinlaicustomer.rest.model.CategoryListResponse
 import addam.com.my.chinlaicustomer.rest.model.TripsResponse
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
 import addam.com.my.chinlaicustomer.utilities.observe
@@ -43,7 +44,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var adapter: DashboardAdapter
 
-    private val trips =  arrayListOf<TripsResponse.Data.Trip>()
+    private val categories =  arrayListOf<CategoryListResponse.Data.Category>()
     private val disposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,10 +66,9 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         viewModel.tripResponse.observe(this){
             it?: return@observe
             adapter.run {
-                trips.clear()
-                trips.addAll(it.data.trips)
+                categories.clear()
+                categories.addAll(it.data.categories)
                 notifyDataSetChanged()
-                viewModel.tripCount.set(adapter.itemCount)
                 swipe_refresh_layout.isRefreshing = false
             }
         }
@@ -109,7 +109,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         setupRecyclerView()
 
         swipe_refresh_layout.setOnRefreshListener {
-            viewModel.getTrips()
+            viewModel.getCategoryList()
         }
     }
 
@@ -117,8 +117,8 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     private fun setupRecyclerView() {
         rv_categories.layoutManager = GridLayoutManager(this,2)
         //rv_trips.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        adapter = DashboardAdapter(trips, R.layout.dashboard_adapter_layout,object: BaseRecyclerViewAdapter.OnItemClickListener<TripsResponse.Data.Trip>{
-            override fun onItemClick(item: TripsResponse.Data.Trip, view: View) {
+        adapter = DashboardAdapter(categories, R.layout.dashboard_adapter_layout,object: BaseRecyclerViewAdapter.OnItemClickListener<CategoryListResponse.Data.Category>{
+            override fun onItemClick(item: CategoryListResponse.Data.Category, view: View) {
                 viewModel.startProductListActivity(item.id)
             }
         })

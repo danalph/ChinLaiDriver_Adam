@@ -3,7 +3,7 @@ package addam.com.my.chinlaicustomer.core
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.util.PermissionHelper
-import addam.com.my.chinlaicustomer.feature.delivery.DashboardActivity
+import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
