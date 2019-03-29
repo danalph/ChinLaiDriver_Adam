@@ -25,9 +25,12 @@
 			android:theme="@style/AppTheme"
 			android:usesCleartextTraffic="true"
 			tools:ignore="GoogleAppIndexingWarning">
-		<activity android:name=".feature.salescustomer.CustomerListActivity"
-		          android:screenOrientation="portrait"
-		          android:theme="@style/AppTheme.NoActionBar"/>
+		<activity android:name=".feature.myorder.MyOrderActivity">
+		</activity>
+		<activity
+				android:name=".feature.salescustomer.CustomerListActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 				android:name=".feature.salesperson.SalesLoginActivity"
 				android:screenOrientation="portrait"
@@ -40,10 +43,10 @@
 				android:name=".feature.password.ResetPasswordActivity"
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar"/>
-		
-		<activity android:name=".feature.cart.CartActivity"
-		          android:screenOrientation="portrait"
-		          android:theme="@style/AppTheme.NoActionBar">
+		<activity
+				android:name=".feature.cart.CartActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		
 		<uses-library
