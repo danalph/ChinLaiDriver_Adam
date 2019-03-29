@@ -9,6 +9,7 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProductListBinding
 import addam.com.my.chinlaicustomer.rest.model.ProductListResponse
+import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -44,8 +45,8 @@ class ProductListActivity : BaseActivity() {
         AndroidInjection.inject(this)
         val binding: ActivityProductListBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
         binding.viewModel = viewModel
-        /*binding.toolbarModel = ToolbarBackWithButtonModel(getString(R.string.product_list), true,true,
-            R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)*/
+        binding.toolbarModel = ToolbarWithBackButtonModel(getString(R.string.product_list), true,true,
+            R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)
         val productId = intent.getStringExtra(Router.Parameter.CATEGORY_ID.name)
         viewModel.getItem(productId)
         setupView()
@@ -99,6 +100,7 @@ class ProductListActivity : BaseActivity() {
 
     private fun onCartPressed(){
         Timber.d { "Cart open" }
+        viewModel.onOpenCart()
     }
 
     override fun onDestroy() {
