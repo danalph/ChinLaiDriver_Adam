@@ -12,6 +12,7 @@ import addam.com.my.chinlaicustomer.rest.model.CategoryListResponse
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
 import android.databinding.ObservableInt
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -26,12 +27,15 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
     val tripResponse: MutableLiveData<CategoryListResponse> = MutableLiveData()
     val errorResponse: MutableLiveData<Int>  = MutableLiveData()
     var name = ObservableString("")
+    var isLoading = ObservableBoolean(false)
+
     init {
         name.set(appPreference.getUser().name)
         getCategoryList()
     }
 
     fun getCategoryList(){
+        isLoading.set(true)
         generalRepository.getCategoryList("0", "5", "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}] ")
             .compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
                 onSuccess = {
@@ -40,8 +44,10 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
                     }else{
                         errorResponse.postValue(R.string.error_getting_response)
                     }
+                    isLoading.set(false)
                 }, onError = {
                     errorResponse.postValue(R.string.error_getting_response)
+                    isLoading.set(false)
                 })
     }
 

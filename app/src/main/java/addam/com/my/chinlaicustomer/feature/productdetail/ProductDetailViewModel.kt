@@ -12,6 +12,7 @@ import addam.com.my.chinlaicustomer.rest.model.ProductDetailResponse
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
 import android.databinding.ObservableInt
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
@@ -33,17 +34,21 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
 
     val startActivityEvent: StartActivityEvent = StartActivityEvent()
 
+    val isLoading = ObservableBoolean()
+
     private var originalPrice = ""
 
     fun getDetail(id: String){
+        isLoading.set(true)
         generalRepository.getProductDetail(id).compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
             onSuccess = {
                 detailResponse.postValue(it)
                 originalPrice = it.data.product.refPrice
                 setPrice()
+                isLoading.set(false)
             },
             onError = {
-
+                isLoading.set(false)
             }
         )
     }
@@ -69,6 +74,7 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
     }
 
     fun onAddToCart(){
+        isLoading.set(true)
         Completable.fromAction {
             val product = detailResponse.value?.data?.product
             val cart = Cart(id = 0, productId = product?.id?.toLong()!!,
@@ -81,6 +87,7 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : CompletableObserver{
                 override fun onComplete() {
+                    isLoading.set(false)
                     startActivityEvent.value = StartActivityModel(
                         Router.Destination.CART , hasResults = false, clearHistory = false)
                 }
@@ -91,6 +98,7 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
 
                 override fun onError(e: Throwable) {
                     Timber.e(e)
+                    isLoading.set(false)
                 }
             })
 
