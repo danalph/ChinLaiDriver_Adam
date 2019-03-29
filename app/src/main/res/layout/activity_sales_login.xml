@@ -137,7 +137,7 @@
 				android:textColor="@color/white"
 				android:textAlignment="center"
 				android:onClick="@{() -> viewmodel.onForgotClicked()}"
-				/>
+				android:visibility="gone"/>
 		<ProgressBar
 				android:layout_width="@dimen/default_icon_size"
 				android:layout_height="@dimen/default_icon_size"

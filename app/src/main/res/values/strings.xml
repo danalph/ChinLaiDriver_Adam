@@ -141,6 +141,10 @@
 	<string name="my_customer_list">My Customer List</string>
 	<string name="confirm_select_customer">Confirm Select Customer?</string>
 	<string name="reset_password">Reset Password</string>
+	<string name="paid">PAID</string>
+	<string name="unpaid">UNPAID</string>
+	<string name="search_invoice">Search Invoice No.</string>
+	<string name="all">ALL</string>
 	<string name="subtotal">SubTotal</string>
 	<string name="taxes_not_included">(Taxes not included)</string>
 	<string name="place_order">Place Order</string>
@@ -152,5 +156,4 @@
 	<string name="please_select_branch">Please Select Branch</string>
 	<string name="cancel">Cancel</string>
 	<string name="confirm">Confirm</string>
-
 </resources>
