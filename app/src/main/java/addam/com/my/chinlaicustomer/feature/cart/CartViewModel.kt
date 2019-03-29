@@ -14,6 +14,7 @@ import addam.com.my.chinlaicustomer.rest.model.CreateOrderRequest
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
 import com.github.ajalt.timberkt.Timber
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
@@ -31,6 +32,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     val branches = MutableLiveData<BranchesResponse>()
     val event = GenericSingleEvent()
     val eventDelete = GenericSingleEvent()
+    val isLoading = ObservableBoolean()
 
     init {
         getBranches()
@@ -38,12 +40,14 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     }
 
     private fun getCartList() {
+        isLoading.set(true)
         databaseRepository.getCart().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { items ->
                 run {
                     Timber.d { "item size is $items" }
                     cartItems.postValue(items)
+                    isLoading.set(false)
                 }
             }
     }
@@ -76,6 +80,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     }
 
     fun onConfirmOrder(list: ArrayList<Cart>, branchId: String, totalPrice: String, salesPersonId: String){
+        isLoading.set(true)
         val listOfGoods = arrayListOf<CreateOrderRequest.Good>()
         for (item in list){
             val goods = CreateOrderRequest.Good(item.id.toString(),item.productQuantity.toString())
@@ -92,6 +97,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
                             .subscribeOn(Schedulers.io())
                             .subscribe(object: CompletableObserver{
                                 override fun onComplete() {
+
                                     startActivityEvent.value = StartActivityModel(
                                         Router.Destination.DASHBOARD , hasResults = false, clearHistory = false)
                                 }
@@ -105,15 +111,16 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
                                 }
                             })
                     }
-
+                    isLoading.set(false)
                 },
                 onError = {
-
+                    isLoading.set(false)
                 }
             )
     }
 
     fun onDeleteItem(item: Cart){
+        isLoading.set(true)
         Completable.fromAction{
             databaseRepository.deleteCart(item)
         }.observeOn(AndroidSchedulers.mainThread())
@@ -121,6 +128,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
             .subscribe(object: CompletableObserver{
                 override fun onComplete() {
                     eventDelete.value = true
+                    isLoading.set(false)
                 }
 
                 override fun onSubscribe(d: Disposable) {
@@ -128,7 +136,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
                 }
 
                 override fun onError(e: Throwable) {
-
+                    isLoading.set(false)
                 }
             })
     }

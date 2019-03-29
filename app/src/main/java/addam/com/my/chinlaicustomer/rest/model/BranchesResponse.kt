@@ -32,7 +32,9 @@ data class BranchesResponse(
             @SerializedName("postcode")
             val postcode: String,
             @SerializedName("stateName")
-            val stateName: String
+            val stateName: String,
+            @SerializedName("contact")
+            val contact: String
         )
     }
 }
