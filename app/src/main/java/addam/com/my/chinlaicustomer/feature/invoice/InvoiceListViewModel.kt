@@ -28,10 +28,10 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
 
     fun dummyData(): MutableList<InvoiceMonthModel>{
         val models = mutableListOf<Invoices>()
-        val marchItem = Invoices("INV 2001", "2018-03-11", "2000", "1")
-        val marchItemUnpaid = Invoices("INV 1001", "2018-03-12", "9000", "2")
-        val aprilItem = Invoices("INV 2002", "2018-04-11", "13000", "1")
-        val aprilItemUnpaid = Invoices("INV 1002", "2018-04-12", "9000", "2")
+        val marchItem = Invoices("INV 1000", "2018-03-11", "2000", "1")
+        val marchItemUnpaid = Invoices("INV 567", "2018-03-12", "9000", "2")
+        val aprilItem = Invoices("INV 2345", "2018-04-11", "13000", "1")
+        val aprilItemUnpaid = Invoices("INV 789", "2018-04-12", "9000", "2")
 
         models.add(marchItem)
         models.add(aprilItem)
@@ -46,10 +46,10 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
 
     fun dummySearchData(): MutableList<Invoices>{
         val models = mutableListOf<Invoices>()
-        val marchItem = Invoices("INV 2001", "2018-03-11", "2000", "1")
-        val marchItemUnpaid = Invoices("INV 1001", "2018-03-12", "9000", "2")
-        val aprilItem = Invoices("INV 2002", "2018-04-11", "13000", "1")
-        val aprilItemUnpaid = Invoices("INV 1002", "2018-04-12", "9000", "2")
+        val marchItem = Invoices("INV 1000", "2018-03-11", "2000", "1")
+        val marchItemUnpaid = Invoices("INV 567", "2018-03-12", "9000", "2")
+        val aprilItem = Invoices("INV 2345", "2018-04-11", "13000", "1")
+        val aprilItemUnpaid = Invoices("INV 789", "2018-04-12", "9000", "2")
 
         models.add(marchItem)
         models.add(aprilItem)
