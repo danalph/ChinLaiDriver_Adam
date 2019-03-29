@@ -81,7 +81,8 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
                 productName = product.description1,
                 productPrice = product.refPrice,
                 productQuantity = counter.get(),
-                productImagePath = if (detailResponse.value?.data?.productImages.isNullOrEmpty()) "" else detailResponse.value?.data?.productImages!![0])
+                productImagePath = if (detailResponse.value?.data?.productImages.isNullOrEmpty()) "" else detailResponse.value?.data?.productImages!![0],
+                customerId = appPreference.getUser().id)
             databaseRepository.addToCart(cart)
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

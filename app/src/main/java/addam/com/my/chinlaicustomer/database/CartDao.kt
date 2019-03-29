@@ -8,8 +8,8 @@ interface CartDao{
     @Query("SELECT * FROM cart")
     fun getAll(): Single<List<Cart>>
 
-    /*@Query("SELECT * FROM cart WHERE product_id IN (:productId)")
-    fun loadAllById(productId: Long): List<Cart>*/
+    @Query("SELECT * FROM cart WHERE customer_id IN (:customerId)")
+    fun getCartById(customerId: String): Single<List<Cart>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addToCart(vararg cart: Cart)
@@ -19,4 +19,7 @@ interface CartDao{
 
     @Query("DELETE FROM cart")
     fun clearTable()
+
+    @Query("DELETE FROM cart WHERE customer_id = (:customerId)")
+    fun deleteCartById(customerId: String)
 }

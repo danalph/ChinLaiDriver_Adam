@@ -20,4 +20,8 @@ class DatabaseRepository @Inject constructor(private val userDao: UserDao, priva
     fun deleteCart(cart: Cart) = cartDao.delete(cart)
 
     fun clearTable() = cartDao.clearTable()
+
+    fun deleteCartById(customerId: String) = cartDao.deleteCartById(customerId)
+
+    fun getCartById(customerId: String):Single<List<Cart>> = cartDao.getCartById(customerId)
 }
