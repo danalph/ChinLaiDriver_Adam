@@ -158,4 +158,5 @@
 	<string name="confirm">Confirm</string>
 	<string name="email">Email</string>
 	<string name="title_activity_customer_detail">View Customer Detail</string>
+	<string name="customer">Customer:</string>
 </resources>

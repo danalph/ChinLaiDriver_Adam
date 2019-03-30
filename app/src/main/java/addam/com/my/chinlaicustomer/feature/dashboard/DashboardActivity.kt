@@ -10,7 +10,6 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityDashboardBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.CategoryListResponse
-import addam.com.my.chinlaicustomer.rest.model.TripsResponse
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
@@ -110,6 +109,11 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
         swipe_refresh_layout.setOnRefreshListener {
             viewModel.getCategoryList()
+        }
+
+        if(appPreference.getUser().id.isNotEmpty()){
+            current_customer.text = appPreference.getCustomerName()
+            layout_nav_customer.visibility = View.VISIBLE
         }
     }
 

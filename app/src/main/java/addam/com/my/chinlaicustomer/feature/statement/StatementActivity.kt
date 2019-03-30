@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_statement.*
@@ -75,6 +76,11 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         if(appPreference.getSalesId() != "0"){
             nav_view.menu.findItem(R.id.customers).isVisible = true
             nav_view.menu.findItem(R.id.profile).isVisible = false
+        }
+
+        if(appPreference.getUser().id.isNotEmpty()){
+            current_customer.text = appPreference.getCustomerName()
+            layout_nav_customer.visibility = View.VISIBLE
         }
 
         snackbar = Snackbar.make(layout_statement, getString(R.string.download_multiple), Snackbar.LENGTH_INDEFINITE)

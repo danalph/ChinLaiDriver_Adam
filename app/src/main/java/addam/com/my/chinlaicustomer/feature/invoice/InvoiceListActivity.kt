@@ -110,6 +110,13 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             nav_view.menu.findItem(R.id.customers).isVisible = true
             nav_view.menu.findItem(R.id.profile).isVisible = false
         }
+
+        if(appPreference.getUser().id.isNotEmpty()){
+            current_customer.text = appPreference.getCustomerName()
+            layout_nav_customer.visibility = View.VISIBLE
+        }
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

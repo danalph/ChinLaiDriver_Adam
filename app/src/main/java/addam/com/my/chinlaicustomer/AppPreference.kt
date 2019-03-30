@@ -28,6 +28,7 @@ class AppPreference() {
         const val password = "password"
         const val salesId = "sales"
         const val address = "address"
+        const val custName = "custName"
     }
 
     private lateinit var prefs: SharedPreferences
@@ -94,7 +95,12 @@ class AppPreference() {
     fun setCustomerId(customers: Customers){
         val edit = prefs.edit()
         edit.putString(id, customers.id)
+        edit.putString(custName, customers.companyName)
         edit.apply()
+    }
+
+    fun getCustomerName(): String{
+        return prefs.getString(custName, "")!!
     }
 
     fun getUser(): UserData{
