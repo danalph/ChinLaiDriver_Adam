@@ -20,6 +20,9 @@ interface GeneralService {
     @GET("mobile/supplier/{id}/customers")
     fun getSalesCustomerList(@Path("id") id: String): Single<CustomerListResponse>
 
+    @GET("mobile/customer/{id}")
+    fun getCustomerDetails(@Path("id") id: String): Single<CustomerDetailResponse>
+
     @PUT("mobile/customer/{id}/password")
     fun getChangePassword(@Path("id") id: String, @Body changePasswordRequest: ChangePasswordRequest): Single<ChangePasswordResponse>
 

@@ -26,6 +26,9 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
     fun getCustomerList(id: String): Single<CustomerListResponse> =
             api.getSalesCustomerList(id)
 
+    fun getCustomerDetails(id: String): Single<CustomerDetailResponse> =
+            api.getCustomerDetails(id)
+
     fun getCategoryList(offset: String, limit: String, field: String, sortBy: String, filter: String): Single<CategoryListResponse> =
             api.getCategoryList(offset, limit, field, sortBy, filter)
 
