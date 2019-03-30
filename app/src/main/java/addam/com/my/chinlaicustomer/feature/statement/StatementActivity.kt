@@ -78,7 +78,7 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
             nav_view.menu.findItem(R.id.profile).isVisible = false
         }
 
-        if(appPreference.getUser().id.isNotEmpty()){
+        if(appPreference.getCustomerName().isNotEmpty()){
             current_customer.text = appPreference.getCustomerName()
             layout_nav_customer.visibility = View.VISIBLE
         }

@@ -111,7 +111,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
             viewModel.getCategoryList()
         }
 
-        if(appPreference.getUser().id.isNotEmpty()){
+        if(appPreference.getCustomerName().isNotEmpty()){
             current_customer.text = appPreference.getCustomerName()
             layout_nav_customer.visibility = View.VISIBLE
         }

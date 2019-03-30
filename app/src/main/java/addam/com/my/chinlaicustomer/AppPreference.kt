@@ -89,6 +89,7 @@ class AppPreference() {
         edit.putString(stateName, "")
         edit.putString(postcode, "")
         edit.putString(password, "")
+        edit.putString(custName, "")
         edit.apply()
     }
 
@@ -104,7 +105,7 @@ class AppPreference() {
     }
 
     fun getUser(): UserData{
-        val user = UserData(
+        return UserData(
         prefs.getString(id, "")!!,
             prefs.getString(name, "")!!,
             prefs.getString(personName, "")!!,
@@ -117,7 +118,6 @@ class AppPreference() {
             prefs.getString(postcode, "")!!,
             prefs.getString(password, "")!!
         )
-        return user
     }
 
     fun getSalesId(): String{
