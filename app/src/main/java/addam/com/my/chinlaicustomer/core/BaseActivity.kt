@@ -4,6 +4,7 @@ import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.util.PermissionHelper
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
+import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
@@ -173,7 +174,9 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
 
             }
             R.id.btn_my_invoice -> {
-
+                if(className != InvoiceListActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.INVOICE), clearHistory = true)
+                }
             }
             R.id.btn_my_statement -> {
                 if(className != StatementActivity::class.java.simpleName){

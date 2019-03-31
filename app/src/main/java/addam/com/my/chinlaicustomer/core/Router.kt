@@ -3,6 +3,7 @@ package addam.com.my.chinlaicustomer.core
 import addam.com.my.chinlaicustomer.feature.cart.CartActivity
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
+import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
@@ -28,6 +29,8 @@ class Router {
         PRODUCT_DETAIL,
         CART,
         STATEMENT,
+        INVOICE,
+
         SALES_LOGIN,
         CUSTOMER_LIST
     }
@@ -60,6 +63,7 @@ class Router {
                 Destination.PRODUCT_DETAIL -> ProductDetailActivity::class.java
                 Destination.CART -> CartActivity::class.java
                 Destination.STATEMENT -> StatementActivity::class.java
+                Destination.INVOICE -> InvoiceListActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
                 else -> {

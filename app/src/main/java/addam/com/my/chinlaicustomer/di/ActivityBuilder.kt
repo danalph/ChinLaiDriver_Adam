@@ -6,12 +6,12 @@ import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivityModule
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivityModule
+import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
+import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListModule
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivityModule
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
-import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
-import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivityModule
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordModule
 import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
@@ -71,7 +71,7 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [(CustomerListModule::class)])
     abstract fun bindCustomerListActivity(): CustomerListActivity
 
-    @ContributesAndroidInjector(modules = [(MyOrderActivityModule::class)])
-    abstract fun bindMyOrderActivity(): MyOrderActivity
+    @ContributesAndroidInjector(modules = [(InvoiceListModule::class)])
+    abstract fun bindInvoiceListActivity(): InvoiceListActivity
 
 }

@@ -87,8 +87,7 @@ class SalesLoginViewModel(
             if(it.status){
                 appPreference.setLoggedIn(true)
                 saveUserPreference(it.data)
-                startPinActivityEvent.value = StartActivityModel(Router.Destination.DASHBOARD,
-                    hashMapOf(Pair(Router.Parameter.USERNAME, it.data.firstName)),
+                startPinActivityEvent.value = StartActivityModel(Router.Destination.CUSTOMER_LIST,
                     hasResults = false, clearHistory = true)
             }else loginCallback.loginError()
         }, onError = {
