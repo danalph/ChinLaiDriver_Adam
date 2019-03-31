@@ -3,6 +3,9 @@ package addam.com.my.chinlaicustomer.feature.invoice
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityInvoiceListBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.Invoices
@@ -18,7 +21,6 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -59,6 +61,20 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         setSupportActionBar(toolbar)
         setupView()
         setupRecyclerView()
+        setupEvents()
+    }
+
+    private fun setupEvents() {
+        viewModel.startActivityEvent.observe(this@InvoiceListActivity, object : StartActivityEvent.StartActivityObserver {
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@InvoiceListActivity, Router.getClass(data.to), data.parameters, data.clearHistory)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+                startActivity(this@InvoiceListActivity, Router.getClass(data.to), data.parameters, data.clearHistory)
+            }
+
+        })
     }
 
     @SuppressLint("CheckResult")
@@ -128,11 +144,11 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     }
 
     override fun onItemMonthClicked(position: Int, item: Invoices) {
-        Toast.makeText(this@InvoiceListActivity, item.id, Toast.LENGTH_SHORT).show()
+        viewModel.startActivity(item)
     }
 
     override fun onItemClicked(p1: Int, item: Invoices) {
-        Toast.makeText(this@InvoiceListActivity, item.id, Toast.LENGTH_SHORT).show()
+        viewModel.startActivity(item)
     }
 
     override fun onDestroy() {

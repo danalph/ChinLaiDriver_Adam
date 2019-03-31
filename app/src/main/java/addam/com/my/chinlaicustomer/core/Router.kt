@@ -5,6 +5,7 @@ import addam.com.my.chinlaicustomer.feature.customerdetail.CustomerDetailActivit
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
+import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
@@ -31,10 +32,9 @@ class Router {
         CART,
         STATEMENT,
         INVOICE,
-
+        INVOICE_DETAIL,
         SALES_LOGIN,
         CUSTOMER_LIST,
-
         CUSTOMER_DETAIL
     }
 
@@ -52,7 +52,10 @@ class Router {
         DOC_ID,
         ITEM_ID,
         CUST_ROC,
-        CUST_ID
+        CUST_ID,
+        ITEM_DATE,
+        ITEM_AMOUNT,
+        ITEM_STATUS
     }
 
     companion object {
@@ -69,6 +72,7 @@ class Router {
                 Destination.CART -> CartActivity::class.java
                 Destination.STATEMENT -> StatementActivity::class.java
                 Destination.INVOICE -> InvoiceListActivity::class.java
+                Destination.INVOICE_DETAIL -> InvoiceDetailActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
                 Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java

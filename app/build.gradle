@@ -30,11 +30,11 @@ android {
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
                     def appName = "ChinLaiCustomer"
-                    outputFileName = appName+"-${variant.versionName}.apk"
+                    outputFileName = appName + "-${variant.versionName}.apk"
                 }
             }
         }
-        debug{
+        debug {
             applicationIdSuffix '.DEBUG'
             versionNameSuffix '.DEBUG'
         }

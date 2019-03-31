@@ -1,6 +1,9 @@
 package addam.com.my.chinlaicustomer.feature.invoice
 
 import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.Invoices
@@ -19,6 +22,7 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
     val filteredList: MutableList<Invoices> = mutableListOf()
     val oldFilteredList: MutableList<Invoices> = mutableListOf()
 
+    var startActivityEvent = StartActivityEvent()
     init {
         name.set(appPreference.getUser().name)
 
@@ -68,4 +72,12 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
         it.onComplete()
     }
 
+    fun startActivity(item: Invoices){
+        startActivityEvent.value = StartActivityModel(Router.Destination.INVOICE_DETAIL, hashMapOf(
+            Pair(Router.Parameter.ITEM_ID, item.id),
+            Pair(Router.Parameter.ITEM_DATE, item.date),
+            Pair(Router.Parameter.ITEM_AMOUNT, item.amount),
+            Pair(Router.Parameter.ITEM_STATUS, item.status)
+        ), hasResults = false, clearHistory = false)
+    }
 }
