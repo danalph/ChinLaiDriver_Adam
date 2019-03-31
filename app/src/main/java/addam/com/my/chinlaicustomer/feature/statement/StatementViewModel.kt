@@ -15,6 +15,10 @@ class StatementViewModel(private val schedulerProvider: SchedulerProvider, priva
 
     var name = ObservableString("")
 
+    init{
+        name.set(appPreference.getUser().name)
+    }
+
     fun setDummyModels(): MutableList<StatementResponseModel> {
         val models = mutableListOf<StatementResponseModel>()
         models.add(StatementResponseModel(false, "March Invoice Statment", "http://www.google.com"))
