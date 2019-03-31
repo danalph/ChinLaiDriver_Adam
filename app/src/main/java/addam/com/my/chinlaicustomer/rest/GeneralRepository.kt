@@ -46,4 +46,7 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
     fun getBranches(customerId: String): Single<BranchesResponse> = api.getBranches(customerId)
 
     fun createOrder(createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse> = api.createOrder(createOrderRequest)
+
+    fun getOrder(customerId: String, offset: String, limit: String, field: String, sortBy: String, filter: String): Single<MyOrderResponse> =
+            api.getOrder(customerId, offset, limit, field, sortBy, filter)
 }

@@ -6,6 +6,7 @@ import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
+import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
@@ -32,7 +33,8 @@ class Router {
         INVOICE,
 
         SALES_LOGIN,
-        CUSTOMER_LIST
+        CUSTOMER_LIST,
+        MY_ORDER
     }
 
     enum class Parameter{
@@ -66,6 +68,7 @@ class Router {
                 Destination.INVOICE -> InvoiceListActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
+                Destination.MY_ORDER -> MyOrderActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

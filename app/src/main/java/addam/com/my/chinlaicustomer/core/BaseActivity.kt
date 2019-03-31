@@ -171,7 +171,9 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
                 }
             }
             R.id.btn_my_order -> {
-
+                if(className != DashboardActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.MY_ORDER), clearHistory = true)
+                }
             }
             R.id.btn_my_invoice -> {
                 if(className != InvoiceListActivity::class.java.simpleName){

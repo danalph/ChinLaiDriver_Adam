@@ -1,75 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<layout
 		xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		xmlns:tools="http://schemas.android.com/tools">
-	<ImageView
-			android:id="@+id/iv_image"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			android:layout_width="@dimen/space_huge_48dp"
-			android:layout_height="@dimen/space_huge_48dp"
-			android:src="@drawable/ic_order"/>
-	<TextView
-			android:id="@+id/tv_order_id"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintStart_toEndOf="@id/iv_image"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			style="@style/BaseTextView.OpenSansSemiBold"
-			android:textSize="@dimen/medium_text_16sp"
-			android:textColor="@color/black"
-			tools:text="Order #32542"/>
-	<TextView
-			android:id="@+id/tv_created_date"
-			app:layout_constraintStart_toEndOf="@id/iv_image"
-			app:layout_constraintTop_toBottomOf="@id/tv_order_id"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			style="@style/BaseTextView.OpenSansRegular"
-			android:textSize="@dimen/small_text_12sp"
-			android:textColor="@color/grey"
-			tools:text="Created on 218-04-06 11:03AM"/>
-	<TextView
-			android:id="@+id/tv_order_number"
-			app:layout_constraintStart_toEndOf="@id/iv_image"
-			app:layout_constraintTop_toBottomOf="@id/tv_created_date"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			tools:text="DO no : 18-037655"/>
-	<TextView
-			android:id="@+id/tv_total_item"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/large_text_18sp"
-			style="@style/BaseTextView.OpenSansBold"
-			android:textColor="@color/black"
-			android:drawableStart="@drawable/ic_delivery_package"
-			android:drawablePadding="@dimen/space_small_8dp"
-			tools:text="25"/>
-	<TextView
-			android:id="@+id/tv_status"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/tv_total_item"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAllCaps="true"
-			tools:text="Processing"/>
-	<TextView
-			android:id="@+id/tv_track_order"
-			android:background="@drawable/bg_white_outline_gray"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/tv_status"
-			android:paddingTop="@dimen/space_tiny_4dp"
-			android:paddingBottom="@dimen/space_tiny_4dp"
-			android:paddingStart="@dimen/space_small_8dp"
-			android:paddingEnd="@dimen/space_small_8dp"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			tools:text="Track Order"/>
-</android.support.constraint.ConstraintLayout>
+	<data>
+		<variable
+				name="model"
+				type="addam.com.my.chinlaicustomer.rest.model.MyOrderResponse.Data.SO"/>
+		<import type="android.view.View"/>
+	</data>
+	<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		<ImageView
+				android:id="@+id/iv_image"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_width="@dimen/space_huge_48dp"
+				android:layout_height="@dimen/space_huge_48dp"
+				android:src="@drawable/ic_order"/>
+		<TextView
+				android:id="@+id/tv_order_id"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toEndOf="@id/iv_image"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/BaseTextView.OpenSansSemiBold"
+				android:textSize="@dimen/medium_text_16sp"
+				android:textColor="@color/black"
+				android:text="@{`Order #` + model.id}"
+				tools:text="Order #32542"/>
+		<TextView
+				android:id="@+id/tv_created_date"
+				app:layout_constraintStart_toEndOf="@id/iv_image"
+				app:layout_constraintTop_toBottomOf="@id/tv_order_id"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/BaseTextView.OpenSansRegular"
+				android:textSize="@dimen/small_text_12sp"
+				android:textColor="@color/grey"
+				android:text="@{`Created on ` + model.created}"
+				tools:text="Created on 218-04-06 11:03AM"/>
+		<TextView
+				android:id="@+id/tv_order_number"
+				app:layout_constraintStart_toEndOf="@id/iv_image"
+				app:layout_constraintTop_toBottomOf="@id/tv_created_date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@{model.docNum}"
+				tools:text="DO no : 18-037655"/>
+		<TextView
+				android:id="@+id/tv_total_item"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/large_text_18sp"
+				style="@style/BaseTextView.OpenSansBold"
+				android:textColor="@color/black"
+				android:drawableStart="@drawable/ic_delivery_package"
+				android:drawablePadding="@dimen/space_small_8dp"
+				android:text="@{Math.round(Double.valueOf(model.totalItems)) + ``}"
+				tools:text="25"/>
+		<TextView
+				android:id="@+id/tv_status"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_total_item"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAllCaps="true"
+				tools:text="Processing"/>
+		<TextView
+				android:id="@+id/tv_track_order"
+				android:background="@drawable/bg_white_outline_gray"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_status"
+				android:paddingTop="@dimen/space_tiny_4dp"
+				android:paddingBottom="@dimen/space_tiny_4dp"
+				android:paddingStart="@dimen/space_small_8dp"
+				android:paddingEnd="@dimen/space_small_8dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				tools:text="Track Order"/>
+	</android.support.constraint.ConstraintLayout>
+</layout>
