@@ -19,5 +19,7 @@ data class Cart(
     var productQuantity: Int,
     @ColumnInfo(name = "product_image_path")
     val productImagePath:  String,
+    @ColumnInfo(name = "customer_id")
+    val customerId: String,
     var isChecked: Boolean = true
 )

@@ -66,13 +66,13 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
         viewModel.event.observe(this@CartActivity , object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-                selectBranchDialog(adapter.getSelectedItem(), viewModel.totalPrice.get()!!, "")
+                selectBranchDialog(adapter.getSelectedItem(), viewModel.totalPrice.get()!!, appPreference.getSalesId())
             }
         })
 
         viewModel.eventDelete.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
         })
@@ -89,6 +89,14 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
             override fun onStartActivityForResult(data: StartActivityModel) {
 
+            }
+        })
+
+        viewModel.eventError.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                Toast.makeText(this@CartActivity,
+                    "We are unable to process the request at the moment. Please try again later.",
+                    Toast.LENGTH_SHORT).show()
             }
         })
     }

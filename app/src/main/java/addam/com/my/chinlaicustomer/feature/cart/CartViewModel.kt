@@ -31,6 +31,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     val cartItems = MutableLiveData<List<Cart>>()
     val branches = MutableLiveData<BranchesResponse>()
     val event = GenericSingleEvent()
+    val eventError = GenericSingleEvent()
     val eventDelete = GenericSingleEvent()
     val isLoading = ObservableBoolean()
 
@@ -41,7 +42,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
 
     private fun getCartList() {
         isLoading.set(true)
-        databaseRepository.getCart().subscribeOn(Schedulers.io())
+        databaseRepository.getCartById(appPreference.getUser().id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { items ->
                 run {
@@ -66,7 +67,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
 
     fun setPrice(cartList: ArrayList<Cart>){
         var price  = 0.0
-        val format = DecimalFormat("#,###,###,###.00")
+        val format = DecimalFormat("#,###,###,##0.00")
         for (cart in cartList){
             if (cart.isChecked){
                 price += cart.productPrice.toDouble() * cart.productQuantity
@@ -92,7 +93,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
                 onSuccess = {
                     if (it.status){
                         Completable.fromAction{
-                            databaseRepository.clearTable()
+                            databaseRepository.deleteCartById(appPreference.getUser().id)
                         }.observeOn(AndroidSchedulers.mainThread())
                             .subscribeOn(Schedulers.io())
                             .subscribe(object: CompletableObserver{
@@ -110,11 +111,14 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
 
                                 }
                             })
+                    }else{
+                        eventError.value = true
                     }
                     isLoading.set(false)
                 },
                 onError = {
                     isLoading.set(false)
+                    eventError.value = true
                 }
             )
     }

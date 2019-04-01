@@ -102,7 +102,7 @@ class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter
     }
 
     private fun setPrice(price: String, quantity: String) : String{
-        val format = DecimalFormat("#,###,###,###.00")
+        val format = DecimalFormat("#,###,###,##0.00")
         return "RM ${format.format(quantity.toInt() * price.toDouble())}"
     }
 
