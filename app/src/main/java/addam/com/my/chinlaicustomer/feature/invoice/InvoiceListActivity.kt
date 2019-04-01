@@ -10,7 +10,6 @@ import addam.com.my.chinlaicustomer.databinding.ActivityInvoiceListBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.Invoices
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
-import addam.com.my.chinlaicustomer.utilities.LinearLayoutManagerWrapper
 import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -81,11 +80,9 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     private fun setupRecyclerView() {
         invoice_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         adapter = InvoiceAdapter(viewModel.dummyData(), this)
-        invoice_list.adapter = adapter
 
-        invoice_search_list.layoutManager = LinearLayoutManagerWrapper(this, LinearLayoutManager.VERTICAL, false)
-        searchAdapter = InvoiceListItemAdapter(viewModel.originalList, this)
-        invoice_search_list.adapter = searchAdapter
+        searchAdapter = InvoiceListItemAdapter(viewModel.oldFilteredList, this)
+        invoice_list.adapter = searchAdapter
 
         et_invoice_search.textChanges()
             .debounce (200, TimeUnit.MILLISECONDS)
@@ -93,8 +90,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if(it.isNotEmpty()){
-                    invoice_search_list.visibility = View.VISIBLE
-                    invoice_list.visibility = View.GONE
+                    invoice_list.adapter = searchAdapter
                     viewModel.search(it.toString())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -102,12 +98,13 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                             val diffResult = DiffUtil.calculateDiff(ListInvoiceDiffUtilCallback(viewModel.oldFilteredList, viewModel.filteredList))
                             viewModel.oldFilteredList.clear()
                             viewModel.oldFilteredList.addAll(viewModel.filteredList)
-                            diffResult.dispatchUpdatesTo(invoice_search_list.adapter as InvoiceListItemAdapter)
+                            diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
                         }.addTo(disposable)
                 }
                 else {
-                    invoice_search_list.visibility = View.GONE
-                    invoice_list.visibility = View.VISIBLE
+                    viewModel.oldFilteredList.clear()
+                    viewModel.oldFilteredList.addAll(viewModel.originalList)
+                    invoice_list.adapter = adapter
                 }
             }
     }
