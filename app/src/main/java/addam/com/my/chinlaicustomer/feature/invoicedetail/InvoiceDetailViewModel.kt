@@ -4,6 +4,8 @@ import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.utilities.ObservableString
+import addam.com.my.chinlaicustomer.utilities.Validator
+import addam.com.my.chinlaicustomer.utilities.observe
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 
@@ -24,6 +26,14 @@ class InvoiceDetailViewModel(private val schedulerProvider: SchedulerProvider, p
     var billingAddress = ObservableString("")
     var total = ObservableString("")
     var items = mutableListOf<ItemInvoiceDetail>()
+
+    var isPaid = ObservableString("1")
+
+    init {
+        isPaid.observe().map { Validator.StatusValidator.isPaid(it) }.subscribe {
+            status.set(it)
+        }
+    }
 
     fun getDummy(): MutableList<ItemInvoiceDetail> {
         var item = ItemInvoiceDetail("Power Drill (4500)", "%&^%& (4500)",

@@ -3,6 +3,7 @@ package addam.com.my.chinlaicustomer.feature.invoicedetail
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.databinding.ActivityInvoiceDetailBinding
 import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
 import android.databinding.DataBindingUtil
@@ -36,11 +37,16 @@ class InvoiceDetailActivity : BaseActivity() {
     }
 
     private fun setupEvents() {
+        viewModel.invoiceNo.set(intent.getStringExtra(Router.Parameter.ITEM_ID.name))
+        viewModel.date.set(intent.getStringExtra(Router.Parameter.ITEM_DATE.name))
+        viewModel.total.set(intent.getStringExtra(Router.Parameter.ITEM_AMOUNT.name))
+        viewModel.isPaid.set(intent.getStringExtra(Router.Parameter.ITEM_STATUS.name))
 
     }
 
     private fun setupRecyclerView() {
         rv_invoice_items.layoutManager = LinearLayoutManager(this)
+        rv_invoice_items.isNestedScrollingEnabled = false
 
         adapter = InvoiceDetailAdapter(viewModel.getDummy())
         rv_invoice_items.adapter = adapter

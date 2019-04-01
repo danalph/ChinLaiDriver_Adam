@@ -172,4 +172,6 @@
 	<string name="discount">Disc(%)</string>
 	<string name="qty">QTY</string>
 	<string name="unit">Unit</string>
+	<string name="company_roc">ROC</string>
+	<string name="salesperson">Salesperson</string>
 </resources>

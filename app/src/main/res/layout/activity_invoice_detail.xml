@@ -29,7 +29,8 @@
 				android:layout_height="match_parent">
 			<android.support.constraint.ConstraintLayout
 					android:layout_width="match_parent"
-					android:layout_height="match_parent">
+					android:layout_height="match_parent"
+					android:layout_marginTop="@dimen/space_medium_16dp">
 				<android.support.constraint.Guideline
 						android:id="@+id/left_guideline"
 						android:layout_width="wrap_content"
@@ -139,7 +140,7 @@
 								android:layout_gravity="end"
 								android:textAlignment="viewEnd"
 								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_name"/>
+								android:text="@string/company_roc"/>
 						
 						<TextView android:layout_width="wrap_content"
 						          android:layout_height="wrap_content"
@@ -207,7 +208,7 @@
 								android:layout_gravity="end"
 								android:textAlignment="viewEnd"
 								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_name"/>
+								android:text="@string/salesperson"/>
 						
 						<TextView android:layout_width="wrap_content"
 						          android:layout_height="wrap_content"
