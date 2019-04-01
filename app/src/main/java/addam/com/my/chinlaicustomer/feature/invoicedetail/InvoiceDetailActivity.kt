@@ -46,7 +46,6 @@ class InvoiceDetailActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
         rv_invoice_items.layoutManager = LinearLayoutManager(this)
-        rv_invoice_items.isNestedScrollingEnabled = false
 
         adapter = InvoiceDetailAdapter(viewModel.getDummy())
         rv_invoice_items.adapter = adapter

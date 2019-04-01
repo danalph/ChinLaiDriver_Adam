@@ -334,14 +334,21 @@
 					</LinearLayout>
 				</android.support.constraint.ConstraintLayout>
 				
-				<android.support.v7.widget.RecyclerView
-						android:id="@+id/rv_invoice_items"
+				<RelativeLayout
+						android:id="@+id/row_invoice_items"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						app:layout_constraintTop_toBottomOf="@id/row_company_address"
 						app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-						app:layout_constraintRight_toRightOf="@id/right_guideline"
-						android:layout_marginTop="@dimen/space_medium_16dp"/>
+						app:layout_constraintRight_toRightOf="@id/right_guideline">
+					
+					<android.support.v7.widget.RecyclerView
+							android:id="@+id/rv_invoice_items"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/space_medium_16dp"
+							android:nestedScrollingEnabled="false"/>
+				</RelativeLayout>
 				
 				<!--Total Row-->
 				<android.support.constraint.ConstraintLayout
@@ -350,7 +357,7 @@
 						android:layout_height="wrap_content"
 						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
 						app:layout_constraintRight_toRightOf="@id/right_guideline"
-						app:layout_constraintTop_toBottomOf="@+id/rv_invoice_items"
+						app:layout_constraintTop_toBottomOf="@+id/row_invoice_items"
 						android:layout_marginTop="@dimen/space_medium_16dp">
 					
 					<TextView
