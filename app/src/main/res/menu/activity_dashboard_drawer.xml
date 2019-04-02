@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/btn_browse_product"
-            android:icon="@drawable/ic_truck_dashboard"
+            android:icon="@drawable/ic_home_black"
             android:title="@string/browse_product" />
         <item
             android:id="@+id/btn_my_order"
-            android:icon="@drawable/ic_truck_dashboard"
+            android:icon="@drawable/ic_order"
             android:title="@string/my_order"/>
         <item
             android:id="@+id/btn_my_invoice"
@@ -18,7 +18,7 @@
             android:title="@string/my_invoice"/>
         <item
             android:id="@+id/btn_my_statement"
-            android:icon="@drawable/ic_truck_dashboard"
+            android:icon="@drawable/ic_download"
             android:title="@string/my_statement"/>
         <item
             android:id="@+id/profile"
