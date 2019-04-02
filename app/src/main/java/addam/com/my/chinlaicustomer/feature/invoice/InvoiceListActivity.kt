@@ -20,6 +20,8 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,7 +35,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, InvoiceAdapter.OnItemMonthClickListener,
-    InvoiceListItemAdapter.OnItemClickListener {
+    InvoiceListItemAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
     @Inject
     lateinit var viewModel: InvoiceListViewModel
 
@@ -43,9 +45,9 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     lateinit var binding: ActivityInvoiceListBinding
 
     lateinit var adapter: InvoiceAdapter
+
     lateinit var searchAdapter: InvoiceListItemAdapter
     private val disposable = CompositeDisposable()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
@@ -59,6 +61,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 
         setSupportActionBar(toolbar)
         setupView()
+        setupSpinner()
         setupRecyclerView()
         setupEvents()
     }
@@ -74,6 +77,15 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             }
 
         })
+    }
+
+    private fun setupSpinner() {
+        ArrayAdapter.createFromResource(this, R.array.filter_array, android.R.layout.simple_spinner_item)
+            .also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner_invoice.adapter = adapter
+            }
+        spinner_invoice.onItemSelectedListener = this
     }
 
     @SuppressLint("CheckResult")
@@ -105,6 +117,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                     viewModel.oldFilteredList.clear()
                     viewModel.oldFilteredList.addAll(viewModel.originalList)
                     invoice_list.adapter = adapter
+                    spinner_invoice.setSelection(0)
                 }
             }
     }
@@ -146,6 +159,36 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onItemClicked(p1: Int, item: Invoices) {
         viewModel.startActivity(item)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        var status = "0"
+        when (position){
+            0 -> status = "0"
+            1 -> status = "1"
+            2 -> status = "2"
+        }
+
+        if(status != "0"){
+            invoice_list.adapter = searchAdapter
+            viewModel.filterStatus(status)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    val diffResult = DiffUtil.calculateDiff(ListInvoiceDiffUtilCallback(viewModel.oldFilteredList, viewModel.filteredList))
+                    viewModel.oldFilteredList.clear()
+                    viewModel.oldFilteredList.addAll(viewModel.filteredList)
+                    diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
+                }.addTo(disposable)
+        }else{
+            viewModel.oldFilteredList.clear()
+            viewModel.oldFilteredList.addAll(viewModel.originalList)
+            invoice_list.adapter = adapter
+        }
     }
 
     override fun onDestroy() {

@@ -72,6 +72,15 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
         it.onComplete()
     }
 
+    fun filterStatus(status: String): Completable = Completable.create{
+        val filter = oldFilteredList.filter { invoices ->
+            invoices.status.contentEquals(status)
+        }.toList()
+        filteredList.clear()
+        filteredList.addAll(filter)
+        it.onComplete()
+    }
+
     fun startActivity(item: Invoices){
         startActivityEvent.value = StartActivityModel(Router.Destination.INVOICE_DETAIL, hashMapOf(
             Pair(Router.Parameter.ITEM_ID, item.id),
