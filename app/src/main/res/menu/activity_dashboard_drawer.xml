@@ -14,7 +14,7 @@
             android:title="@string/my_order"/>
         <item
             android:id="@+id/btn_my_invoice"
-            android:icon="@drawable/ic_truck_dashboard"
+            android:icon="@drawable/ic_invoice"
             android:title="@string/my_invoice"/>
         <item
             android:id="@+id/btn_my_statement"

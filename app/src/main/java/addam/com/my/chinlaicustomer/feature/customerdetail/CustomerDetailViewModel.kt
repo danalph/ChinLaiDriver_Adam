@@ -16,10 +16,10 @@ import io.reactivex.rxkotlin.subscribeBy
 class CustomerDetailViewModel(private val schedulerProvider: SchedulerProvider, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel() {
     var name = ObservableString("Something")
 
-    var roc =  ObservableString("(255234-A")
-    var contact = ObservableString("0121111111")
-    var email = ObservableString("herpderp@gmail.com")
-    var address = ObservableString("alskajdsaldkasdjadskaldaksdjsadkalsdkadj")
+    var roc =  ObservableString("")
+    var contact = ObservableString("")
+    var email = ObservableString("")
+    var address = ObservableString("")
 
     fun getCustomerDetails(id: String) =
         generalRepository.getCustomerDetails(id).compose(schedulerProvider.getSchedulersForSingle())
