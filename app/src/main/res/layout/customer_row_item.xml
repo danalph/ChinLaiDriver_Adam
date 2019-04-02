@@ -19,7 +19,7 @@
 				android:layout_width="@dimen/default_icon_size"
 				android:layout_height="@dimen/default_icon_size"
 				android:layout_gravity="center_vertical"
-				android:padding="@dimen/space_small_8dp"
+				android:padding="@dimen/space_small_12dp"
 				android:tint="@color/colorRed"
 				app:srcCompat="@drawable/ic_user"/>
 		<LinearLayout
@@ -31,9 +31,8 @@
 			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					style="@style/BaseTextView.OpenSansSemiBold"
+					style="@style/BaseTextView.OpenSansBold"
 					android:textColor="@color/black"
-					android:textSize="@dimen/large_text_18sp"
 					android:text="@{model.companyName}"
 					android:textAllCaps="true"
 					tools:text="laskajdlakdsj"/>
@@ -41,6 +40,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					style="@style/BaseTextView.OpenSansSemiBold"
+					android:textSize="@dimen/small_text_12sp"
 					android:text="@{model.roc}"
 					tools:text="laskajdlakdsj"/>
 			<View
