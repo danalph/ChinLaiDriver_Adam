@@ -9,6 +9,7 @@ import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.Invoices
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
 import io.reactivex.Completable
 
 /**
@@ -17,6 +18,7 @@ import io.reactivex.Completable
 class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel() {
 
     var name = ObservableString("")
+    var isLoading = ObservableBoolean(false)
 
     var originalList = mutableListOf<Invoices>()
     val filteredList: MutableList<Invoices> = mutableListOf()
