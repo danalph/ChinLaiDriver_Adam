@@ -117,6 +117,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                             viewModel.oldFilteredList.addAll(viewModel.filteredList)
                             diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
                         }.addTo(disposable)
+                spinner_invoice.setSelection(0)
 //                }
 //                else {
 //                    viewModel.oldFilteredList.clear()

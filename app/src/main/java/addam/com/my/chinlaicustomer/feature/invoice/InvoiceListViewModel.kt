@@ -133,8 +133,8 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
     }
 
     fun filterStatus(status: String): Completable = Completable.create{
-        val filter = oldFilteredList.filter { invoices ->
-            invoices.status.contentEquals(status)
+        val filter = originalList.filter { invoices ->
+            invoices.status.contains(status)
         }.toList()
         filteredList.clear()
         filteredList.addAll(filter)
