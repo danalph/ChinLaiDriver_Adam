@@ -35,7 +35,8 @@
 		<activity
 				android:name=".feature.invoice.InvoiceListActivity"
 				android:screenOrientation="portrait"
-				android:theme="@style/AppTheme.NoActionBar"/>
+				android:theme="@style/AppTheme.NoActionBar"
+				android:windowSoftInputMode="adjustNothing"/>
 		<activity
 				android:name=".feature.salescustomer.CustomerListActivity"
 				android:screenOrientation="portrait"

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 data class InvoiceListResponse(
     @SerializedName("status")
     @Expose
-    var status: String,
+    var status: Boolean,
 
     @SerializedName("message")
     @Expose
@@ -17,7 +17,13 @@ data class InvoiceListResponse(
 
     @SerializedName("data")
     @Expose
-    var data: List<Invoices>
+    var data: Invs
+)
+
+data class Invs(
+    @SerializedName("INVs")
+    @Expose
+    var INVs: List<Invoices>
 )
 
 data class Invoices(
@@ -25,11 +31,15 @@ data class Invoices(
     @Expose
     var id: String = "",
 
-    @SerializedName("date")
+    @SerializedName("docNum")
+    @Expose
+    var docNum: String,
+
+    @SerializedName("created")
     @Expose
     var date: String = "",
 
-    @SerializedName("amount")
+    @SerializedName("total_amount")
     @Expose
     var amount: String = "",
 

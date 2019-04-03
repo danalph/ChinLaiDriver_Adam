@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, InvoiceAdapter.OnItemMonthClickListener,
-    InvoiceListItemAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
+    InvoiceListItemAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener, InvoiceListViewModel.InvoiceCallback {
     @Inject
     lateinit var viewModel: InvoiceListViewModel
 
@@ -47,6 +47,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     lateinit var adapter: InvoiceAdapter
 
     lateinit var searchAdapter: InvoiceListItemAdapter
+
     private val disposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_invoice_list)
         binding.viewModel = viewModel
+        viewModel.callback = this
 
         val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
@@ -65,7 +67,6 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         setupRecyclerView()
         setupEvents()
     }
-
     private fun setupEvents() {
         viewModel.startActivityEvent.observe(this@InvoiceListActivity, object : StartActivityEvent.StartActivityObserver {
             override fun onStartActivity(data: StartActivityModel) {
@@ -88,11 +89,15 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         spinner_invoice.onItemSelectedListener = this
     }
 
+    override fun updateUI() {
+        searchAdapter.notifyDataSetChanged()
+    }
+
     @SuppressLint("CheckResult")
     private fun setupRecyclerView() {
         invoice_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter = InvoiceAdapter(viewModel.dummyData(), this)
 
+//        adapter = InvoiceAdapter(viewModel.dummyData(), this)
         searchAdapter = InvoiceListItemAdapter(viewModel.oldFilteredList, this)
         invoice_list.adapter = searchAdapter
 
@@ -101,8 +106,8 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                if(it.isNotEmpty()){
-                    invoice_list.adapter = searchAdapter
+//                if(it.isNotEmpty()){
+//                    invoice_list.adapter = searchAdapter
                     viewModel.search(it.toString())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -112,13 +117,13 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                             viewModel.oldFilteredList.addAll(viewModel.filteredList)
                             diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
                         }.addTo(disposable)
-                }
-                else {
-                    viewModel.oldFilteredList.clear()
-                    viewModel.oldFilteredList.addAll(viewModel.originalList)
-                    invoice_list.adapter = adapter
-                    spinner_invoice.setSelection(0)
-                }
+//                }
+//                else {
+//                    viewModel.oldFilteredList.clear()
+//                    viewModel.oldFilteredList.addAll(viewModel.originalList)
+//                    invoice_list.adapter = adapter
+//                    spinner_invoice.setSelection(0)
+//                }
             }
     }
 
@@ -173,7 +178,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             2 -> status = "2"
         }
 
-        if(status != "0"){
+//        if(status != "0"){
             invoice_list.adapter = searchAdapter
             viewModel.filterStatus(status)
                 .subscribeOn(Schedulers.computation())
@@ -184,11 +189,12 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                     viewModel.oldFilteredList.addAll(viewModel.filteredList)
                     diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
                 }.addTo(disposable)
-        }else{
-            viewModel.oldFilteredList.clear()
-            viewModel.oldFilteredList.addAll(viewModel.originalList)
-            invoice_list.adapter = adapter
-        }
+//        }
+//        else{
+//            viewModel.oldFilteredList.clear()
+//            viewModel.oldFilteredList.addAll(viewModel.originalList)
+//            invoice_list.adapter = adapter
+//        }
     }
 
     override fun onDestroy() {
