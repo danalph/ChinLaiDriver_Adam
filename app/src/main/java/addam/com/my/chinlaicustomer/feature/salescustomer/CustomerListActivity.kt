@@ -4,6 +4,8 @@ import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityCustomerListBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.Customers
@@ -18,6 +20,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.view.View
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -56,8 +59,22 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
 
         setSupportActionBar(toolbar)
         setupView()
-//        setupRecyclerView()
+        setupEvents()
     }
+
+    private fun setupEvents() {
+        viewModel.startActivityEvent.observe(this@CustomerListActivity, object: StartActivityEvent.StartActivityObserver{
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@CustomerListActivity, Router.getClass(data.to), data.parameters, data.clearHistory)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+                startActivity(this@CustomerListActivity, Router.getClass(data.to), data.parameters, data.clearHistory)
+            }
+
+        })
+    }
+
     override fun updateUI() {
         setupRecyclerView()
     }
@@ -97,6 +114,11 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
             nav_view.menu.findItem(R.id.profile).isVisible = false
         }
 
+        if(appPreference.getCustomerName().isNotEmpty()){
+            current_customer.text = appPreference.getCustomerName()
+            layout_nav_customer.visibility = View.VISIBLE
+        }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -111,7 +133,7 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
             .setTitle(R.string.confirm_select_customer)
             .setMessage(item.companyName)
             .setPositiveButton("View Profile"){_ ,_ ->
-//                TODO go to profile
+                viewModel.setCustomer(item)
             }
             .setNegativeButton(R.string.confirm){_,_ ->
                 appPreference.setCustomerId(item)

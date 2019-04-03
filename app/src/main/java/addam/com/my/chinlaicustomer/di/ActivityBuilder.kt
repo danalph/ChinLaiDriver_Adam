@@ -2,22 +2,26 @@ package addam.com.my.chinlaicustomer.di
 
 import addam.com.my.chinlaicustomer.feature.cart.CartActivity
 import addam.com.my.chinlaicustomer.feature.cart.CartActivityModule
+import addam.com.my.chinlaicustomer.feature.customerdetail.CustomerDetailActivity
+import addam.com.my.chinlaicustomer.feature.customerdetail.CustomerDetailModule
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivityModule
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivityModule
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListModule
+import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
+import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailModule
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivityModule
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordModule
-import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
-import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivityModule
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivityModule
+import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
+import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivityModule
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivityModule
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
@@ -74,4 +78,9 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [(InvoiceListModule::class)])
     abstract fun bindInvoiceListActivity(): InvoiceListActivity
 
+    @ContributesAndroidInjector(modules = [(CustomerDetailModule::class)])
+    abstract fun bindCustomerDetailActivity(): CustomerDetailActivity
+
+    @ContributesAndroidInjector(modules = [(InvoiceDetailModule::class)])
+    abstract fun bindInvoiceDetailActivity(): InvoiceDetailActivity
 }

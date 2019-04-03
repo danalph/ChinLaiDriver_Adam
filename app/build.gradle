@@ -27,6 +27,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def appName = "ChinLaiCustomer"
+                    outputFileName = appName + "-${variant.versionName}.apk"
+                }
+            }
+        }
+        debug {
+            applicationIdSuffix '.DEBUG'
+            versionNameSuffix '.DEBUG'
         }
     }
     dataBinding {

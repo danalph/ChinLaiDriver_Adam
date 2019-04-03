@@ -6,9 +6,9 @@ import com.github.ajalt.timberkt.Timber
 import java.io.UnsupportedEncodingException
 
 object Constants {
-    init {
-        System.loadLibrary("keys")
-    }
+//    init {
+//        System.loadLibrary("keys")
+//    }
 
     private external fun getClientKey(): String
     private external fun getClientSecret(): String
@@ -53,5 +53,9 @@ object Constants {
             return TYPE.DEBUG.ordinal
         }
         return TYPE.NOTHING.ordinal
+    }
+
+    fun setAddress(address1: String = "", address2: String = "", address3: String = "", city: String = "", postcode: String = "", state: String = ""): String{
+        return "$address1, $address2, $address3, $city, $postcode, $state"
     }
 }

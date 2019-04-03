@@ -1,6 +1,9 @@
 package addam.com.my.chinlaicustomer.feature.salescustomer
 
 import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.CustomerListResponse
@@ -26,6 +29,8 @@ class CustomerListViewModel(private val schedulerProvider: SchedulerProvider, pr
 
     val filteredList: MutableList<Customers> = mutableListOf()
     val oldFilteredList: MutableList<Customers> = mutableListOf()
+
+    var startActivityEvent = StartActivityEvent()
 
 
     init {
@@ -61,6 +66,13 @@ class CustomerListViewModel(private val schedulerProvider: SchedulerProvider, pr
         filteredList.clear()
         filteredList.addAll(wanted)
         it.onComplete()
+    }
+
+    fun setCustomer(item: Customers) {
+        startActivityEvent.value = StartActivityModel(Router.Destination.CUSTOMER_DETAIL,
+            hashMapOf(
+                Pair(Router.Parameter.CUST_ID, item.id),
+                Pair(Router.Parameter.CUST_ROC,item.roc)), hasResults = false, clearHistory = false)
     }
 
     interface CustomerListViewModelCallback{

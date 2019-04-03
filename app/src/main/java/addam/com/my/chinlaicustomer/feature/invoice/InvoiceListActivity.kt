@@ -3,11 +3,13 @@ package addam.com.my.chinlaicustomer.feature.invoice
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityInvoiceListBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.Invoices
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
-import addam.com.my.chinlaicustomer.utilities.LinearLayoutManagerWrapper
 import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -18,7 +20,8 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,7 +35,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, InvoiceAdapter.OnItemMonthClickListener,
-    InvoiceListItemAdapter.OnItemClickListener {
+    InvoiceListItemAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener, InvoiceListViewModel.InvoiceCallback {
     @Inject
     lateinit var viewModel: InvoiceListViewModel
 
@@ -42,15 +45,17 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     lateinit var binding: ActivityInvoiceListBinding
 
     lateinit var adapter: InvoiceAdapter
-    lateinit var searchAdapter: InvoiceListItemAdapter
-    private val disposable = CompositeDisposable()
 
+    lateinit var searchAdapter: InvoiceListItemAdapter
+
+    private val disposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_invoice_list)
         binding.viewModel = viewModel
+        viewModel.callback = this
 
         val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
@@ -58,27 +63,51 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 
         setSupportActionBar(toolbar)
         setupView()
+        setupSpinner()
         setupRecyclerView()
+        setupEvents()
+    }
+    private fun setupEvents() {
+        viewModel.startActivityEvent.observe(this@InvoiceListActivity, object : StartActivityEvent.StartActivityObserver {
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@InvoiceListActivity, Router.getClass(data.to), data.parameters, data.clearHistory)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+                startActivity(this@InvoiceListActivity, Router.getClass(data.to), data.parameters, data.clearHistory)
+            }
+
+        })
+    }
+
+    private fun setupSpinner() {
+        ArrayAdapter.createFromResource(this, R.array.filter_array, android.R.layout.simple_spinner_item)
+            .also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner_invoice.adapter = adapter
+            }
+        spinner_invoice.onItemSelectedListener = this
+    }
+
+    override fun updateUI() {
+        searchAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
     private fun setupRecyclerView() {
         invoice_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter = InvoiceAdapter(viewModel.dummyData(), this)
-        invoice_list.adapter = adapter
 
-        invoice_search_list.layoutManager = LinearLayoutManagerWrapper(this, LinearLayoutManager.VERTICAL, false)
-        searchAdapter = InvoiceListItemAdapter(viewModel.originalList, this)
-        invoice_search_list.adapter = searchAdapter
+//        adapter = InvoiceAdapter(viewModel.dummyData(), this)
+        searchAdapter = InvoiceListItemAdapter(viewModel.oldFilteredList, this)
+        invoice_list.adapter = searchAdapter
 
         et_invoice_search.textChanges()
             .debounce (200, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                if(it.isNotEmpty()){
-                    invoice_search_list.visibility = View.VISIBLE
-                    invoice_list.visibility = View.GONE
+//                if(it.isNotEmpty()){
+//                    invoice_list.adapter = searchAdapter
                     viewModel.search(it.toString())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -86,13 +115,16 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                             val diffResult = DiffUtil.calculateDiff(ListInvoiceDiffUtilCallback(viewModel.oldFilteredList, viewModel.filteredList))
                             viewModel.oldFilteredList.clear()
                             viewModel.oldFilteredList.addAll(viewModel.filteredList)
-                            diffResult.dispatchUpdatesTo(invoice_search_list.adapter as InvoiceListItemAdapter)
+                            diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
                         }.addTo(disposable)
-                }
-                else {
-                    invoice_search_list.visibility = View.GONE
-                    invoice_list.visibility = View.VISIBLE
-                }
+                spinner_invoice.setSelection(0)
+//                }
+//                else {
+//                    viewModel.oldFilteredList.clear()
+//                    viewModel.oldFilteredList.addAll(viewModel.originalList)
+//                    invoice_list.adapter = adapter
+//                    spinner_invoice.setSelection(0)
+//                }
             }
     }
 
@@ -110,6 +142,13 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             nav_view.menu.findItem(R.id.customers).isVisible = true
             nav_view.menu.findItem(R.id.profile).isVisible = false
         }
+
+        if(appPreference.getCustomerName().isNotEmpty()){
+            current_customer.text = appPreference.getCustomerName()
+            layout_nav_customer.visibility = View.VISIBLE
+        }
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -121,11 +160,42 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     }
 
     override fun onItemMonthClicked(position: Int, item: Invoices) {
-        Toast.makeText(this@InvoiceListActivity, item.id, Toast.LENGTH_SHORT).show()
+        viewModel.startActivity(item)
     }
 
     override fun onItemClicked(p1: Int, item: Invoices) {
-        Toast.makeText(this@InvoiceListActivity, item.id, Toast.LENGTH_SHORT).show()
+        viewModel.startActivity(item)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        var status = "0"
+        when (position){
+            0 -> status = "0"
+            1 -> status = "1"
+            2 -> status = "2"
+        }
+
+//        if(status != "0"){
+            invoice_list.adapter = searchAdapter
+            viewModel.filterStatus(status)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    val diffResult = DiffUtil.calculateDiff(ListInvoiceDiffUtilCallback(viewModel.oldFilteredList, viewModel.filteredList))
+                    viewModel.oldFilteredList.clear()
+                    viewModel.oldFilteredList.addAll(viewModel.filteredList)
+                    diffResult.dispatchUpdatesTo(invoice_list.adapter as InvoiceListItemAdapter)
+                }.addTo(disposable)
+//        }
+//        else{
+//            viewModel.oldFilteredList.clear()
+//            viewModel.oldFilteredList.addAll(viewModel.originalList)
+//            invoice_list.adapter = adapter
+//        }
     }
 
     override fun onDestroy() {
