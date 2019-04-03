@@ -55,7 +55,8 @@ class Router {
         CUST_ID,
         ITEM_DATE,
         ITEM_AMOUNT,
-        ITEM_STATUS
+        ITEM_STATUS,
+        ITEM_NUM
     }
 
     companion object {

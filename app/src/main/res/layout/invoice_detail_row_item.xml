@@ -6,7 +6,7 @@
 	<data>
 		<variable
 				name="item"
-				type="addam.com.my.chinlaicustomer.feature.invoicedetail.ItemInvoiceDetail"/>
+				type="addam.com.my.chinlaicustomer.rest.model.InvoiceItem"/>
 	</data>
 	
 	<android.support.constraint.ConstraintLayout
@@ -32,7 +32,7 @@
 				android:layout_marginEnd="@dimen/space_small_8dp"
 				android:textColor="@color/black"
 				android:textSize="@dimen/small_text_12sp"
-				android:text="@{item.name}"
+				android:text="@{item.description1}"
 				tools:text="Power Drill (4500)"/>
 		<TextView
 				android:id="@+id/item_name_cn"
@@ -44,7 +44,7 @@
 				android:layout_marginStart="@dimen/space_small_8dp"
 				android:textColor="@color/black"
 				android:textSize="@dimen/small_text_12sp"
-				android:text="@{item.chineseName}"
+				android:text="@{item.description2}"
 				tools:text="Power Drill (4500)"/>
 		<addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
 				android:id="@+id/item_price"
@@ -69,7 +69,7 @@
 				app:layout_constraintStart_toEndOf="@id/img_invoice"
 				android:layout_marginStart="@dimen/space_small_8dp"
 				android:textSize="@dimen/small_text_12sp"
-				android:text="@{item.unitPrice}"
+				android:text="@{item.discount}"
 				app:textPrefix="@string/discount"
 				app:textSuffix=""
 				tools:text="600"/>
@@ -96,7 +96,7 @@
 					android:textColor="@color/black"
 					app:textSuffix="@string/unit"
 					app:textPrefix=""
-					android:text="@{item.quantity}"/>
+					android:text="@{item.unit}"/>
 		</LinearLayout>
 		
 		<addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
@@ -108,6 +108,6 @@
 				android:textColor="@color/colorRed"
 				app:textPrefix="@string/rm"
 				app:textSuffix=""
-				android:text="@{item.total}"/>
+				android:text="@{item.amount}"/>
 	</android.support.constraint.ConstraintLayout>
 </layout>

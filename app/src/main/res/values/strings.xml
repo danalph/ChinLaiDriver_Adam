@@ -159,7 +159,7 @@
 	<string name="email">Email</string>
 	<string name="title_activity_customer_detail">View Customer Detail</string>
 	<string name="customer">Customer:</string>
-	<string name="invoice_date">Invoice Date:</string>
+	<string name="invoice_date">Invoice Date: </string>
 	<string name="company_name">Company Name</string>
 	<string name="company_account">Account No.</string>
 	<string name="company_do">DO No.</string>

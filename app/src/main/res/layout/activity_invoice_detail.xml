@@ -119,7 +119,7 @@
 						          android:layout_height="wrap_content"
 						          style="@style/BaseTextView.OpenSansBold"
 						          android:layout_gravity="center_vertical"
-						          android:singleLine="true"
+						          android:singleLine="false"
 						          android:textColor="@color/black"
 						          android:textSize="@dimen/medium_text_16sp"
 						          android:text="@{viewmodel.companyName}"
@@ -218,7 +218,7 @@
 						          android:singleLine="true"
 						          android:textColor="@color/black"
 						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.roc}"
+						          android:text="@{viewmodel.salesPerson}"
 						          tools:text="PBH4"/>
 					</LinearLayout>
 				</android.support.constraint.ConstraintLayout>
@@ -326,7 +326,7 @@
 						          android:layout_height="wrap_content"
 						          style="@style/BaseTextView.OpenSansSemiBold"
 						          android:layout_gravity="center_vertical"
-						          android:singleLine="true"
+						          android:singleLine="false"
 						          android:textColor="@color/black"
 						          android:textSize="@dimen/medium_text_16sp"
 						          android:text="@{viewmodel.billingAddress}"

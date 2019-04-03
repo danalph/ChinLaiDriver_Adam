@@ -39,6 +39,8 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
 
     fun getInvoiceList(id:String): Single<InvoiceListResponse> = api.getInvoiceList(id)
 
+    fun getInvoiceDetails(id: String): Single<InvoiceDetailsResponse> = api.getInvoiceDetails(id)
+
     fun getDestination(driverID: String, tripID: String, type: String, docID: String): Single<DestinationResponse> =
             api.getDestination(driverID,tripID,type,docID)
 

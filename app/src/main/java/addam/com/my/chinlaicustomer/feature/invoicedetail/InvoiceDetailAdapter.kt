@@ -2,6 +2,7 @@ package addam.com.my.chinlaicustomer.feature.invoicedetail
 
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.databinding.InvoiceDetailRowItemBinding
+import addam.com.my.chinlaicustomer.rest.model.InvoiceItem
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by owner on 31/03/2019
  */
-class InvoiceDetailAdapter(var models: MutableList<ItemInvoiceDetail>): RecyclerView.Adapter<InvoiceDetailAdapter.InvoiceDetailViewHolder>() {
+class InvoiceDetailAdapter(var models: MutableList<InvoiceItem>): RecyclerView.Adapter<InvoiceDetailAdapter.InvoiceDetailViewHolder>() {
     private var layoutInflater: LayoutInflater? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): InvoiceDetailViewHolder {
@@ -30,15 +31,23 @@ class InvoiceDetailAdapter(var models: MutableList<ItemInvoiceDetail>): Recycler
     override fun onBindViewHolder(holder: InvoiceDetailViewHolder, p1: Int) {
         val item = getItemForPosition(p1)
 
-        Picasso.get()
-            .load(models[p1].img)
-            .placeholder(R.drawable.progress_animation)
-            .fit()
-            .into(holder.mBinding.imgInvoice)
+        if (item.image.isNotEmpty()){
+            Picasso.get()
+                .load(models[p1].image)
+                .placeholder(R.drawable.progress_animation)
+                .fit()
+                .into(holder.mBinding.imgInvoice)
+        }else
+            Picasso.get()
+                .load(R.drawable.img_no_image)
+                .fit()
+                .into(holder.mBinding.imgInvoice)
+
+        holder.mBinding.item = item
 
     }
 
-    private fun getItemForPosition(position: Int): ItemInvoiceDetail {
+    private fun getItemForPosition(position: Int): InvoiceItem{
         return models[position]
     }
 

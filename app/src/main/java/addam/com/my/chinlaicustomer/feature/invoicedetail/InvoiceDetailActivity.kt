@@ -13,8 +13,7 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_invoice_detail.*
 import javax.inject.Inject
 
-class InvoiceDetailActivity : BaseActivity() {
-
+class InvoiceDetailActivity : BaseActivity(), InvoiceDetailViewModel.InvoiceDetailCallback {
     @Inject
     lateinit var viewModel: InvoiceDetailViewModel
 
@@ -29,6 +28,7 @@ class InvoiceDetailActivity : BaseActivity() {
 
         val binding: ActivityInvoiceDetailBinding = DataBindingUtil.setContentView(this@InvoiceDetailActivity, R.layout.activity_invoice_detail)
         binding.viewmodel = viewModel
+        viewModel.callback = this
         binding.toolbarModel = ToolbarWithBackModel(getString(R.string.title_activity_invoice_detail),true, this::onBackPressed)
         binding.lifecycleOwner = this
 
@@ -37,17 +37,20 @@ class InvoiceDetailActivity : BaseActivity() {
     }
 
     private fun setupEvents() {
-        viewModel.invoiceNo.set(intent.getStringExtra(Router.Parameter.ITEM_ID.name))
+        viewModel.invoiceNo.set(intent.getStringExtra(Router.Parameter.ITEM_NUM.name))
         viewModel.date.set(intent.getStringExtra(Router.Parameter.ITEM_DATE.name))
         viewModel.total.set(intent.getStringExtra(Router.Parameter.ITEM_AMOUNT.name))
         viewModel.isPaid.set(intent.getStringExtra(Router.Parameter.ITEM_STATUS.name))
 
+        viewModel.getInvoiceDetails(intent.getStringExtra(Router.Parameter.ITEM_ID.name))
     }
 
     private fun setupRecyclerView() {
         rv_invoice_items.layoutManager = LinearLayoutManager(this)
+    }
 
-        adapter = InvoiceDetailAdapter(viewModel.getDummy())
+    override fun updateUI() {
+        adapter = InvoiceDetailAdapter(viewModel.items)
         rv_invoice_items.adapter = adapter
     }
 }

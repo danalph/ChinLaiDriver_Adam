@@ -47,6 +47,9 @@ interface GeneralService {
     @GET("mobile/customer/{id}/invoices")
     fun getInvoiceList(@Path("id") id: String): Single<InvoiceListResponse>
 
+    @GET("mobile/invoice/{id}")
+    fun getInvoiceDetails(@Path("id") id: String): Single<InvoiceDetailsResponse>
+
     @GET("driver/{id}/trip/{pID}/{type}/{docID}")
     fun getDestination(@Path("id") driverID: String,
                        @Path("pID") tripID: String,

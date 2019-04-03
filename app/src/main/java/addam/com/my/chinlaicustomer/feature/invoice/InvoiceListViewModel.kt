@@ -144,6 +144,7 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
     fun startActivity(item: Invoices){
         startActivityEvent.value = StartActivityModel(Router.Destination.INVOICE_DETAIL, hashMapOf(
             Pair(Router.Parameter.ITEM_ID, item.id),
+            Pair(Router.Parameter.ITEM_NUM, item.docNum),
             Pair(Router.Parameter.ITEM_DATE, item.date),
             Pair(Router.Parameter.ITEM_AMOUNT, item.amount),
             Pair(Router.Parameter.ITEM_STATUS, item.status)
