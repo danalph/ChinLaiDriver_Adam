@@ -5,6 +5,7 @@
 	<data>
 		<variable name="model" type="addam.com.my.chinlaicustomer.utilities.model.ViewDeliveryHeaderModel"/>
 		<import type="android.view.View"/>
+		<import type="android.support.v4.content.ContextCompat"/>
 	</data>
 	<android.support.constraint.ConstraintLayout
 			android:layout_width="match_parent"
@@ -49,7 +50,7 @@
 				android:textSize="@dimen/medium_text_16sp"
 				tools:text="completed"
 				android:text="@{model.statusName}"
-				android:textColor="@{model.statusColor}"
+				android:textColor="@{ContextCompat.getColor(context, model.getStatusColor())}"
 				android:textAllCaps="true"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"/>
