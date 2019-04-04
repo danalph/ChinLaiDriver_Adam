@@ -100,7 +100,7 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
         models.add(mayItem)
         models.add(mayItemUnpaid)
 
-        Timber.d{sortMonth(models).toString()}
+//        Timber.d{sortMonth(models).toString()}
 
         val month = InvoiceMonthModel("March", models)
         val collection = mutableListOf<InvoiceMonthModel>()
