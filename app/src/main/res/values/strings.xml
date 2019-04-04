@@ -168,4 +168,22 @@
 	<string name="driver_address">Driver Address</string>
 	<string name="vehicle_name">Vehicle Name</string>
 	<string name="vehicle_no">Vehicle No</string>
+	<string name="email">Email</string>
+	<string name="title_activity_customer_detail">View Customer Detail</string>
+	<string name="customer">Customer:</string>
+	<string name="invoice_date">Invoice Date: </string>
+	<string name="company_name">Company Name</string>
+	<string name="company_account">Account No.</string>
+	<string name="company_do">DO No.</string>
+	<string name="company_term">Term</string>
+	<string name="days">Days</string>
+	<string name="company_billing_address">Billing Address</string>
+	<string name="company_total">Total Amount</string>
+	<string name="rm">RM</string>
+	<string name="title_activity_invoice_detail">Invoice Details</string>
+	<string name="discount">Disc(%)</string>
+	<string name="qty">QTY</string>
+	<string name="unit">Unit</string>
+	<string name="company_roc">ROC</string>
+	<string name="salesperson">Salesperson</string>
 </resources>

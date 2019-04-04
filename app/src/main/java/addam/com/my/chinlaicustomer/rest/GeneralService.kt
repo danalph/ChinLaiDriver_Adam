@@ -23,6 +23,9 @@ interface GeneralService {
     @GET("mobile/supplier/{id}/customers")
     fun getSalesCustomerList(@Path("id") id: String): Single<CustomerListResponse>
 
+    @GET("mobile/customer/{id}")
+    fun getCustomerDetails(@Path("id") id: String): Single<CustomerDetailResponse>
+
     @PUT("mobile/customer/{id}/password")
     fun getChangePassword(@Path("id") id: String, @Body changePasswordRequest: ChangePasswordRequest): Single<ChangePasswordResponse>
 
@@ -43,6 +46,12 @@ interface GeneralService {
 
     @GET("mobile/product/{id}")
     fun getProductDetail(@Path("id") id: String ): Single<ProductDetailResponse>
+
+    @GET("mobile/customer/{id}/invoices")
+    fun getInvoiceList(@Path("id") id: String): Single<InvoiceListResponse>
+
+    @GET("mobile/invoice/{id}")
+    fun getInvoiceDetails(@Path("id") id: String): Single<InvoiceDetailsResponse>
 
     @GET("driver/{id}/trip/{pID}/{type}/{docID}")
     fun getDestination(@Path("id") driverID: String,

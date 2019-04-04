@@ -29,6 +29,9 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
     fun getCustomerList(id: String): Single<CustomerListResponse> =
             api.getSalesCustomerList(id)
 
+    fun getCustomerDetails(id: String): Single<CustomerDetailResponse> =
+            api.getCustomerDetails(id)
+
     fun getCategoryList(offset: String, limit: String, field: String, sortBy: String, filter: String): Single<CategoryListResponse> =
             api.getCategoryList(offset, limit, field, sortBy, filter)
 
@@ -36,6 +39,10 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
             api.getProductList(id, offset, limit, field, sortBy, filter)
 
     fun getProductDetail(id: String): Single<ProductDetailResponse> = api.getProductDetail(id)
+
+    fun getInvoiceList(id:String): Single<InvoiceListResponse> = api.getInvoiceList(id)
+
+    fun getInvoiceDetails(id: String): Single<InvoiceDetailsResponse> = api.getInvoiceDetails(id)
 
     fun getDestination(driverID: String, tripID: String, type: String, docID: String): Single<DestinationResponse> =
             api.getDestination(driverID,tripID,type,docID)

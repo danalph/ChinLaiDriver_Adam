@@ -1,16 +1,18 @@
 package addam.com.my.chinlaicustomer.core
 
 import addam.com.my.chinlaicustomer.feature.cart.CartActivity
+import addam.com.my.chinlaicustomer.feature.customerdetail.CustomerDetailActivity
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
+import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
-import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
+import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
 import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginActivity
@@ -32,10 +34,12 @@ class Router {
         CART,
         STATEMENT,
         INVOICE,
+        INVOICE_DETAIL,
         SALES_LOGIN,
-        CUSTOMER_LIST,
         MY_ORDER,
-        MY_ORDER_DETAIL
+        MY_ORDER_DETAIL,
+        CUSTOMER_LIST,
+        CUSTOMER_DETAIL
     }
 
     enum class Parameter{
@@ -52,7 +56,13 @@ class Router {
         DOC_ID,
         ITEM_ID,
         ORDER_ID,
-        SELECTED_TAB
+        SELECTED_TAB,
+        CUST_ROC,
+        CUST_ID,
+        ITEM_DATE,
+        ITEM_AMOUNT,
+        ITEM_STATUS,
+        ITEM_NUM
     }
 
     companion object {
@@ -69,10 +79,12 @@ class Router {
                 Destination.CART -> CartActivity::class.java
                 Destination.STATEMENT -> StatementActivity::class.java
                 Destination.INVOICE -> InvoiceListActivity::class.java
+                Destination.INVOICE_DETAIL -> InvoiceDetailActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
                 Destination.MY_ORDER -> MyOrderActivity::class.java
                 Destination.MY_ORDER_DETAIL -> MyOrderDetailActivity::class.java
+                Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

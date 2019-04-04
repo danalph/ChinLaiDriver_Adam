@@ -12,4 +12,11 @@ open class Validator {
             fun validateEmail(reason: CharSequence): Boolean = reason.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(reason).matches()
         }
     }
+    class StatusValidator{
+        companion object {
+            fun isPaid(paid: String): Boolean{
+                return paid == "1"
+            }
+        }
+    }
 }
