@@ -1,6 +1,9 @@
 package addam.com.my.chinlaicustomer.rest
 
 import addam.com.my.chinlaicustomer.rest.model.*
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryDetailResponse
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryStatusResponse
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDriverDetailResponse
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -49,4 +52,10 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
 
     fun getOrder(customerId: String, offset: String, limit: String, field: String, sortBy: String, filter: String): Single<MyOrderResponse> =
             api.getOrder(customerId, offset, limit, field, sortBy, filter)
+
+    fun getOrderDetail(orderId: String): Single<OrderDeliveryDetailResponse> = api.getOrderDetail(orderId)
+
+    fun getOrderDriverDetail(orderId: String): Single<OrderDriverDetailResponse> = api.getOrderDriverDetail(orderId)
+
+    fun getOrderDeliveryStatus(orderId: String): Single<OrderDeliveryStatusResponse> = api.getOrderDeliveryStatus(orderId)
 }

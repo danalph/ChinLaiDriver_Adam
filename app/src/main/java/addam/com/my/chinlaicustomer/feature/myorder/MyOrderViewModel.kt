@@ -1,10 +1,14 @@
 package addam.com.my.chinlaicustomer.feature.myorder
 
 import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.MyOrderResponse
+import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
@@ -13,11 +17,15 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private val databaseRepository: DatabaseRepository, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel(){
 
+    var name = ObservableString("")
     val isLoading = ObservableBoolean(false)
     val totalOrder = ObservableInt(0)
     val orderList = MutableLiveData<ArrayList<MyOrderResponse.Data.SO>>()
-    init {
+    val startActivityEvent = StartActivityEvent()
 
+    init {
+        name.set(appPreference.getUser().name)
+        getOrder()
     }
 
     fun getOrder(){
@@ -35,6 +43,12 @@ class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private
                     isLoading.set(false)
                 }
             )
+    }
+
+    fun viewDetail(orderId: String, selectedTab: Int){
+        startActivityEvent.value = StartActivityModel(
+            Router.Destination.MY_ORDER_DETAIL,
+            hashMapOf(Pair(Router.Parameter.ORDER_ID, orderId), Pair(Router.Parameter.SELECTED_TAB, selectedTab)) , hasResults = false, clearHistory = false)
     }
 
 }

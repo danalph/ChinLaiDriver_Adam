@@ -11,6 +11,9 @@ import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import com.daimajia.slider.library.SliderLayout
+import com.daimajia.slider.library.SliderTypes.BaseSliderView
+import com.daimajia.slider.library.SliderTypes.TextSliderView
 import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_product_detail.*
@@ -46,18 +49,23 @@ class ProductDetailActivity : BaseActivity() {
     private fun setupObserver() {
         viewModel.detailResponse.observe(this){
             it?:return@observe
-            /*imageSliderAdapter.run {
-                imageList.clear()
-                imageList.addAll(it)
-                imageSliderAdapter
-            }*/
             binding.model = it.data.product
             val listImages = ArrayList<String>()
-            if (it.data.productImages != null){
+            if (it.data.productImages != null && it.data.productImages.isNotEmpty()){
                 listImages.addAll(it.data.productImages)
             }
-            imageSliderAdapter = ImageSliderAdapter(listImages)
-            banner_slider.setAdapter(imageSliderAdapter)
+            for (image in listImages){
+                val textSliderView = TextSliderView(this)
+                textSliderView.image(image).scaleType = BaseSliderView.ScaleType.Fit
+                textSliderView.empty(R.drawable.img_no_image)
+                textSliderView.error(R.drawable.img_no_image)
+                slider.addSlider(textSliderView)
+            }
+
+            slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+            slider.setPresetTransformer(SliderLayout.Transformer.Accordion)
+            slider.setDuration(4000)
+
         }
 
         viewModel.startActivityEvent.observe(this, object : StartActivityEvent.StartActivityObserver{

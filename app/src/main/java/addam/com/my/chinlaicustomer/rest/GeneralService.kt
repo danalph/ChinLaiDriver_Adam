@@ -1,6 +1,9 @@
 package addam.com.my.chinlaicustomer.rest
 
 import addam.com.my.chinlaicustomer.rest.model.*
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryDetailResponse
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryStatusResponse
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDriverDetailResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -72,4 +75,13 @@ interface GeneralService {
                  @Query("field") field: String,
                  @Query("sortby") sortby: String,
                  @Query("filters") filters: String): Single<MyOrderResponse>
+
+    @GET("mobile/order/{orderId}")
+    fun getOrderDetail(@Path("orderId") orderId: String): Single<OrderDeliveryDetailResponse>
+
+    @GET("mobile/order/{orderId}/driver")
+    fun getOrderDriverDetail(@Path("orderId") orderId: String): Single<OrderDriverDetailResponse>
+
+    @GET("mobile/order/{orderId}/pod")
+    fun getOrderDeliveryStatus(@Path("orderId") orderId: String): Single<OrderDeliveryStatusResponse>
 }
