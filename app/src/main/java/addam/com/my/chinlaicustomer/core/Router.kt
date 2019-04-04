@@ -8,6 +8,8 @@ import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
+import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
+import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
@@ -34,6 +36,8 @@ class Router {
         INVOICE,
         INVOICE_DETAIL,
         SALES_LOGIN,
+        MY_ORDER,
+        MY_ORDER_DETAIL,
         CUSTOMER_LIST,
         CUSTOMER_DETAIL
     }
@@ -51,6 +55,8 @@ class Router {
         CATEGORY_ID,
         DOC_ID,
         ITEM_ID,
+        ORDER_ID,
+        SELECTED_TAB,
         CUST_ROC,
         CUST_ID,
         ITEM_DATE,
@@ -76,6 +82,8 @@ class Router {
                 Destination.INVOICE_DETAIL -> InvoiceDetailActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
+                Destination.MY_ORDER -> MyOrderActivity::class.java
+                Destination.MY_ORDER_DETAIL -> MyOrderDetailActivity::class.java
                 Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java
                 else -> {
                     TODO("Implement Default case")

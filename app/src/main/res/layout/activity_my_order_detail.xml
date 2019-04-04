@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		tools:context="addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity">
+	<data>
+		<variable
+				name="viewModel"
+				type="addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailViewModel"/>
+		<variable
+				name="toolbarModel"
+				type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel"/>
+		<import type="android.view.View"/>
+	</data>
+	
+	
+	<android.support.design.widget.CoordinatorLayout
+			android:id="@+id/main_content"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fitsSystemWindows="true">
+		
+		<android.support.design.widget.AppBarLayout
+				android:id="@+id/appbar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:theme="@style/AppTheme.AppBarOverlay">
+			<include
+					android:id="@+id/toolbar"
+					layout="@layout/toolbar_with_back"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:layout_constraintTop_toTopOf="parent"
+					app:model="@{toolbarModel}" />
+			
+			<include
+					android:id="@+id/header"
+					layout="@layout/header_order_item"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:layout_constraintTop_toBottomOf="@+id/toolbar"
+					app:model="@{viewModel.headerItem}"/>
+			
+			<android.support.design.widget.TabLayout
+					android:id="@+id/order_tabs"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:tabBackground="@color/colorRed"
+					app:tabIndicatorColor="@color/white"
+					/>
+		</android.support.design.widget.AppBarLayout>
+		
+		<addam.com.my.chinlaicustomer.widgets.CustomViewPager
+				android:id="@+id/viewpager"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+		<android.support.constraint.ConstraintLayout
+				android:id="@+id/progress_layout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:focusable="true"
+				android:clickable="true"
+				android:background="@color/grey_transparency_50"
+				android:visibility="@{viewModel.isLoading? View.VISIBLE: View.GONE}">
+			<ProgressBar
+					android:layout_width="@dimen/header_logo_width"
+					android:layout_height="@dimen/header_logo_width"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"/>
+		</android.support.constraint.ConstraintLayout>
+	</android.support.design.widget.CoordinatorLayout>
+</layout>

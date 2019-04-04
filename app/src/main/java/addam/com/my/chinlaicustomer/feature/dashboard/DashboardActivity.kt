@@ -138,10 +138,6 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun reset(){
-        KeyboardManager.hideKeyboard(this)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         setNavigation(item, appPreference, this@DashboardActivity::class.java.simpleName)

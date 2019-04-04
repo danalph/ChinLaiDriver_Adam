@@ -5,6 +5,7 @@ import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.util.PermissionHelper
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
+import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
@@ -168,29 +169,37 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
             R.id.btn_browse_product -> {
                 if(className != DashboardActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.DASHBOARD),clearHistory = true)
+                    overridePendingTransition(0,0)
                 }
             }
             R.id.btn_my_order -> {
-
+                if(className != MyOrderActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.MY_ORDER), clearHistory = true)
+                    overridePendingTransition(0,0)
+                }
             }
             R.id.btn_my_invoice -> {
                 if(className != InvoiceListActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.INVOICE), clearHistory = true)
+                    overridePendingTransition(0,0)
                 }
             }
             R.id.btn_my_statement -> {
                 if(className != StatementActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.STATEMENT), clearHistory = true)
+                    overridePendingTransition(0,0)
                 }
             }
             R.id.profile -> {
                 if(className != ProfileActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.PROFILE))
+                    overridePendingTransition(0,0)
                 }
             }
             R.id.customers ->{
                 if(className != CustomerListActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.CUSTOMER_LIST), clearHistory = true)
+                    overridePendingTransition(0,0)
                 }
             }
             R.id.logout -> {

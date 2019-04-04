@@ -1,6 +1,9 @@
 package addam.com.my.chinlaicustomer.rest
 
 import addam.com.my.chinlaicustomer.rest.model.*
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryDetailResponse
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryStatusResponse
+import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDriverDetailResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -68,9 +71,26 @@ interface GeneralService {
                     @Path("type")type: String,
                     @Body uploadPhotoRequest: UploadPhotoRequest): Single<UploadPhotoResponse>
 
-    @GET("mobile/customer/{customer_id}/branches")
-    fun getBranches(@Path("customer_id")customerId: String): Single<BranchesResponse>
+    @GET("mobile/customer/{customerId}/branches")
+    fun getBranches(@Path("customerId")customerId: String): Single<BranchesResponse>
 
     @POST("mobile/order")
     fun createOrder(@Body createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse>
+
+    @GET("mobile/customer/{customerId}/orders/")
+    fun getOrder(@Path("customerId") customerId: String,
+                 @Query("offset") offset: String,
+                 @Query("limit") limit: String,
+                 @Query("field") field: String,
+                 @Query("sortby") sortby: String,
+                 @Query("filters") filters: String): Single<MyOrderResponse>
+
+    @GET("mobile/order/{orderId}")
+    fun getOrderDetail(@Path("orderId") orderId: String): Single<OrderDeliveryDetailResponse>
+
+    @GET("mobile/order/{orderId}/driver")
+    fun getOrderDriverDetail(@Path("orderId") orderId: String): Single<OrderDriverDetailResponse>
+
+    @GET("mobile/order/{orderId}/pod")
+    fun getOrderDeliveryStatus(@Path("orderId") orderId: String): Single<OrderDeliveryStatusResponse>
 }

@@ -12,7 +12,10 @@ class ImageSliderAdapter(private val imageList: ArrayList<String>) : SliderAdapt
     }
 
     override fun onBindImageSlide(position: Int, viewHolder: ImageSlideViewHolder) {
-        viewHolder.bindImageSlide(imageList[position], R.drawable.img_no_image, R.drawable.img_no_image)
+        if (imageList.size != 0){
+            viewHolder.bindImageSlide(imageList[position], R.drawable.img_no_image, R.drawable.img_no_image)
+        }else{
+            viewHolder.bindImageSlide(R.drawable.img_no_image)
+        }
     }
-
 }

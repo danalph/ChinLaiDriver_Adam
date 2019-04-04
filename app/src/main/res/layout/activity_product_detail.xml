@@ -62,14 +62,19 @@
 					app:layout_behavior="@string/appbar_scrolling_view_behavior"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
-				<ss.com.bannerslider.Slider
+				<!--<ss.com.bannerslider.Slider
 						android:id="@+id/banner_slider"
 						android:layout_width="match_parent"
 						android:layout_height="200dp"
 						app:slider_selectedSlideIndicator="@drawable/round_shadow_black"
-						app:slider_unselectedSlideIndicator="@drawable/round_shadow_white"/>
+						app:slider_unselectedSlideIndicator="@drawable/round_shadow_white"/>-->
+				<com.daimajia.slider.library.SliderLayout
+						android:id="@+id/slider"
+						android:layout_width="match_parent"
+						android:layout_height="200dp"
+						/>
 				<LinearLayout
-						android:layout_below="@id/banner_slider"
+						android:layout_below="@id/slider"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_margin="@dimen/space_medium_16dp"
@@ -120,8 +125,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal"
-					android:layout_centerVertical="true"
-					android:background="@drawable/blue_outline_white_bg">
+					android:layout_centerVertical="true">
 				<Button
 						android:id="@+id/btn_minus"
 						android:layout_width="@dimen/space_huge_48dp"
