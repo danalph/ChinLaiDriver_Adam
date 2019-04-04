@@ -11,9 +11,7 @@ import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import com.daimajia.slider.library.SliderLayout
-import com.daimajia.slider.library.SliderTypes.BaseSliderView
-import com.daimajia.slider.library.SliderTypes.TextSliderView
+import com.denzcoskun.imageslider.models.SlideModel
 import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_product_detail.*
@@ -38,7 +36,7 @@ class ProductDetailActivity : BaseActivity() {
         AndroidInjection.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
         binding.viewModel = viewModel
-        binding.toolbarModel = ToolbarWithBackButtonModel("Professional Electric Cordless Drill", true,true,
+        binding.toolbarModel = ToolbarWithBackButtonModel("", true,true,
             R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)
         val itemId = intent.getStringExtra(Router.Parameter.ITEM_ID.name)
         viewModel.getDetail(itemId)
@@ -50,22 +48,18 @@ class ProductDetailActivity : BaseActivity() {
         viewModel.detailResponse.observe(this){
             it?:return@observe
             binding.model = it.data.product
-            val listImages = ArrayList<String>()
+            binding.toolbarModel = ToolbarWithBackButtonModel(it.data.product.description1, true,true,
+                R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)
+            val listImages = ArrayList<SlideModel>()
             if (it.data.productImages != null && it.data.productImages.isNotEmpty()){
-                listImages.addAll(it.data.productImages)
+                for (image in it.data.productImages){
+                    listImages.add(SlideModel(image))
+                }
             }
-            for (image in listImages){
-                val textSliderView = TextSliderView(this)
-                textSliderView.image(image).scaleType = BaseSliderView.ScaleType.Fit
-                textSliderView.empty(R.drawable.img_no_image)
-                textSliderView.error(R.drawable.img_no_image)
-                slider.addSlider(textSliderView)
+            else{
+                listImages.add(SlideModel(R.drawable.img_no_image))
             }
-
-            slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
-            slider.setPresetTransformer(SliderLayout.Transformer.Accordion)
-            slider.setDuration(4000)
-
+            slider.setImageList(listImages)
         }
 
         viewModel.startActivityEvent.observe(this, object : StartActivityEvent.StartActivityObserver{

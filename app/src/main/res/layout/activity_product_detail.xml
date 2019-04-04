@@ -68,10 +68,13 @@
 						android:layout_height="200dp"
 						app:slider_selectedSlideIndicator="@drawable/round_shadow_black"
 						app:slider_unselectedSlideIndicator="@drawable/round_shadow_white"/>-->
-				<com.daimajia.slider.library.SliderLayout
+				<com.denzcoskun.imageslider.ImageSlider
 						android:id="@+id/slider"
 						android:layout_width="match_parent"
 						android:layout_height="200dp"
+						app:auto_cycle="true"
+						app:period="5000"
+						app:delay="0"
 						/>
 				<LinearLayout
 						android:layout_below="@id/slider"
