@@ -2,13 +2,11 @@ package addam.com.my.chinlaicustomer.feature.cart
 
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.database.Cart
-import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -34,6 +32,12 @@ class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter
         if (item.productImagePath.isNotEmpty()){
             Picasso.get()
                 .load(item.productImagePath)
+                .placeholder(R.drawable.img_no_image)
+                .fit()
+                .into(p0.ivProductImage)
+        }else{
+            Picasso.get()
+                .load(R.drawable.img_no_image)
                 .placeholder(R.drawable.img_no_image)
                 .fit()
                 .into(p0.ivProductImage)
