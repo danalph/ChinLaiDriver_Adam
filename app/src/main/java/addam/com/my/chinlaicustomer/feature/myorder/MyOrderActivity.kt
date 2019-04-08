@@ -43,7 +43,7 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
     @Inject
     lateinit var appPreference: AppPreference
 
-    lateinit var adapter: MyOrderAdapter
+    lateinit var adapter: MyOrderListAdapter
 
     private val list = arrayListOf<MyOrderResponse.Data.SO>()
 
@@ -99,11 +99,15 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
 
-        adapter = MyOrderAdapter(list, R.layout.my_order_row_adapter, object : BaseRecyclerViewAdapter.OnItemClickListener<MyOrderResponse.Data.SO>{
-            override fun onItemClick(item: MyOrderResponse.Data.SO, view: View) {
+        adapter = MyOrderListAdapter(list, object: MyOrderListAdapter.OnItemClickListener{
+            override fun onTrackClick(item: MyOrderResponse.Data.SO) {
+                viewModel.viewDetail(item.id, 2)
+            }
+            override fun onItemClick(p1: Int, item: MyOrderResponse.Data.SO) {
                 viewModel.viewDetail(item.id, 0)
             }
         })
+
         rv_orders.adapter = adapter
         rv_orders.layoutManager = LinearLayoutManager(this@MyOrderActivity)
 
@@ -114,7 +118,6 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
                     adapter.sortBy().filter(position.toString())
                 }
             }
-
             override fun onNothingSelected(adapterView: AdapterView<*>) {
 
             }
