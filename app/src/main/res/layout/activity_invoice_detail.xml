@@ -79,12 +79,15 @@
 							style="@style/BaseTextView.RalewayRegular"
 							app:layout_constraintTop_toTopOf="parent"
 							app:layout_constraintEnd_toEndOf="parent"
+							android:paddingStart="@dimen/space_tiny_2dp"
+							android:paddingEnd="@dimen/space_tiny_2dp"
 							android:textAllCaps="true"
 							android:textAlignment="textEnd"
 							android:textColor="@color/white"
 							android:text="@{viewmodel.status? @string/paid : @string/unpaid}"
 							android:background="@{viewmodel.status? @color/colorGreen : @color/colorRed}"
-							tools:text="UNPAID"/>
+							tools:text="UNPAID"
+							tools:background="@color/colorRed"/>
 				</android.support.constraint.ConstraintLayout>
 				
 				<android.support.v7.widget.CardView
@@ -122,6 +125,7 @@
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
 										android:textAlignment="textStart"
+										android:textColor="@color/labelColor"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/company_name"/>
 								
@@ -148,6 +152,7 @@
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
 										android:layout_gravity="end"
+										android:textColor="@color/labelColor"
 										android:textAlignment="viewEnd"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/company_roc"/>
@@ -185,6 +190,7 @@
 										android:layout_width="wrap_content"
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
+										android:textColor="@color/labelColor"
 										android:textAlignment="textStart"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/company_account"/>
@@ -212,6 +218,7 @@
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
 										android:layout_gravity="end"
+										android:textColor="@color/labelColor"
 										android:textAlignment="viewEnd"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/salesperson"/>
@@ -250,6 +257,7 @@
 										android:layout_width="wrap_content"
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
+										android:textColor="@color/labelColor"
 										android:textAlignment="textStart"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/company_do"/>
@@ -277,6 +285,7 @@
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
 										android:layout_gravity="end"
+										android:textColor="@color/labelColor"
 										android:textAlignment="viewEnd"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/company_term"/>
@@ -318,6 +327,7 @@
 										android:layout_width="wrap_content"
 										android:layout_height="wrap_content"
 										style="@style/BaseTextView.OpenSansBody"
+										android:textColor="@color/labelColor"
 										android:textAlignment="textStart"
 										android:textSize="@dimen/small_text_10sp"
 										android:text="@string/company_billing_address"/>
@@ -328,7 +338,7 @@
 								          android:layout_gravity="center_vertical"
 								          android:singleLine="false"
 								          android:textColor="@color/black"
-								          android:textSize="@dimen/medium_text_16sp"
+								          android:textSize="@dimen/small_text_12sp"
 								          android:text="@{viewmodel.billingAddress}"
 								          tools:text="KOkFONGsalkasjd"/>
 							</LinearLayout>
@@ -381,7 +391,7 @@
 							android:id="@+id/txt_amount"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							style="@style/BaseTextView.OpenSansSemiBold"
+							style="@style/BaseTextView.OpenSansBold"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintTop_toTopOf="parent"
 							android:singleLine="true"
