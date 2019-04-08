@@ -36,13 +36,13 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:orientation="vertical"
-						app:layout_constraintGuide_begin="@dimen/space_large_24dp" />
+						app:layout_constraintGuide_begin="@dimen/space_medium_16dp" />
 				<android.support.constraint.Guideline
 						android:id="@+id/right_guideline"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:orientation="vertical"
-						app:layout_constraintGuide_end="@dimen/space_large_24dp" />
+						app:layout_constraintGuide_end="@dimen/space_medium_16dp" />
 				
 				<android.support.constraint.ConstraintLayout
 						android:id="@+id/header_layout"
@@ -86,259 +86,263 @@
 							android:background="@{viewmodel.status? @color/colorGreen : @color/colorRed}"
 							tools:text="UNPAID"/>
 				</android.support.constraint.ConstraintLayout>
-			
-				<!--Company Name Row-->
-				<android.support.constraint.ConstraintLayout
-						android:id="@+id/row_company_name"
+				
+				<android.support.v7.widget.CardView
+						android:id="@+id/header_card"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
 						app:layout_constraintRight_toRightOf="@id/right_guideline"
 						app:layout_constraintTop_toBottomOf="@+id/header_layout"
-						android:layout_marginTop="@dimen/space_medium_16dp">
+						android:layout_marginTop="@dimen/space_small_8dp"
+						android:elevation="@dimen/space_tiny_2dp">
 					
 					<LinearLayout
-							android:id="@+id/layout_company_name"
-							android:layout_width="0dp"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintEnd_toStartOf="@id/layout_comany_roc"
-							android:layout_marginEnd="@dimen/space_small_8dp">
-						
-						<TextView
-								android:layout_width="wrap_content"
+							android:padding="@dimen/space_small_8dp">
+						<!--Company Name Row-->
+						<android.support.constraint.ConstraintLayout
+								android:id="@+id/row_company_name"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content">
+							<LinearLayout
+									android:id="@+id/layout_company_name"
+									android:layout_width="0dp"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintStart_toStartOf="parent"
+									app:layout_constraintEnd_toStartOf="@id/layout_comany_roc"
+									android:layout_marginEnd="@dimen/space_small_8dp">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:textAlignment="textStart"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/company_name"/>
+								
+								<TextView android:layout_width="wrap_content"
+								          android:layout_height="wrap_content"
+								          style="@style/BaseTextView.OpenSansBold"
+								          android:layout_gravity="center_vertical"
+								          android:singleLine="false"
+								          android:textColor="@color/black"
+								          android:textSize="@dimen/medium_text_16sp"
+								          android:text="@{viewmodel.companyName}"
+								          tools:text="KOkFONGsalkasjd"/>
+							</LinearLayout>
+							<LinearLayout
+									android:id="@+id/layout_comany_roc"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintEnd_toEndOf="parent">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:layout_gravity="end"
+										android:textAlignment="viewEnd"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/company_roc"/>
+								
+								<TextView android:layout_width="wrap_content"
+								          android:layout_height="wrap_content"
+								          style="@style/BaseTextView.OpenSansSemiBold"
+								          android:layout_gravity="end"
+								          android:textAlignment="viewEnd"
+								          android:singleLine="true"
+								          android:textColor="@color/black"
+								          android:textSize="@dimen/medium_text_16sp"
+								          android:text="@{viewmodel.roc}"
+								          tools:text="10234282-T"/>
+							</LinearLayout>
+						</android.support.constraint.ConstraintLayout>
+						<!--Account No Row-->
+						<android.support.constraint.ConstraintLayout
+								android:id="@+id/row_company_account"
+								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:textAlignment="textStart"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_name"/>
+								android:layout_marginTop="@dimen/space_medium_16dp">
+							
+							<LinearLayout
+									android:id="@+id/layout_company_account"
+									android:layout_width="0dp"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintStart_toStartOf="parent"
+									app:layout_constraintEnd_toStartOf="@id/layout_company_salesperson"
+									android:layout_marginEnd="@dimen/space_small_8dp">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:textAlignment="textStart"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/company_account"/>
+								
+								<TextView android:layout_width="wrap_content"
+								          android:layout_height="wrap_content"
+								          style="@style/BaseTextView.OpenSansSemiBold"
+								          android:layout_gravity="center_vertical"
+								          android:singleLine="true"
+								          android:textColor="@color/black"
+								          android:textSize="@dimen/medium_text_16sp"
+								          android:text="@{viewmodel.account}"
+								          tools:text="KOkFONGsalkasjd"/>
+							</LinearLayout>
+							<LinearLayout
+									android:id="@+id/layout_company_salesperson"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintEnd_toEndOf="parent">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:layout_gravity="end"
+										android:textAlignment="viewEnd"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/salesperson"/>
+								
+								<TextView android:layout_width="wrap_content"
+								          android:layout_height="wrap_content"
+								          style="@style/BaseTextView.OpenSansSemiBold"
+								          android:layout_gravity="end"
+								          android:textAlignment="viewEnd"
+								          android:singleLine="true"
+								          android:textColor="@color/black"
+								          android:textSize="@dimen/medium_text_16sp"
+								          android:text="@{viewmodel.salesPerson}"
+								          tools:text="PBH4"/>
+							</LinearLayout>
+						</android.support.constraint.ConstraintLayout>
 						
-						<TextView android:layout_width="wrap_content"
-						          android:layout_height="wrap_content"
-						          style="@style/BaseTextView.OpenSansBold"
-						          android:layout_gravity="center_vertical"
-						          android:singleLine="false"
-						          android:textColor="@color/black"
-						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.companyName}"
-						          tools:text="KOkFONGsalkasjd"/>
-					</LinearLayout>
-					<LinearLayout
-							android:id="@+id/layout_comany_roc"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintEnd_toEndOf="parent">
-						
-						<TextView
-								android:layout_width="wrap_content"
+						<!--D.O No Row-->
+						<android.support.constraint.ConstraintLayout
+								android:id="@+id/row_company_do"
+								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:layout_gravity="end"
-								android:textAlignment="viewEnd"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_roc"/>
+								android:layout_marginTop="@dimen/space_medium_16dp">
+							
+							<LinearLayout
+									android:id="@+id/layout_company_do"
+									android:layout_width="0dp"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintStart_toStartOf="parent"
+									app:layout_constraintEnd_toStartOf="@id/layout_company_term"
+									android:layout_marginEnd="@dimen/space_small_8dp">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:textAlignment="textStart"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/company_do"/>
+								
+								<TextView android:layout_width="wrap_content"
+								          android:layout_height="wrap_content"
+								          style="@style/BaseTextView.OpenSansSemiBold"
+								          android:layout_gravity="center_vertical"
+								          android:singleLine="true"
+								          android:textColor="@color/black"
+								          android:textSize="@dimen/medium_text_16sp"
+								          android:text="@{viewmodel.doNo}"
+								          tools:text="KOkFONGsalkasjd"/>
+							</LinearLayout>
+							<LinearLayout
+									android:id="@+id/layout_company_term"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintEnd_toEndOf="parent">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:layout_gravity="end"
+										android:textAlignment="viewEnd"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/company_term"/>
+								
+								<addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansSemiBold"
+										android:layout_gravity="end"
+										android:textAlignment="viewEnd"
+										android:singleLine="true"
+										android:textColor="@color/black"
+										android:textSize="@dimen/medium_text_16sp"
+										android:text="@{viewmodel.term}"
+										app:textSuffix="@string/days"
+										app:textPrefix=""
+										tools:text="21 days"/>
+							</LinearLayout>
+						</android.support.constraint.ConstraintLayout>
 						
-						<TextView android:layout_width="wrap_content"
-						          android:layout_height="wrap_content"
-						          style="@style/BaseTextView.OpenSansSemiBold"
-						          android:layout_gravity="end"
-						          android:textAlignment="viewEnd"
-						          android:singleLine="true"
-						          android:textColor="@color/black"
-						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.roc}"
-						          tools:text="10234282-T"/>
+						<!--Address Row-->
+						<android.support.constraint.ConstraintLayout
+								android:id="@+id/row_company_address"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="@dimen/space_medium_16dp">
+							
+							<LinearLayout
+									android:id="@+id/layout_company_address"
+									android:layout_width="0dp"
+									android:layout_height="wrap_content"
+									android:orientation="vertical"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintStart_toStartOf="parent"
+									app:layout_constraintEnd_toEndOf="parent"
+									android:layout_marginEnd="@dimen/space_small_8dp">
+								
+								<TextView
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"
+										style="@style/BaseTextView.OpenSansBody"
+										android:textAlignment="textStart"
+										android:textSize="@dimen/small_text_10sp"
+										android:text="@string/company_billing_address"/>
+								
+								<TextView android:layout_width="wrap_content"
+								          android:layout_height="wrap_content"
+								          style="@style/BaseTextView.OpenSansSemiBold"
+								          android:layout_gravity="center_vertical"
+								          android:singleLine="false"
+								          android:textColor="@color/black"
+								          android:textSize="@dimen/medium_text_16sp"
+								          android:text="@{viewmodel.billingAddress}"
+								          tools:text="KOkFONGsalkasjd"/>
+							</LinearLayout>
+						</android.support.constraint.ConstraintLayout>
 					</LinearLayout>
-				</android.support.constraint.ConstraintLayout>
+					
+				</android.support.v7.widget.CardView>
 				
-				<!--Account No Row-->
-				<android.support.constraint.ConstraintLayout
-						android:id="@+id/row_company_account"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-						app:layout_constraintRight_toRightOf="@id/right_guideline"
-						app:layout_constraintTop_toBottomOf="@+id/row_company_name"
-						android:layout_marginTop="@dimen/space_medium_16dp">
-					
-					<LinearLayout
-							android:id="@+id/layout_company_account"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintEnd_toStartOf="@id/layout_company_salesperson"
-							android:layout_marginEnd="@dimen/space_small_8dp">
-						
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:textAlignment="textStart"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_account"/>
-						
-						<TextView android:layout_width="wrap_content"
-						          android:layout_height="wrap_content"
-						          style="@style/BaseTextView.OpenSansSemiBold"
-						          android:layout_gravity="center_vertical"
-						          android:singleLine="true"
-						          android:textColor="@color/black"
-						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.account}"
-						          tools:text="KOkFONGsalkasjd"/>
-					</LinearLayout>
-					<LinearLayout
-							android:id="@+id/layout_company_salesperson"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintEnd_toEndOf="parent">
-						
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:layout_gravity="end"
-								android:textAlignment="viewEnd"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/salesperson"/>
-						
-						<TextView android:layout_width="wrap_content"
-						          android:layout_height="wrap_content"
-						          style="@style/BaseTextView.OpenSansSemiBold"
-						          android:layout_gravity="end"
-						          android:textAlignment="viewEnd"
-						          android:singleLine="true"
-						          android:textColor="@color/black"
-						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.salesPerson}"
-						          tools:text="PBH4"/>
-					</LinearLayout>
-				</android.support.constraint.ConstraintLayout>
-				
-				<!--D.O No Row-->
-				<android.support.constraint.ConstraintLayout
-						android:id="@+id/row_company_do"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-						app:layout_constraintRight_toRightOf="@id/right_guideline"
-						app:layout_constraintTop_toBottomOf="@+id/row_company_account"
-						android:layout_marginTop="@dimen/space_medium_16dp">
-					
-					<LinearLayout
-							android:id="@+id/layout_company_do"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintEnd_toStartOf="@id/layout_company_term"
-							android:layout_marginEnd="@dimen/space_small_8dp">
-						
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:textAlignment="textStart"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_do"/>
-						
-						<TextView android:layout_width="wrap_content"
-						          android:layout_height="wrap_content"
-						          style="@style/BaseTextView.OpenSansSemiBold"
-						          android:layout_gravity="center_vertical"
-						          android:singleLine="true"
-						          android:textColor="@color/black"
-						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.doNo}"
-						          tools:text="KOkFONGsalkasjd"/>
-					</LinearLayout>
-					<LinearLayout
-							android:id="@+id/layout_company_term"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintEnd_toEndOf="parent">
-						
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:layout_gravity="end"
-								android:textAlignment="viewEnd"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_term"/>
-						
-						<addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansSemiBold"
-								android:layout_gravity="end"
-								android:textAlignment="viewEnd"
-								android:singleLine="true"
-								android:textColor="@color/black"
-								android:textSize="@dimen/medium_text_16sp"
-								android:text="@{viewmodel.term}"
-								app:textSuffix="@string/days"
-								app:textPrefix=""
-								tools:text="21 days"/>
-					</LinearLayout>
-				</android.support.constraint.ConstraintLayout>
-				
-				<!--Address Row-->
-				<android.support.constraint.ConstraintLayout
-						android:id="@+id/row_company_address"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-						app:layout_constraintRight_toRightOf="@id/right_guideline"
-						app:layout_constraintTop_toBottomOf="@+id/row_company_do"
-						android:layout_marginTop="@dimen/space_medium_16dp">
-					
-					<LinearLayout
-							android:id="@+id/layout_company_address"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintEnd_toEndOf="parent"
-							android:layout_marginEnd="@dimen/space_small_8dp">
-						
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								style="@style/BaseTextView.OpenSansBody"
-								android:textAlignment="textStart"
-								android:textSize="@dimen/small_text_10sp"
-								android:text="@string/company_billing_address"/>
-						
-						<TextView android:layout_width="wrap_content"
-						          android:layout_height="wrap_content"
-						          style="@style/BaseTextView.OpenSansSemiBold"
-						          android:layout_gravity="center_vertical"
-						          android:singleLine="false"
-						          android:textColor="@color/black"
-						          android:textSize="@dimen/medium_text_16sp"
-						          android:text="@{viewmodel.billingAddress}"
-						          tools:text="KOkFONGsalkasjd"/>
-					</LinearLayout>
-				</android.support.constraint.ConstraintLayout>
 				
 				<RelativeLayout
 						android:id="@+id/row_invoice_items"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						app:layout_constraintTop_toBottomOf="@id/row_company_address"
+						app:layout_constraintTop_toBottomOf="@id/header_card"
 						app:layout_constraintLeft_toLeftOf="@id/left_guideline"
 						app:layout_constraintRight_toRightOf="@id/right_guideline">
 					
