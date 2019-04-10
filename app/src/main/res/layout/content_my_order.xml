@@ -45,11 +45,11 @@
 				android:id="@+id/swipe_refresh_layout_order"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
-			<LinearLayout
+			<RelativeLayout
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical">
+					android:layout_height="wrap_content">
 				<LinearLayout
+						android:id="@+id/ll_search"
 						android:background="@color/colorRed"
 						android:layout_width="match_parent"
 						android:layout_height="?android:attr/actionBarSize"
@@ -85,7 +85,29 @@
 				
 				</LinearLayout>
 				
+				<LinearLayout
+						android:layout_centerInParent="true"
+						android:gravity="center"
+						android:orientation="vertical"
+						android:visibility="@{viewModel.isEmpty ? View.VISIBLE : View.GONE}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+					<ImageView
+							android:layout_gravity="center"
+							android:layout_width="match_parent"
+							android:layout_height="@dimen/space_extra_huge_88dp"
+							android:src="@drawable/icon_empty"/>
+					<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:gravity="center"
+							style="@style/BaseTextView.OpenSansRegular"
+							android:text="@string/error_empty_orders"/>
+				</LinearLayout>
+				
 				<TextView
+						android:visibility="@{viewModel.isEmpty ? View.GONE : View.VISIBLE}"
+						android:layout_below="@id/ll_search"
 						android:layout_marginStart="@dimen/space_small_12dp"
 						android:layout_marginEnd="@dimen/space_small_12dp"
 						android:id="@+id/tv_total_orders"
@@ -96,12 +118,14 @@
 						tools:text="Found 12 Orders"/>
 				
 				<android.support.v7.widget.RecyclerView
+						android:visibility="@{viewModel.isEmpty ? View.GONE : View.VISIBLE}"
+						android:layout_below="@id/tv_total_orders"
 						android:layout_marginStart="@dimen/space_small_12dp"
 						android:layout_marginEnd="@dimen/space_small_12dp"
 						android:id="@+id/rv_orders"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"/>
-			</LinearLayout>
+			</RelativeLayout>
 		</android.support.v4.widget.SwipeRefreshLayout>
 	</android.support.constraint.ConstraintLayout>
 </layout>

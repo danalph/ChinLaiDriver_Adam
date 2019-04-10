@@ -22,6 +22,7 @@ class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private
     val totalOrder = ObservableInt(0)
     val orderList = MutableLiveData<ArrayList<MyOrderResponse.Data.SO>>()
     val startActivityEvent = StartActivityEvent()
+    var isEmpty = ObservableBoolean(false)
 
     init {
         name.set(appPreference.getUser().name)
@@ -35,7 +36,10 @@ class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private
             .subscribeBy(
                 onSuccess = {
                     if (it.status){
-                        orderList.postValue(it.data.sOs)
+                        if (it.data.total != 0)
+                            orderList.postValue(it.data.sOs)
+                        else
+                            isEmpty.set(true)
                     }
                     isLoading.set(false)
                 },

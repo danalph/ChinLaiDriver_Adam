@@ -91,9 +91,9 @@ class MyOrderListAdapter(var list: ArrayList<MyOrderResponse.Data.SO>, var onIte
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val results = FilterResults()
                 val filteredList = ArrayList<MyOrderResponse.Data.SO>()
-                if (constraint!!.isNotEmpty() && constraint != "0"){
+                if (constraint!!.isNotEmpty() && constraint != "all"){
                     for (currItem in originalItem){
-                        if (currItem.status == constraint){
+                        if (currItem.status.toLowerCase() == constraint.toString().toLowerCase()){
                             filteredList.add(currItem)
                         }
                     }

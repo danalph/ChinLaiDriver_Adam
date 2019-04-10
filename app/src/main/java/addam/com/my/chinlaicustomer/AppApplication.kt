@@ -1,7 +1,6 @@
 package addam.com.my.chinlaicustomer
 
 import addam.com.my.chinlaicustomer.di.DaggerAppComponent
-import addam.com.my.chinlaicustomer.utilities.PicassoImageLoadingService
 import android.app.Activity
 import android.app.Application
 import android.support.v7.app.AppCompatDelegate
@@ -9,7 +8,6 @@ import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import ss.com.bannerslider.Slider
 import javax.inject.Inject
 
 /**
@@ -29,8 +27,6 @@ class AppApplication: Application(), HasActivityInjector {
             .application(this)
             .build()
             .inject(this)
-
-        Slider.init(PicassoImageLoadingService())
 
     }
 

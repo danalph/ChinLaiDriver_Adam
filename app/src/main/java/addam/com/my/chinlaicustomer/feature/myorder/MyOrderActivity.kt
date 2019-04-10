@@ -73,6 +73,7 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
                 list.clear()
                 list.addAll(it)
                 notifyDataSetChanged()
+                swipe_refresh_layout_order.isRefreshing = false
             }
         }
 
@@ -115,7 +116,7 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
         sp_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, itemID: Long) {
                 if(position >= 0 && position < categories.size){
-                    adapter.sortBy().filter(position.toString())
+                    adapter.sortBy().filter(categories[position].toLowerCase())
                 }
             }
             override fun onNothingSelected(adapterView: AdapterView<*>) {

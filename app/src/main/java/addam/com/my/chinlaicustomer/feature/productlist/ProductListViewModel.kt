@@ -23,11 +23,16 @@ class ProductListViewModel(private val schedulerProvider: SchedulerProvider, pri
         generalRepository.getProductList(id, "0", "5", "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}]")
             .compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
                 onSuccess = {
-                    productsResponse.postValue(it)
+                    if (it.status){
+                        productsResponse.postValue(it)
+                    }else{
+                        onError()
+                    }
                     isLoading.set(false)
                 },
                 onError = {
                     isLoading.set(false)
+                    onError()
                 }
             )
     }
@@ -39,6 +44,10 @@ class ProductListViewModel(private val schedulerProvider: SchedulerProvider, pri
 
     fun onOpenCart(){
         startActivityEvent.value = StartActivityModel(Router.Destination.CART, hasResults = false, clearHistory = false)
+    }
+
+    fun onError(){
+        startActivityEvent.value = StartActivityModel(Router.Destination.ERROR, hasResults = false, clearHistory = true)
     }
 
 }
