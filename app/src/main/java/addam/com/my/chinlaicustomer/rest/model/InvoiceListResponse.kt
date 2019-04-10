@@ -48,6 +48,6 @@ data class Invoices(
     var status: String = ""
 ){
     fun isPaid(): Boolean{
-        return status=="1"
+        return status=="paid"
     }
 }
