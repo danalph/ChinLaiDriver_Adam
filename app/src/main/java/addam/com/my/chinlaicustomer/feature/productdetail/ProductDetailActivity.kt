@@ -25,10 +25,6 @@ class ProductDetailActivity : BaseActivity() {
     @Inject
     lateinit var appPreference: AppPreference
 
-    private lateinit var imageSliderAdapter: ImageSliderAdapter
-
-    private val imageList = arrayListOf<String>()
-
     private lateinit var binding: ActivityProductDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

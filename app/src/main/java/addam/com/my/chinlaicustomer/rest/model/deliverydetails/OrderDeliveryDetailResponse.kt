@@ -13,10 +13,11 @@ data class OrderDeliveryDetailResponse(
     @SerializedName("status")
     var status: Boolean
 ){
+    @Parcelize
     data class OrderDeliveryData(
         @SerializedName("DO")
-        var dO: DO
-    ){
+        var dO: DO?
+    ) : Parcelable {
         @Parcelize
         data class DO(
             @SerializedName("cbranch_address")

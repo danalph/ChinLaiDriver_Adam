@@ -77,14 +77,14 @@ class ProductListActivity : BaseActivity() {
     }
 
     private fun setupView() {
-        rv_product.layoutManager = GridLayoutManager(this, 2)
         adapter = ProductListAdapter(productList, R.layout.product_adapter_layout , object : BaseRecyclerViewAdapter.OnItemClickListener<ProductListResponse.Data.Product> {
             override fun onItemClick(item: ProductListResponse.Data.Product, view: View) {
                 viewModel.onItemSelected(item.id)
             }
         })
         rv_product.adapter = adapter
-        rv_product.isFocusable = false
+        rv_product.layoutManager = GridLayoutManager(this@ProductListActivity, 2)
+        rv_product.isNestedScrollingEnabled = false
 
         et_search
             .textChanges()

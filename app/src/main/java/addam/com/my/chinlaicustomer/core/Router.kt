@@ -4,6 +4,7 @@ import addam.com.my.chinlaicustomer.feature.cart.CartActivity
 import addam.com.my.chinlaicustomer.feature.customerdetail.CustomerDetailActivity
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
+import addam.com.my.chinlaicustomer.feature.error.ErrorActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
@@ -39,7 +40,8 @@ class Router {
         MY_ORDER,
         MY_ORDER_DETAIL,
         CUSTOMER_LIST,
-        CUSTOMER_DETAIL
+        CUSTOMER_DETAIL,
+        ERROR
     }
 
     enum class Parameter{
@@ -85,6 +87,7 @@ class Router {
                 Destination.MY_ORDER -> MyOrderActivity::class.java
                 Destination.MY_ORDER_DETAIL -> MyOrderDetailActivity::class.java
                 Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java
+                Destination.ERROR -> ErrorActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }
