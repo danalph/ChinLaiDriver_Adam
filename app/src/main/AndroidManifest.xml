@@ -25,10 +25,12 @@
 			android:theme="@style/AppTheme"
 			android:usesCleartextTraffic="true"
 			tools:ignore="GoogleAppIndexingWarning">
-		
-		<activity android:name=".feature.invoicedetail.InvoiceDetailActivity"
-		          android:screenOrientation="portrait"
-		          android:theme="@style/AppTheme.NoActionBar"/>
+		<activity android:name=".feature.error.ErrorActivity">
+		</activity>
+		<activity
+				android:name=".feature.invoicedetail.InvoiceDetailActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 				android:name=".feature.customerdetail.CustomerDetailActivity"
 				android:screenOrientation="portrait"
@@ -38,10 +40,10 @@
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar"
 				android:windowSoftInputMode="adjustNothing"/>
-		
-		<activity android:name=".feature.myorderdetail.MyOrderDetailActivity"
-		          android:screenOrientation="portrait"
-		          android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+				android:name=".feature.myorderdetail.MyOrderDetailActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 				android:name=".feature.salescustomer.CustomerListActivity"
 				android:screenOrientation="portrait"
@@ -58,10 +60,10 @@
 				android:name=".feature.password.ResetPasswordActivity"
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar"/>
-		
-		<activity android:name=".feature.cart.CartActivity"
-		          android:screenOrientation="portrait"
-		          android:theme="@style/AppTheme.NoActionBar">
+		<activity
+				android:name=".feature.cart.CartActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		
 		<uses-library

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="addam.com.my.chinlaicustomer.feature.error.ErrorActivity">
+	<data>
+		<variable
+				name="viewModel"
+				type="addam.com.my.chinlaicustomer.feature.error.ErrorViewModel"/>
+	</data>
+	<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			<ImageView
+					android:id="@+id/iv_error"
+					app:layout_constraintBottom_toTopOf="@id/tv_error"
+					android:layout_width="match_parent"
+					android:src="@drawable/icon_error"
+					android:layout_marginBottom="@dimen/space_medium_16dp"
+					android:layout_height="@dimen/space_extra_huge_88dp"/>
+			<TextView
+					android:id="@+id/tv_error"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:text="@string/error_something_wrong"
+					style="@style/BaseTextView.OpenSansRegular"
+					android:gravity="center"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+		<Button
+				android:id="@+id/btn_home"
+				android:layout_marginStart="@dimen/space_large_24dp"
+				android:layout_marginEnd="@dimen/space_large_24dp"
+				android:layout_marginBottom="@dimen/space_large_24dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				style="@style/RoundedButton"
+				android:onClick="@{() -> viewModel.onHomeClick()}"
+				android:layout_width="match_parent"
+				android:text="@string/back_to_dashboard"
+				android:layout_height="@dimen/confirm_button_height"/>
+	</android.support.constraint.ConstraintLayout>
+
+</layout>

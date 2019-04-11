@@ -4,6 +4,8 @@ import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityMyOrderDetailBinding
 import addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.OrderDeliveryStatusFragment
 import addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.OrderDriverFragment
@@ -14,6 +16,7 @@ import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.widget.Toast
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_my_order_detail.*
 import javax.inject.Inject
@@ -54,8 +57,8 @@ class MyOrderDetailActivity : BaseActivity() {
         viewModel.orderDetail.observe(this){
             it?:return@observe
             adapter.run {
-                this.addFragment(OrderInformationFragment.newInstance(it.data.dO), "Order Information")
-                notifyDataSetChanged()
+                //this.addFragment(OrderInformationFragment.newInstance(it.data.dO), "Order Information")
+                //notifyDataSetChanged()
                 viewModel.getDriverDetail()
             }
         }
@@ -74,6 +77,16 @@ class MyOrderDetailActivity : BaseActivity() {
                 notifyDataSetChanged()
             }
         }
+        viewModel.startActivityEvent.observe(this, object: StartActivityEvent.StartActivityObserver{
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@MyOrderDetailActivity, Router.getClass(data.to), data.parameters, data.hasResults)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+                startActivity(this@MyOrderDetailActivity, Router.getClass(data.to), data.parameters, data.hasResults)
+            }
+
+        })
     }
 
     private fun setupTabs() {

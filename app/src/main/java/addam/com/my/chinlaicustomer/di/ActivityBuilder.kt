@@ -8,6 +8,8 @@ import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivityModule
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivityModule
+import addam.com.my.chinlaicustomer.feature.error.ErrorActivity
+import addam.com.my.chinlaicustomer.feature.error.ErrorActivityModule
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListModule
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
@@ -93,4 +95,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(InvoiceDetailModule::class)])
     abstract fun bindInvoiceDetailActivity(): InvoiceDetailActivity
+
+    @ContributesAndroidInjector(modules = [(ErrorActivityModule::class)])
+    abstract fun bindErrorActivityActivity(): ErrorActivity
 }

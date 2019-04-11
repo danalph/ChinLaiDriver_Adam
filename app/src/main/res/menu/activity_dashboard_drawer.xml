@@ -10,7 +10,7 @@
             android:title="@string/browse_product" />
         <item
             android:id="@+id/btn_my_order"
-            android:icon="@drawable/ic_order"
+            android:icon="@drawable/ic_order_drawer"
             android:title="@string/my_order"/>
         <item
             android:id="@+id/btn_my_invoice"
