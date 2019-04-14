@@ -43,13 +43,14 @@ class ProductDetailActivity : BaseActivity() {
     private fun setupObserver() {
         viewModel.detailResponse.observe(this){
             it?:return@observe
-            binding.model = it.data.product
-            binding.toolbarModel = ToolbarWithBackButtonModel(it.data.product.description1, true,true,
+            binding.model = it.data
+            binding.toolbarModel = ToolbarWithBackButtonModel(
+                it.data?.product?.description1!!, true,true,
                 R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)
             val listImages = ArrayList<SlideModel>()
-            if (it.data.productImages != null && it.data.productImages.isNotEmpty()){
-                for (image in it.data.productImages){
-                    listImages.add(SlideModel(image))
+            if (it.data?.productImages != null && it.data?.productImages!!.isNotEmpty()){
+                for (image in it.data?.productImages!!){
+                    listImages.add(SlideModel(image?.path!!))
                 }
             }
             else{

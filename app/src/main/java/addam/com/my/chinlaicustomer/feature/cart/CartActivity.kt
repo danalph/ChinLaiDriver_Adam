@@ -66,7 +66,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
         viewModel.event.observe(this@CartActivity , object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-                selectBranchDialog(adapter.getSelectedItem(), viewModel.totalPrice.get()!!, appPreference.getSalesId())
+                selectBranchDialog(adapter.getSelectedItem(), appPreference.getSalesId())
             }
         })
 
@@ -108,7 +108,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     }
 
 
-    private fun selectBranchDialog(list: ArrayList<Cart>, totalPrice: String, salesPersonId: String) {
+    private fun selectBranchDialog(list: ArrayList<Cart>, salesPersonId: String) {
         val view = LayoutInflater.from(this@CartActivity).inflate(R.layout.dialog_select_branch,null)
         val builder = AlertDialog.Builder(this@CartActivity)
             .setView(view)
@@ -138,7 +138,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
         }
         spinner.adapter = adapter
-        confirmBtn.setOnClickListener { viewModel.onConfirmOrder(list, branchId, totalPrice, salesPersonId) }
+        confirmBtn.setOnClickListener { viewModel.onConfirmOrder(list, branchId, salesPersonId) }
         cancelBtn.setOnClickListener { dialog.cancel() }
     }
 
@@ -161,5 +161,12 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
     private fun onCartPressed(){
         Timber.d { "Cart open" }
+    }
+
+    override fun onDestroy() {
+        if (dialog.isShowing){
+            dialog.dismiss()
+        }
+        super.onDestroy()
     }
 }

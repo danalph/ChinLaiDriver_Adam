@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.squareup.picasso.Picasso
 
 /**
@@ -128,3 +129,8 @@ fun setText(view: CustomTextViewPrefix, text: String?){
 @InverseBindingAdapter(attribute = "android:text", event = "android:textAttrChanged")
 fun getText(view: CustomEditText): String = view.getText()
 
+@BindingAdapter("from_html")
+fun setFromHtml(textView: TextView, text: String?){
+    if(text != null)
+        textView.text = TextHelper.formatHtml(text)
+}

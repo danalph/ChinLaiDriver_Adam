@@ -55,4 +55,10 @@ class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private
             hashMapOf(Pair(Router.Parameter.ORDER_ID, orderId), Pair(Router.Parameter.SELECTED_TAB, selectedTab)) , hasResults = false, clearHistory = false)
     }
 
+    fun viewSalesOrderDetail(orderId: String){
+        startActivityEvent.value = StartActivityModel(
+            Router.Destination.SALES_ORDER,
+            hashMapOf(Pair(Router.Parameter.ORDER_ID, orderId)) , hasResults = false, clearHistory = false)
+    }
+
 }

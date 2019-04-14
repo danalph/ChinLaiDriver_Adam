@@ -10,12 +10,13 @@
 				type="addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailViewModel"/>
 		
 		<variable name="model"
-		          type="addam.com.my.chinlaicustomer.rest.model.ProductDetailResponse.Data.Product"/>
+		          type="addam.com.my.chinlaicustomer.rest.model.ProductDetailsResponse.Data"/>
 		
 		<variable
 				name="toolbarModel"
 				type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel"/>
 		<import type="android.view.View"/>
+		<import type="addam.com.my.chinlaicustomer.utilities.StatusHelper"/>
 	</data>
 	<android.support.constraint.ConstraintLayout
 			android:layout_width="match_parent"
@@ -86,7 +87,7 @@
 							android:id="@+id/tv_title"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:text="@{model.description1}"
+							android:text="@{model.product.description1}"
 							android:textSize="@dimen/large_text_18sp"
 							android:layout_marginTop="@dimen/space_small_8dp"
 							android:textColor="@color/black"/>
@@ -112,7 +113,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/space_small_8dp"
-							android:text="@{model.description2}"/>
+							app:from_html="@{model.productOther.description}"/>
 				</LinearLayout>
 			</RelativeLayout>
 		</ScrollView>

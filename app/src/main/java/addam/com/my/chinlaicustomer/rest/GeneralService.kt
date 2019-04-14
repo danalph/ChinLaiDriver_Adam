@@ -45,7 +45,7 @@ interface GeneralService {
                       @Query("filters") filters: String): Single<ProductListResponse>
 
     @GET("mobile/product/{id}")
-    fun getProductDetail(@Path("id") id: String ): Single<ProductDetailResponse>
+    fun getProductDetail(@Path("id") id: String ): Single<ProductDetailsResponse>
 
     @GET("mobile/customer/{id}/invoices")
     fun getInvoiceList(@Path("id") id: String): Single<InvoiceListResponse>
@@ -87,6 +87,9 @@ interface GeneralService {
 
     @GET("mobile/order/{orderId}")
     fun getOrderDetail(@Path("orderId") orderId: String): Single<OrderDeliveryDetailResponse>
+
+    @GET("mobile/order/{orderId}")
+    fun getSalesOrderDetail(@Path("orderId") orderId: String): Single<SalesOrderDetailResponse>
 
     @GET("mobile/order/{orderId}/driver")
     fun getOrderDriverDetail(@Path("orderId") orderId: String): Single<OrderDriverDetailResponse>
