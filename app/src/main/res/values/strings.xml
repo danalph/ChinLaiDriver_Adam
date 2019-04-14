@@ -189,4 +189,5 @@
 	<string name="back_to_dashboard">Back to Dashboard</string>
 	<string name="error_something_wrong">Opps, something went wrong</string>
 	<string name="error_empty_orders">Opps, there is no order available at the moment</string>
+	<string name="track_order">Track Order</string>
 </resources>

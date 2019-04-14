@@ -8,9 +8,11 @@ import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.ProductListResponse
+import addam.com.my.chinlaicustomer.utilities.TextHelper
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
+import android.text.Spanned
 import io.reactivex.rxkotlin.subscribeBy
 
 class ProductListViewModel(private val schedulerProvider: SchedulerProvider, private val databaseRepository: DatabaseRepository, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel(){
@@ -18,9 +20,9 @@ class ProductListViewModel(private val schedulerProvider: SchedulerProvider, pri
     val productsResponse = MutableLiveData<ProductListResponse>()
     var isLoading = ObservableBoolean(false)
 
-    fun getItem(id: String){
+    fun getItem(id: String, offset: Int, limit: Int){
         isLoading.set(true)
-        generalRepository.getProductList(id, "0", "5", "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}]")
+        generalRepository.getProductList(id, offset.toString(), limit.toString(), "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}]")
             .compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
                 onSuccess = {
                     if (it.status){
