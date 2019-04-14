@@ -2,6 +2,7 @@ package addam.com.my.chinlaicustomer.feature.productdetail
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.GenericSingleEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
@@ -36,6 +37,8 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
 
     val startActivityEvent: StartActivityEvent = StartActivityEvent()
 
+    val addToCartEvent: GenericSingleEvent = GenericSingleEvent()
+
     val isLoading = ObservableBoolean()
 
     private var originalPrice = ""
@@ -63,7 +66,7 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
     fun onPlusClick(){
         if (counter.get() >= 1){
             counter.set(counter.get() + 1)
-            setPrice()
+            //setPrice()
         }
 
     }
@@ -71,7 +74,7 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
     fun onMinusClick(){
         if (counter.get() > 1){
             counter.set(counter.get() - 1)
-            setPrice()
+            //setPrice()
         }
     }
 
@@ -91,8 +94,9 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
             .subscribe(object : CompletableObserver{
                 override fun onComplete() {
                     isLoading.set(false)
-                    startActivityEvent.value = StartActivityModel(
-                        Router.Destination.CART , hasResults = false, clearHistory = false)
+                    /*startActivityEvent.value = StartActivityModel(
+                        Router.Destination.CART , hasResults = false, clearHistory = false)*/
+                    addToCartEvent.value = true
                 }
 
                 override fun onSubscribe(d: Disposable) {

@@ -11,6 +11,7 @@ import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.widget.Toast
 import com.denzcoskun.imageslider.models.SlideModel
 import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
@@ -67,6 +68,12 @@ class ProductDetailActivity : BaseActivity() {
 
             }
         })
+
+        viewModel.addToCartEvent.observe(this){
+            if(it!!){
+               Toast.makeText(this@ProductDetailActivity, "Product added to cart.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupView() {

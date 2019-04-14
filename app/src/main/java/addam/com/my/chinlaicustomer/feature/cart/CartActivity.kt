@@ -38,7 +38,6 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     lateinit var adapter: CartAdapter
     private var list = arrayListOf<Cart>()
     private lateinit var branchesResponse: BranchesResponse
-    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +112,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
         val builder = AlertDialog.Builder(this@CartActivity)
             .setView(view)
             .setCancelable(false)
-        dialog = builder.show()
+        val dialog = builder.show()
         val spinner = view.sp_select_branch
         val address = view.tv_address
         val confirmBtn = view.btn_confirm
@@ -164,9 +163,6 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     }
 
     override fun onDestroy() {
-        if (dialog.isShowing){
-            dialog.dismiss()
-        }
         super.onDestroy()
     }
 }

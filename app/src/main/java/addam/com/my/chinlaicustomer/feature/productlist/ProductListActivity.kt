@@ -39,7 +39,7 @@ class ProductListActivity : BaseActivity() {
     lateinit var adapter: ProductListAdapter
     private val productList = arrayListOf<ProductListResponse.Data.Product>()
     private val disposable = CompositeDisposable()
-    private val pageSize = 10
+    private val pageSize = 20
     private var offset = 0
     private var limit = pageSize
     private var isLastPage: Boolean = false
@@ -65,12 +65,13 @@ class ProductListActivity : BaseActivity() {
             it?: return@observe
             adapter.run {
                 val size = it.data.products.size
-                if(size < pageSize){
-                    isLastPage = true
-                }else{
+                if(size != 0){
                     productList.addAll(it.data.products)
                     val sizeNew = productList.size
                     notifyItemRangeChanged(size, sizeNew)
+
+                }else{
+                    isLastPage = true
                 }
                 swipe_refresh_layout.isRefreshing = false
                 isLoading = false
