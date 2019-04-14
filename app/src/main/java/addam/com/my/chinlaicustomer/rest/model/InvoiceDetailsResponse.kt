@@ -55,7 +55,7 @@ data class InvoiceDetail(
     @SerializedName("salesperson")
     @Expose
     var  salesperson: String,
-    @SerializedName("doNum")
+    @SerializedName("DO")
     @Expose
     var  doNum: String,
     @SerializedName("credit_term")
