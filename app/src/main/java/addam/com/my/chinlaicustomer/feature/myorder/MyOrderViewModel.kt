@@ -31,7 +31,7 @@ class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private
 
     fun getOrder(){
         isLoading.set(true)
-        generalRepository.getOrder(appPreference.getUser().id, "0", "5", "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}]")
+        generalRepository.getOrder(appPreference.getUser().id)
             .compose(schedulerProvider.getSchedulersForSingle())
             .subscribeBy(
                 onSuccess = {

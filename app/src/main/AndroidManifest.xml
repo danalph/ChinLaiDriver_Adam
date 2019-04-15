@@ -25,7 +25,9 @@
 			android:theme="@style/AppTheme"
 			android:usesCleartextTraffic="true"
 			tools:ignore="GoogleAppIndexingWarning">
-		<activity android:name=".feature.salesorder.SalesOrderActivity">
+		<activity android:name=".feature.salesorder.SalesOrderActivity"
+		          android:screenOrientation="portrait"
+		          android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		<activity
 				android:name=".feature.error.ErrorActivity"

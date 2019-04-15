@@ -126,6 +126,7 @@ class ProductListActivity : BaseActivity() {
             .subscribe {
                 if(et_search.hasFocus()){
                     adapter.filter.filter(it)
+                    isLastPage = it.isNotEmpty()
                 }
             }.addTo(disposable)
 
