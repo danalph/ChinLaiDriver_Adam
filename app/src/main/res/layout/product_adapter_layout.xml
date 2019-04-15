@@ -29,8 +29,7 @@
 					    android:layout_width="match_parent"
 					    android:layout_height="@dimen/space_massive_150dp"
 					    android:scaleType="fitXY"
-					    app:srcCompat="@drawable/img_no_image"
-					    tools:src="@drawable/ic_truck"/>
+					    tools:src="@drawable/img_no_image"/>
 			    <View
 					    android:layout_width="match_parent"
 					    android:background="@color/colorPrimaryLighter"

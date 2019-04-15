@@ -17,11 +17,13 @@ import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
-import android.widget.Toast
+import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_my_order_detail.*
 import javax.inject.Inject
+
 
 class MyOrderDetailActivity : BaseActivity() {
 
@@ -42,11 +44,10 @@ class MyOrderDetailActivity : BaseActivity() {
         val binding: ActivityMyOrderDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_my_order_detail)
         binding.viewModel = viewModel
         binding.toolbarModel = ToolbarWithBackModel("View Delivery Order", true, this::onBackPressed)
-
-        setupView()
-        setupObserver()
         selectedTab = intent.getIntExtra(Router.Parameter.SELECTED_TAB.name, 0)
         viewModel.orderId = intent.getStringExtra(Router.Parameter.ORDER_ID.name)
+        setupView()
+        setupObserver()
         viewModel.getOrderDetail()
     }
 
@@ -102,6 +103,11 @@ class MyOrderDetailActivity : BaseActivity() {
         order_tabs.addTab(order_tabs.newTab().setText("Driver Information"))
         order_tabs.addTab(order_tabs.newTab().setText("Delivery Status"))
 
+        Handler().postDelayed({
+            order_tabs.getTabAt(selectedTab)!!.select()
+            Timber.d { "tab is $selectedTab" }
+        }, 500)
+
         order_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
@@ -117,7 +123,7 @@ class MyOrderDetailActivity : BaseActivity() {
 
         })
 
-        order_tabs.getTabAt(selectedTab)?.select()
+
 
     }
 
