@@ -91,7 +91,6 @@ class ProductListActivity : BaseActivity() {
     }
 
     private fun setupView() {
-        KeyboardManager.hideKeyboard(this)
         adapter = ProductListAdapter(productList, R.layout.product_adapter_layout , object : BaseRecyclerViewAdapter.OnItemClickListener<ProductListResponse.Data.Product> {
             override fun onItemClick(item: ProductListResponse.Data.Product, view: View) {
                 viewModel.onItemSelected(item.id)
@@ -142,6 +141,12 @@ class ProductListActivity : BaseActivity() {
     private fun onCartPressed(){
         Timber.d { "Cart open" }
         viewModel.onOpenCart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        KeyboardManager.hideKeyboard(this)
+        focus_thief.requestFocus()
     }
 
     override fun onDestroy() {

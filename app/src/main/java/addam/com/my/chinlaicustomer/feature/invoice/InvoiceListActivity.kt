@@ -198,6 +198,12 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 //        }
     }
 
+    override fun onResume() {
+        super.onResume()
+        KeyboardManager.hideKeyboard(this)
+        focus_thief.requestFocus()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         disposable.clear()

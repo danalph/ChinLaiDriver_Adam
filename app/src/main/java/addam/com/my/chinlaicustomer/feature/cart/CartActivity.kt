@@ -44,7 +44,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
         AndroidInjection.inject(this)
         val binding: ActivityCartBinding = DataBindingUtil.setContentView(this, R.layout.activity_cart)
         binding.viewModel = viewModel
-        binding.toolbarModel = ToolbarWithBackButtonModel("My Cart", true, true,
+        binding.toolbarModel = ToolbarWithBackButtonModel(getString(R.string.my_cart), true, true,
             R.drawable.ic_shopping_cart, this::onCartPressed, this:: onBackPressed)
 
         setupView()
@@ -71,7 +71,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
         viewModel.eventDelete.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-
+                viewModel.setPrice(adapter.getSelectedItem())
             }
 
         })
@@ -94,9 +94,16 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
         viewModel.eventError.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
                 Toast.makeText(this@CartActivity,
-                    "We are unable to process the request at the moment. Please try again later.",
+                    getString(R.string.error),
                     Toast.LENGTH_SHORT).show()
             }
+        })
+
+        viewModel.eventSuccess.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                Toast.makeText(this@CartActivity, getString(R.string.order_success), Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 
@@ -155,14 +162,9 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
     override fun onDeleteItem(item: Cart) {
         viewModel.onDeleteItem(item)
-        viewModel.setPrice(adapter.getSelectedItem())
     }
 
     private fun onCartPressed(){
         Timber.d { "Cart open" }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

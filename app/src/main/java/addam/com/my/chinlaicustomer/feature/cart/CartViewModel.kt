@@ -31,6 +31,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     val cartItems = MutableLiveData<List<Cart>>()
     val branches = MutableLiveData<BranchesResponse>()
     val event = GenericSingleEvent()
+    val eventSuccess = GenericSingleEvent()
     val eventError = GenericSingleEvent()
     val eventDelete = GenericSingleEvent()
     val isLoading = ObservableBoolean()
@@ -98,6 +99,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
                             .subscribeOn(Schedulers.io())
                             .subscribe(object: CompletableObserver{
                                 override fun onComplete() {
+                                    eventSuccess.value = true
                                     startActivityEvent.value = StartActivityModel(
                                         Router.Destination.DASHBOARD , hasResults = false, clearHistory = false)
                                 }

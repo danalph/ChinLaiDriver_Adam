@@ -49,12 +49,11 @@ class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter
         }
         p0.tvProductName.text = item.productName
         p0.tvQuantity.text = quantity.toString()
-        p0.tvProductPrice.text = setPrice(item.productPrice, quantity.toString())
+        p0.tvProductPrice.text = setPrice(item.productPrice)
         p0.btnPlus.setOnClickListener {
             if (quantity >= 1){
                 quantity += 1
                 p0.tvQuantity.text = quantity.toString()
-                p0.tvProductPrice.text = setPrice(item.productPrice, quantity.toString())
                 item.productQuantity = quantity
                 itemClickListener.onItemClick()
             }
@@ -63,7 +62,6 @@ class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter
             if (item.productQuantity > 1){
                 quantity -= 1
                 p0.tvQuantity.text = quantity.toString()
-                p0.tvProductPrice.text = setPrice(item.productPrice, quantity.toString())
                 item.productQuantity = quantity
                 itemClickListener.onItemClick()
             }
@@ -105,9 +103,9 @@ class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter
         fun onDeleteItem(item:Cart)
     }
 
-    private fun setPrice(price: String, quantity: String) : String{
+    private fun setPrice(price: String) : String{
         val format = DecimalFormat("#,###,###,##0.00")
-        return "RM ${format.format(quantity.toInt() * price.toDouble())}"
+        return "RM ${format.format(price.toDouble())}"
     }
 
 }
