@@ -29,8 +29,7 @@
 				android:layout_height="match_parent">
 			<android.support.constraint.ConstraintLayout
 					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_marginTop="@dimen/space_medium_16dp">
+					android:layout_height="match_parent">
 				<android.support.constraint.Guideline
 						android:id="@+id/left_guideline"
 						android:layout_width="wrap_content"
@@ -43,56 +42,64 @@
 						android:layout_height="wrap_content"
 						android:orientation="vertical"
 						app:layout_constraintGuide_end="@dimen/space_medium_16dp" />
-				
-				<android.support.constraint.ConstraintLayout
-						android:id="@+id/header_layout"
+				<android.support.v7.widget.CardView
+						android:id="@+id/top_header_card"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-						app:layout_constraintRight_toRightOf="@id/right_guideline"
-						app:layout_constraintTop_toTopOf="parent">
-					<TextView
-							android:id="@+id/txt_invoice_no"
-							android:layout_width="wrap_content"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						android:elevation="@dimen/space_tiny_2dp">
+					<android.support.constraint.ConstraintLayout
+							android:id="@+id/header_layout"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							style="@style/BaseTextView.OpenSansSemiBold"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintLeft_toLeftOf="parent"
-							android:textColor="@color/black"
-							android:textSize="@dimen/large_text_18sp"
-							android:text="@{viewmodel.invoiceNo}"
-							tools:text="salkdajdlakdjaa"/>
-					<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							style="@style/BaseTextView.OpenSansSemiBold"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/txt_invoice_no"
-							android:text="@{viewmodel.date}"
-							android:textSize="@dimen/medium_text_16sp"
-							tools:text="alskdjadaalskdj"/>
-					<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							style="@style/BaseTextView.RalewayRegular"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintEnd_toEndOf="parent"
-							android:paddingStart="@dimen/space_tiny_4dp"
-							android:paddingEnd="@dimen/space_tiny_4dp"
-							android:textAllCaps="true"
-							android:textAlignment="textEnd"
-							android:textColor="@color/white"
-							android:text="@{viewmodel.status? @string/paid : @string/unpaid}"
-							android:background="@{viewmodel.status? @color/colorGreen : @color/colorRed}"
-							tools:text="UNPAID"
-							tools:background="@color/colorRed"/>
-				</android.support.constraint.ConstraintLayout>
+							android:layout_marginTop="@dimen/space_medium_16dp"
+							android:paddingStart="@dimen/space_medium_16dp"
+							android:paddingEnd="@dimen/space_medium_16dp">
+						<TextView
+								android:id="@+id/txt_invoice_no"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								style="@style/BaseTextView.OpenSansSemiBold"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintLeft_toLeftOf="parent"
+								android:textColor="@color/black"
+								android:textSize="@dimen/large_text_18sp"
+								android:text="@{viewmodel.invoiceNo}"
+								tools:text="salkdajdlakdjaa"/>
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								style="@style/BaseTextView.OpenSansSemiBold"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/txt_invoice_no"
+								android:text="@{viewmodel.date}"
+								android:textSize="@dimen/medium_text_16sp"
+								tools:text="alskdjadaalskdj"/>
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								style="@style/BaseTextView.RalewayRegular"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								android:paddingStart="@dimen/space_tiny_4dp"
+								android:paddingEnd="@dimen/space_tiny_4dp"
+								android:textAllCaps="true"
+								android:textAlignment="textEnd"
+								android:textColor="@color/white"
+								android:text="@{viewmodel.status? @string/paid : @string/unpaid}"
+								android:background="@{viewmodel.status? @color/colorGreen : @color/colorRed}"
+								tools:text="UNPAID"
+								tools:background="@color/colorRed"/>
+					</android.support.constraint.ConstraintLayout>
+				</android.support.v7.widget.CardView>
 				
 				<android.support.v7.widget.CardView
 						android:id="@+id/header_card"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						app:layout_constraintTop_toBottomOf="@+id/header_layout"
+						app:layout_constraintTop_toBottomOf="@+id/top_header_card"
 						android:layout_marginTop="@dimen/space_small_8dp"
 						android:elevation="@dimen/space_tiny_2dp">
 					
@@ -363,9 +370,12 @@
 						android:id="@+id/row_company_total"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
-						app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-						app:layout_constraintRight_toRightOf="@id/right_guideline"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
 						app:layout_constraintTop_toBottomOf="@+id/row_invoice_items"
+						android:paddingStart="@dimen/space_medium_16dp"
+						android:paddingEnd="@dimen/space_medium_16dp"
+						android:background="@color/white"
 						android:layout_marginTop="@dimen/space_medium_16dp">
 					
 					<TextView
