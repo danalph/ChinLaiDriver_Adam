@@ -16,6 +16,7 @@ import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
 import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
 
@@ -41,7 +42,8 @@ class Router {
         MY_ORDER_DETAIL,
         CUSTOMER_LIST,
         CUSTOMER_DETAIL,
-        ERROR
+        ERROR,
+        SALES_ORDER
     }
 
     enum class Parameter{
@@ -88,6 +90,7 @@ class Router {
                 Destination.MY_ORDER_DETAIL -> MyOrderDetailActivity::class.java
                 Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java
                 Destination.ERROR -> ErrorActivity::class.java
+                Destination.SALES_ORDER -> SalesOrderActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

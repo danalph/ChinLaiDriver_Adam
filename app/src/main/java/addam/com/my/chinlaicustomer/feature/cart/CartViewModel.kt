@@ -31,6 +31,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     val cartItems = MutableLiveData<List<Cart>>()
     val branches = MutableLiveData<BranchesResponse>()
     val event = GenericSingleEvent()
+    val eventSuccess = GenericSingleEvent()
     val eventError = GenericSingleEvent()
     val eventDelete = GenericSingleEvent()
     val isLoading = ObservableBoolean()
@@ -80,14 +81,14 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
         event.value = true
     }
 
-    fun onConfirmOrder(list: ArrayList<Cart>, branchId: String, totalPrice: String, salesPersonId: String){
+    fun onConfirmOrder(list: ArrayList<Cart>, branchId: String, salesPersonId: String){
         isLoading.set(true)
         val listOfGoods = arrayListOf<CreateOrderRequest.Good>()
         for (item in list){
             val goods = CreateOrderRequest.Good(item.id.toString(),item.productQuantity.toString())
             listOfGoods.add(goods)
         }
-        val orderRequest = CreateOrderRequest(branchId, appPreference.getUser().id, listOfGoods, salesPersonId, totalPrice)
+        val orderRequest = CreateOrderRequest(branchId, appPreference.getUser().id, listOfGoods, salesPersonId)
         generalRepository.createOrder(orderRequest).compose(schedulerProvider.getSchedulersForSingle())
             .subscribeBy(
                 onSuccess = {
@@ -98,7 +99,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
                             .subscribeOn(Schedulers.io())
                             .subscribe(object: CompletableObserver{
                                 override fun onComplete() {
-
+                                    eventSuccess.value = true
                                     startActivityEvent.value = StartActivityModel(
                                         Router.Destination.DASHBOARD , hasResults = false, clearHistory = false)
                                 }

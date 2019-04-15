@@ -38,14 +38,13 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     lateinit var adapter: CartAdapter
     private var list = arrayListOf<Cart>()
     private lateinit var branchesResponse: BranchesResponse
-    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         val binding: ActivityCartBinding = DataBindingUtil.setContentView(this, R.layout.activity_cart)
         binding.viewModel = viewModel
-        binding.toolbarModel = ToolbarWithBackButtonModel("My Cart", true, true,
+        binding.toolbarModel = ToolbarWithBackButtonModel(getString(R.string.my_cart), true, true,
             R.drawable.ic_shopping_cart, this::onCartPressed, this:: onBackPressed)
 
         setupView()
@@ -66,13 +65,13 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
         viewModel.event.observe(this@CartActivity , object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-                selectBranchDialog(adapter.getSelectedItem(), viewModel.totalPrice.get()!!, appPreference.getSalesId())
+                selectBranchDialog(adapter.getSelectedItem(), appPreference.getSalesId())
             }
         })
 
         viewModel.eventDelete.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
-
+                viewModel.setPrice(adapter.getSelectedItem())
             }
 
         })
@@ -95,9 +94,16 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
         viewModel.eventError.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
             override fun onPerformEvent() {
                 Toast.makeText(this@CartActivity,
-                    "We are unable to process the request at the moment. Please try again later.",
+                    getString(R.string.error),
                     Toast.LENGTH_SHORT).show()
             }
+        })
+
+        viewModel.eventSuccess.observe(this@CartActivity, object : GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                Toast.makeText(this@CartActivity, getString(R.string.order_success), Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 
@@ -108,12 +114,12 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     }
 
 
-    private fun selectBranchDialog(list: ArrayList<Cart>, totalPrice: String, salesPersonId: String) {
+    private fun selectBranchDialog(list: ArrayList<Cart>, salesPersonId: String) {
         val view = LayoutInflater.from(this@CartActivity).inflate(R.layout.dialog_select_branch,null)
         val builder = AlertDialog.Builder(this@CartActivity)
             .setView(view)
             .setCancelable(false)
-        dialog = builder.show()
+        val dialog = builder.show()
         val spinner = view.sp_select_branch
         val address = view.tv_address
         val confirmBtn = view.btn_confirm
@@ -138,7 +144,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
         }
         spinner.adapter = adapter
-        confirmBtn.setOnClickListener { viewModel.onConfirmOrder(list, branchId, totalPrice, salesPersonId) }
+        confirmBtn.setOnClickListener { viewModel.onConfirmOrder(list, branchId, salesPersonId) }
         cancelBtn.setOnClickListener { dialog.cancel() }
     }
 
@@ -156,7 +162,6 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
     override fun onDeleteItem(item: Cart) {
         viewModel.onDeleteItem(item)
-        viewModel.setPrice(adapter.getSelectedItem())
     }
 
     private fun onCartPressed(){

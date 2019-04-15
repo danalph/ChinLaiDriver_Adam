@@ -3,7 +3,6 @@ package addam.com.my.chinlaicustomer.feature.myorder
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
-import addam.com.my.chinlaicustomer.core.BaseRecyclerViewAdapter
 import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
@@ -28,7 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_invoice_list.*
+import kotlinx.android.synthetic.main.activity_my_order.*
 import kotlinx.android.synthetic.main.app_bar_dashboard.*
 import kotlinx.android.synthetic.main.content_my_order.*
 import java.util.concurrent.TimeUnit
@@ -105,7 +104,10 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
                 viewModel.viewDetail(item.id, 2)
             }
             override fun onItemClick(p1: Int, item: MyOrderResponse.Data.SO) {
-                viewModel.viewDetail(item.id, 0)
+                if (item.status != "pending" && item.status != "confirmed")
+                    viewModel.viewDetail(item.id, 0)
+                else
+                    viewModel.viewSalesOrderDetail(item.id)
             }
         })
 
@@ -149,6 +151,12 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        KeyboardManager.hideKeyboard(this)
+        focus_thief.requestFocus()
     }
 
     override fun onDestroy() {

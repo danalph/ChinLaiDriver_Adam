@@ -16,7 +16,9 @@
             app:cardCornerRadius="@dimen/space_tiny_4dp">
 	    <android.support.constraint.ConstraintLayout
 			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content">
+			    android:layout_height="wrap_content"
+			    android:background="@color/white"
+			    >
 		    <LinearLayout
 				    android:id="@+id/ll_content"
 				    android:layout_width="match_parent"

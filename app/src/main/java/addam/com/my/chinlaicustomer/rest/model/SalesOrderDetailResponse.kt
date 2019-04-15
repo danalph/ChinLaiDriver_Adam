@@ -1,8 +1,8 @@
-package addam.com.my.chinlaicustomer.rest.model.deliverydetails
+package addam.com.my.chinlaicustomer.rest.model
 
 import com.google.gson.annotations.SerializedName
 
-data class OrderDeliveryDetail2Response(
+data class SalesOrderDetailResponse(
     @SerializedName("data")
     var `data`: Data?,
     @SerializedName("message")
@@ -14,7 +14,7 @@ data class OrderDeliveryDetail2Response(
         @SerializedName("SO")
         var sO: SO?,
         @SerializedName("items")
-        var items: List<Item?>?
+        var items: ArrayList<Item>
     ) {
         data class SO(
             @SerializedName("billing_address")

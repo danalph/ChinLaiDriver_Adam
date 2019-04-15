@@ -1,6 +1,7 @@
 package addam.com.my.chinlaicustomer.rest.model
 
 import addam.com.my.chinlaicustomer.R
+import android.view.View
 import com.google.gson.annotations.SerializedName
 
 data class MyOrderResponse(
@@ -38,6 +39,13 @@ data class MyOrderResponse(
                     "completed" -> R.color.colorBlue
                     "unknown" -> R.color.colorGreen
                     else -> R.color.colorRed
+                }
+            }
+
+            fun getTrackOrderVisibility(): Int{
+                return when(status){
+                    "pending", "confirmed" -> View.GONE
+                    else -> View.VISIBLE
                 }
             }
         }

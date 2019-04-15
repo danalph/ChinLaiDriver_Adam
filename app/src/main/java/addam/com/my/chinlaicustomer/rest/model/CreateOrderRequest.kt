@@ -10,14 +10,12 @@ data class CreateOrderRequest(
     @SerializedName("goods")
     val goods: List<Good>,
     @SerializedName("salesperson")
-    val salesperson: String,
-    @SerializedName("total_price")
-    val totalPrice: String
+    val salesperson: String
 ) {
     data class Good(
         @SerializedName("good_id")
         val goodId: String,
-        @SerializedName("good_qty")
+        @SerializedName("good_quantity")
         val goodQty: String
     )
 }
