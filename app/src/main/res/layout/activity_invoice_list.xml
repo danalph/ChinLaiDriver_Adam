@@ -57,6 +57,10 @@
 						android:textSize="@dimen/medium_text_14sp"
 						android:textColor="@color/black"
 						android:text="@string/customer"/>
+				<View
+						android:id="@+id/focus_thief"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
 			</LinearLayout>
 		</android.support.design.widget.NavigationView>
 	

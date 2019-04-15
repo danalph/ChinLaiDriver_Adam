@@ -190,4 +190,7 @@
 	<string name="error_something_wrong">Opps, something went wrong</string>
 	<string name="error_empty_orders">Opps, there is no order available at the moment</string>
 	<string name="track_order">Track Order</string>
+	<string name="error">We are unable to process the request at the moment. Please try again later.</string>
+	<string name="order_success">Order successfully created</string>
+	<string name="my_cart">My Cart</string>
 </resources>
