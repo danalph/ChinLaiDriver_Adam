@@ -5,5 +5,12 @@
              tools:context="addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.BlankFragment">
 	
 	<!-- TODO: Update blank fragment layout -->
+	<TextView
+			android:layout_gravity="center"
+			android:gravity="center"
+			style="@style/BaseTextView.OpenSansSemiBold"
+			android:text="@string/no_information_available"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
 
 </FrameLayout>

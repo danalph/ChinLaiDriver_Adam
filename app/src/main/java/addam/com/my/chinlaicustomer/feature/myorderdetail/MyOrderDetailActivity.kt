@@ -4,9 +4,11 @@ import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.GenericSingleEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityMyOrderDetailBinding
+import addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.BlankFragment
 import addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.OrderDeliveryStatusFragment
 import addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.OrderDriverFragment
 import addam.com.my.chinlaicustomer.feature.myorderdetail.fragment.OrderInformationFragment
@@ -57,9 +59,8 @@ class MyOrderDetailActivity : BaseActivity() {
         viewModel.orderDetail.observe(this){
             it?:return@observe
             adapter.run {
-                //this.addFragment(OrderInformationFragment.newInstance(it.data.dO), "Order Information")
-                //notifyDataSetChanged()
-                viewModel.getDriverDetail()
+                this.addFragment(OrderInformationFragment.newInstance(it.data.dO!!), "Order Information")
+                notifyDataSetChanged()
             }
         }
         viewModel.orderDriverDetail.observe(this){
@@ -67,7 +68,6 @@ class MyOrderDetailActivity : BaseActivity() {
             adapter.run {
                 this.addFragment(OrderDriverFragment.newInstance(it.data?.dO!!), "Driver Information")
                 notifyDataSetChanged()
-                viewModel.getDeliveryStatus()
             }
         }
         viewModel.orderDeliveryStatus.observe(this){
@@ -86,6 +86,14 @@ class MyOrderDetailActivity : BaseActivity() {
                 startActivity(this@MyOrderDetailActivity, Router.getClass(data.to), data.parameters, data.hasResults)
             }
 
+        })
+        viewModel.errorEvent.observe(this, object : GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                adapter.run {
+                    this.addFragment(BlankFragment.newInstance("",""), "No Information")
+                    notifyDataSetChanged()
+                }
+            }
         })
     }
 

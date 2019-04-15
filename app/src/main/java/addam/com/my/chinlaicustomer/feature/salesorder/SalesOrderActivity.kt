@@ -21,7 +21,7 @@ class SalesOrderActivity : AppCompatActivity() {
 
     lateinit var adapter: SalesOrderDetailAdapter
 
-    lateinit var model: MutableList<SalesOrderDetailResponse.Data.Item>
+    private var list = arrayListOf<SalesOrderDetailResponse.Data.Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class SalesOrderActivity : AppCompatActivity() {
 
     private fun setupView() {
         rv_sales_items.layoutManager = LinearLayoutManager(this)
-        adapter = SalesOrderDetailAdapter(model)
+        adapter = SalesOrderDetailAdapter(list)
         rv_sales_items.adapter = adapter
         rv_sales_items.isNestedScrollingEnabled = false
     }
@@ -49,6 +49,7 @@ class SalesOrderActivity : AppCompatActivity() {
             adapter.run {
                 models.clear()
                 models.addAll(it)
+                notifyDataSetChanged()
             }
         }
     }

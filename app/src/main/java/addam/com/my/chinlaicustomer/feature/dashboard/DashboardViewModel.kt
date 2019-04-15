@@ -36,7 +36,7 @@ class DashboardViewModel(private val schedulerProvider: SchedulerProvider, priva
 
     fun getCategoryList(){
         isLoading.set(true)
-        generalRepository.getCategoryList("0", "5", "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}] ")
+        generalRepository.getCategoryList()
             .compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
                 onSuccess = {
                     if (it.status){

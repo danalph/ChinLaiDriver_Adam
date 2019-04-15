@@ -2,6 +2,7 @@ package addam.com.my.chinlaicustomer.feature.myorderdetail
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.GenericSingleEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
@@ -26,8 +27,29 @@ class MyOrderDetailViewModel(private val schedulerProvider: SchedulerProvider, p
     val orderDriverDetail = MutableLiveData<OrderDriverDetailResponse>()
     val orderDeliveryStatus = MutableLiveData<OrderDeliveryStatusResponse>()
     val orderDetail = MutableLiveData<OrderDeliveryDetailResponse>()
+    val errorEvent = GenericSingleEvent()
     var headerItem = ViewDeliveryHeaderModel()
 
+    fun getOrderDetail(){
+        isLoading.set(true)
+        generalRepository.getOrderDetail(orderId).compose(schedulerProvider.getSchedulersForSingle())
+            .subscribeBy(
+                onSuccess = {
+                    if (it.status){
+                        orderDetail.postValue(it)
+                    }else{
+                        isLoading.set(false)
+                        errorEvent.value = true
+                    }
+                    getDriverDetail()
+                },
+                onError = {
+                    isLoading.set(false)
+                    errorEvent.value = true
+                    getDriverDetail()
+                }
+            )
+    }
 
     fun getDriverDetail(){
         generalRepository.getOrderDriverDetail(orderId).compose(schedulerProvider.getSchedulersForSingle())
@@ -37,12 +59,14 @@ class MyOrderDetailViewModel(private val schedulerProvider: SchedulerProvider, p
                         orderDriverDetail.postValue(it)
                     }else{
                         isLoading.set(false)
-                        onError()
+                        errorEvent.value = true
                     }
+                    getDeliveryStatus()
                 },
                 onError = {
                     isLoading.set(false)
-                    onError()
+                    errorEvent.value = true
+                    getDeliveryStatus()
                 }
             )
     }
@@ -57,32 +81,13 @@ class MyOrderDetailViewModel(private val schedulerProvider: SchedulerProvider, p
                         headerItem.status.set(it.data?.dO?.status)
                         orderDeliveryStatus.postValue(it)
                     }else{
-                        onError()
+                        errorEvent.value = true
                     }
                     isLoading.set(false)
                 },
                 onError = {
                     isLoading.set(false)
-                    onError()
-                }
-            )
-    }
-
-    fun getOrderDetail(){
-        isLoading.set(true)
-        generalRepository.getOrderDetail(orderId).compose(schedulerProvider.getSchedulersForSingle())
-            .subscribeBy(
-                onSuccess = {
-                    if (it.status){
-                        orderDetail.postValue(it)
-                    }else{
-                        isLoading.set(false)
-                        onError()
-                    }
-                },
-                onError = {
-                    isLoading.set(false)
-                    onError()
+                    errorEvent.value = true
                 }
             )
     }

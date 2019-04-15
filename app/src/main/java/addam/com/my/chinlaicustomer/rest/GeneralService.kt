@@ -30,11 +30,7 @@ interface GeneralService {
     fun getChangePassword(@Path("id") id: String, @Body changePasswordRequest: ChangePasswordRequest): Single<ChangePasswordResponse>
 
     @GET("mobile/category")
-    fun getCategoryList(@Query("offset") offset: String,
-                 @Query("limit") limit: String,
-                 @Query("field") field: String,
-                 @Query("sortby") sortby: String,
-                 @Query("filters") filters: String): Single<CategoryListResponse>
+    fun getCategoryList(): Single<CategoryListResponse>
 
     @GET("mobile/products/{id}/")
     fun getProductList(@Path("id") id: String,
@@ -78,14 +74,9 @@ interface GeneralService {
     fun createOrder(@Body createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse>
 
     @GET("mobile/customer/{customerId}/orders/")
-    fun getOrder(@Path("customerId") customerId: String,
-                 @Query("offset") offset: String,
-                 @Query("limit") limit: String,
-                 @Query("field") field: String,
-                 @Query("sortby") sortby: String,
-                 @Query("filters") filters: String): Single<MyOrderResponse>
+    fun getOrder(@Path("customerId") customerId: String): Single<MyOrderResponse>
 
-    @GET("mobile/order/{orderId}")
+    @GET("mobile/deliver_order/{orderId}")
     fun getOrderDetail(@Path("orderId") orderId: String): Single<OrderDeliveryDetailResponse>
 
     @GET("mobile/order/{orderId}")
