@@ -21,6 +21,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.github.ajalt.timberkt.Timber
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -40,7 +40,7 @@ class MyOrderListAdapter(var list: ArrayList<MyOrderResponse.Data.SO>, var onIte
             onItemClickListener.onTrackClick(item)
         }
 
-        holder.mBinding.root.setOnClickListener { onItemClickListener.onItemClick(p1, item) }
+        holder.mBinding.cardView.setOnClickListener { onItemClickListener.onItemClick(p1, item) }
     }
 
     private fun getItemForPosition(position: Int): MyOrderResponse.Data.SO{
