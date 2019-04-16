@@ -66,11 +66,12 @@ class ProductListAdapter(var list: MutableList<ProductListResponse.Data.Product>
     override fun getFilter(): Filter {
         return object: Filter(){
             override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterString = constraint.toString().toLowerCase()
                 val results = FilterResults()
                 val filteredList = ArrayList<ProductListResponse.Data.Product>()
-                if (constraint.isNotEmpty()){
+                if (filterString.isNotEmpty()){
                     for (currItem in originalItem){
-                        if (currItem.id == constraint){
+                        if (currItem.description1.toLowerCase().contains(filterString) ){
                             filteredList.add(currItem)
                         }
                     }
