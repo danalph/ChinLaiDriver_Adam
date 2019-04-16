@@ -106,7 +106,7 @@ class MyOrderDetailActivity : BaseActivity() {
         Handler().postDelayed({
             order_tabs.getTabAt(selectedTab)!!.select()
             Timber.d { "tab is $selectedTab" }
-        }, 500)
+        }, 1000)
 
         order_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {

@@ -29,18 +29,14 @@ data class OrderDeliveryStatusResponse(
             @SerializedName("docID")
             var docID: String?,
             @SerializedName("id")
-            var id: String?,
-            @SerializedName("text")
-            var text: String?,
-            @SerializedName("userID")
-            var userID: String?
+            var id: String?
         ) : Parcelable{
             fun getStatusRes(): Int{
                 return when(action){
                     "create" -> R.drawable.icon_order_create
                     "packing" -> R.drawable.icon_order_packing
-                    "trip" -> R.drawable.icon_order_packing
-                    "update" -> R.drawable.icon_order_delivered
+                    "trip" -> R.drawable.icon_order_trip
+                    "update" -> R.drawable.icon_order_trip
                     "delivered" -> R.drawable.icon_order_delivered
                     else -> R.drawable.icon_order_delivered
                 }
