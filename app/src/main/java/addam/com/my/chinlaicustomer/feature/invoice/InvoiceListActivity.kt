@@ -97,7 +97,7 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     private fun setupRecyclerView() {
         invoice_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-//        adapter = InvoiceAdapter(viewModel.dummyData(), this)
+//        adapter = InvoiceAdapter(listViewModel.dummyData(), this)
         searchAdapter = InvoiceListItemAdapter(viewModel.oldFilteredList, this)
         invoice_list.adapter = searchAdapter
 
@@ -120,8 +120,8 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                 spinner_invoice.setSelection(0)
 //                }
 //                else {
-//                    viewModel.oldFilteredList.clear()
-//                    viewModel.oldFilteredList.addAll(viewModel.originalList)
+//                    listViewModel.oldFilteredList.clear()
+//                    listViewModel.oldFilteredList.addAll(listViewModel.originalList)
 //                    invoice_list.adapter = adapter
 //                    spinner_invoice.setSelection(0)
 //                }
@@ -192,8 +192,8 @@ class InvoiceListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                 }.addTo(disposable)
 //        }
 //        else{
-//            viewModel.oldFilteredList.clear()
-//            viewModel.oldFilteredList.addAll(viewModel.originalList)
+//            listViewModel.oldFilteredList.clear()
+//            listViewModel.oldFilteredList.addAll(listViewModel.originalList)
 //            invoice_list.adapter = adapter
 //        }
     }

@@ -5,7 +5,7 @@ import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.util.PermissionHelper
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
-import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
@@ -173,7 +173,7 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
                 }
             }
             R.id.btn_my_order -> {
-                if(className != MyOrderActivity::class.java.simpleName){
+                if(className != MyOrderListActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.MY_ORDER), clearHistory = true)
                     overridePendingTransition(0,0)
                 }

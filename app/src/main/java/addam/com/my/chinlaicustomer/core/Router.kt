@@ -9,7 +9,7 @@ import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
-import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
@@ -86,7 +86,7 @@ class Router {
                 Destination.INVOICE_DETAIL -> InvoiceDetailActivity::class.java
                 Destination.SALES_LOGIN -> SalesLoginActivity::class.java
                 Destination.CUSTOMER_LIST -> CustomerListActivity::class.java
-                Destination.MY_ORDER -> MyOrderActivity::class.java
+                Destination.MY_ORDER -> MyOrderListActivity::class.java
                 Destination.MY_ORDER_DETAIL -> MyOrderDetailActivity::class.java
                 Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java
                 Destination.ERROR -> ErrorActivity::class.java

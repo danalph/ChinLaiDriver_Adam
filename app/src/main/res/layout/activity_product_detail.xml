@@ -72,7 +72,7 @@
 				<com.denzcoskun.imageslider.ImageSlider
 						android:id="@+id/slider"
 						android:layout_width="match_parent"
-						android:layout_height="200dp"
+						android:layout_height="300dp"
 						app:auto_cycle="true"
 						app:period="5000"
 						app:delay="0"

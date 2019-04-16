@@ -18,8 +18,8 @@ import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivityModule
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
-import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity
-import addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivityModule
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivityModule
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivityModule
 import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
@@ -86,8 +86,8 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [(InvoiceListModule::class)])
     abstract fun bindInvoiceListActivity(): InvoiceListActivity
 
-    @ContributesAndroidInjector(modules = [(MyOrderActivityModule::class)])
-    abstract fun bindMyOrderActivity(): MyOrderActivity
+    @ContributesAndroidInjector(modules = [(MyOrderListActivityModule::class)])
+    abstract fun bindMyOrderActivity(): MyOrderListActivity
 
     @ContributesAndroidInjector(modules = [(MyOrderDetailActivityModule::class)])
     abstract fun bindMyOrderDetailActivity(): MyOrderDetailActivity

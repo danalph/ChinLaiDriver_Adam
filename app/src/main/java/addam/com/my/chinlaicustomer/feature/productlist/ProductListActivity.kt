@@ -131,7 +131,8 @@ class ProductListActivity : BaseActivity() {
             }.addTo(disposable)
 
         swipe_refresh_layout.setOnRefreshListener {
-            isLoading = false
+            adapter.list.clear()
+            isLoading = true
             isLastPage = false
             offset = 0
             limit = pageSize

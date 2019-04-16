@@ -57,8 +57,8 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
 
     fun createOrder(createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse> = api.createOrder(createOrderRequest)
 
-    fun getOrder(customerId: String): Single<MyOrderResponse> =
-            api.getOrder(customerId)
+    fun getOrder(customerId: String,offset: String, limit: String, status: String): Single<MyOrderResponse> =
+            api.getOrder(customerId, offset, limit, status)
 
     fun getOrderDetail(orderId: String): Single<OrderDeliveryDetailResponse> = api.getOrderDetail(orderId)
 
