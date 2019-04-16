@@ -1,18 +1,12 @@
 package addam.com.my.chinlaicustomer.utilities
 
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
 /**
  * Pagination class to add more items to the list when reach the last item.
  */
-abstract class PaginationScrollListener
-/**
- * Supporting only LinearLayoutManager for now.
- *
- * @param layoutManager
- */
-    (var layoutManager: GridLayoutManager) : RecyclerView.OnScrollListener() {
+abstract class PaginationScrollListener(var layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
 
     abstract fun isLastPage(): Boolean
 

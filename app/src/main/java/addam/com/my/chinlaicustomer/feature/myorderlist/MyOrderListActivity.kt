@@ -1,4 +1,4 @@
-package addam.com.my.chinlaicustomer.feature.myorder
+package addam.com.my.chinlaicustomer.feature.myorderlist
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
@@ -10,6 +10,7 @@ import addam.com.my.chinlaicustomer.databinding.ActivityMyOrderBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.MyOrderResponse
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
+import addam.com.my.chinlaicustomer.utilities.PaginationScrollListener
 import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -34,10 +35,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
-    lateinit var viewModel: MyOrderViewModel
+    lateinit var listViewModel: MyOrderListViewModel
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -50,15 +51,21 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
 
     private val categories = arrayOf("All", "Pending", "Confirmed", "Processing", "Delivering", "Completed")
 
+    private val pageSize = 20
+    private var offset = 0
+    private var limit = pageSize
+    private var isLastPage: Boolean = false
+    private var isLoading: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         val binding: ActivityMyOrderBinding = DataBindingUtil.setContentView(this, R.layout.activity_my_order)
-        binding.viewModel = viewModel
+        binding.viewModel = listViewModel
         //binding.toolbarModel = ToolbarWithBackButtonModel("My Order List", true, false,R.drawable.ic_shopping_cart, callback = this::onBackPressed)
         val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
-        headerBind.name = viewModel.name.get().toString()
+        headerBind.name = listViewModel.name.get().toString()
 
         setSupportActionBar(toolbar)
         setupView()
@@ -66,23 +73,30 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
     }
 
     private fun setupObserver() {
-        viewModel.orderList.observe(this){
+        listViewModel.orderList.observe(this){
             it?:return@observe
             adapter.run {
-                list.clear()
-                list.addAll(it)
-                notifyDataSetChanged()
+                val size = it.size
+                if(size != 0){
+                    list.addAll(it)
+                    val sizeNew = list.size
+                    notifyItemRangeChanged(size, sizeNew)
+
+                }else{
+                    isLastPage = true
+                }
                 swipe_refresh_layout_order.isRefreshing = false
+                isLoading = false
             }
         }
 
-        viewModel.startActivityEvent.observe(this, object : StartActivityEvent.StartActivityObserver{
+        listViewModel.startActivityEvent.observe(this, object : StartActivityEvent.StartActivityObserver{
             override fun onStartActivity(data: StartActivityModel) {
-                startActivity(this@MyOrderActivity, Router.getClass(data.to), data.parameters, data.hasResults)
+                startActivity(this@MyOrderListActivity, Router.getClass(data.to), data.parameters, data.hasResults)
             }
 
             override fun onStartActivityForResult(data: StartActivityModel) {
-                startActivity(this@MyOrderActivity, Router.getClass(data.to), data.parameters, data.hasResults)
+                startActivity(this@MyOrderListActivity, Router.getClass(data.to), data.parameters, data.hasResults)
             }
 
         })
@@ -101,20 +115,38 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
 
         adapter = MyOrderListAdapter(list, object: MyOrderListAdapter.OnItemClickListener{
             override fun onTrackClick(item: MyOrderResponse.Data.SO) {
-                viewModel.viewDetail(item.id, 2)
+                listViewModel.viewDetail(item.id, 2)
             }
             override fun onItemClick(p1: Int, item: MyOrderResponse.Data.SO) {
                 if (item.status != "pending" && item.status != "confirmed")
-                    viewModel.viewDetail(item.id, 0)
+                    listViewModel.viewDetail(item.id, 0)
                 else
-                    viewModel.viewSalesOrderDetail(item.id)
+                    listViewModel.viewSalesOrderDetail(item.id)
             }
         })
 
+        val layoutManager = LinearLayoutManager(this@MyOrderListActivity)
         rv_orders.adapter = adapter
-        rv_orders.layoutManager = LinearLayoutManager(this@MyOrderActivity)
+        rv_orders.layoutManager = layoutManager
+        rv_orders.setOnScrollListener(object : PaginationScrollListener(layoutManager){
+            override fun isLastPage(): Boolean {
+                return isLastPage
+            }
 
-        sp_status.adapter = ArrayAdapter(this@MyOrderActivity, android.R.layout.simple_list_item_1, categories)
+            override fun isLoading(): Boolean {
+                return isLoading
+            }
+
+            override fun loadMoreItems() {
+                isLoading = true
+                offset = limit + 1
+                limit += pageSize
+                listViewModel.getOrder(offset, limit, "all", false)
+            }
+
+        })
+
+        sp_status.adapter = ArrayAdapter(this@MyOrderListActivity, android.R.layout.simple_list_item_1, categories)
         sp_status.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, itemID: Long) {
                 if(position >= 0 && position < categories.size){
@@ -134,20 +166,26 @@ class MyOrderActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedL
             .subscribe {
                 if(et_search.hasFocus()){
                     adapter.filter.filter(it)
-                    viewModel.totalOrder.set(adapter.itemCount)
+                    listViewModel.totalOrder.set(adapter.itemCount)
+                    isLastPage = it.isNotEmpty()
                 }
             }.addTo(disposable)
 
 
 
         swipe_refresh_layout_order.setOnRefreshListener {
-            viewModel.getOrder()
+            adapter.list.clear()
+            isLoading = true
+            isLastPage = false
+            offset = 0
+            limit = pageSize
+            listViewModel.getOrder(offset, limit, "all", true)
         }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        setNavigation(item, appPreference, this@MyOrderActivity::class.java.simpleName)
+        setNavigation(item, appPreference, this@MyOrderListActivity::class.java.simpleName)
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true

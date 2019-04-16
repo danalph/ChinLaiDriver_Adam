@@ -74,7 +74,10 @@ interface GeneralService {
     fun createOrder(@Body createOrderRequest: CreateOrderRequest): Single<CreateOrderResponse>
 
     @GET("mobile/customer/{customerId}/orders/")
-    fun getOrder(@Path("customerId") customerId: String): Single<MyOrderResponse>
+    fun getOrder(@Path("customerId") customerId: String,
+                 @Query("offset") offset: String,
+                 @Query("limit") limit: String,
+                 @Query("status") status: String): Single<MyOrderResponse>
 
     @GET("mobile/deliver_order/{orderId}")
     fun getOrderDetail(@Path("orderId") orderId: String): Single<OrderDeliveryDetailResponse>

@@ -6,7 +6,7 @@
 	<data>
 		<variable
 				name="viewModel"
-				type="addam.com.my.chinlaicustomer.feature.myorder.MyOrderViewModel"/>
+				type="addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListViewModel"/>
 		<import type="android.view.View"/>
 	</data>
 	
@@ -14,7 +14,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:background="@color/grey_bg"
-			tools:context="addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity">
+			tools:context="addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity">
 		<android.support.constraint.Guideline
 				android:id="@+id/left_guideline"
 				android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package addam.com.my.chinlaicustomer.feature.myorder
+package addam.com.my.chinlaicustomer.feature.myorderlist
 
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.core.Router
@@ -15,7 +15,7 @@ import android.databinding.ObservableBoolean
 import android.databinding.ObservableInt
 import io.reactivex.rxkotlin.subscribeBy
 
-class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private val databaseRepository: DatabaseRepository, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel(){
+class MyOrderListViewModel(private val schedulerProvider: SchedulerProvider, private val databaseRepository: DatabaseRepository, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel(){
 
     var name = ObservableString("")
     val isLoading = ObservableBoolean(false)
@@ -26,20 +26,23 @@ class MyOrderViewModel(private val schedulerProvider: SchedulerProvider, private
 
     init {
         name.set(appPreference.getUser().name)
-        getOrder()
+        getOrder(0, 20, "all", true)
     }
 
-    fun getOrder(){
+    fun getOrder(offset: Int, limit: Int, status: String, isFirstLoad: Boolean){
         isLoading.set(true)
-        generalRepository.getOrder(appPreference.getUser().id)
+        generalRepository.getOrder(appPreference.getUser().id, offset.toString(), limit.toString(), status)
             .compose(schedulerProvider.getSchedulersForSingle())
             .subscribeBy(
                 onSuccess = {
                     if (it.status){
                         if (it.data.total != 0)
                             orderList.postValue(it.data.sOs)
-                        else
-                            isEmpty.set(true)
+                        else{
+                            if (isFirstLoad){
+                                isEmpty.set(true)
+                            }
+                        }
                     }
                     isLoading.set(false)
                 },

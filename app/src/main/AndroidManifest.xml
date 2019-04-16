@@ -129,7 +129,7 @@
 				android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		<activity
-				android:name=".feature.myorder.MyOrderActivity"
+				android:name=".feature.myorderlist.MyOrderListActivity"
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar">
 		</activity>

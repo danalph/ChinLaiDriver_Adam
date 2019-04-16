@@ -3,7 +3,6 @@ package addam.com.my.chinlaicustomer.feature.productlist
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
-import addam.com.my.chinlaicustomer.core.BaseRecyclerViewAdapter
 import addam.com.my.chinlaicustomer.core.Router
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
@@ -16,7 +15,6 @@ import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.view.View
 import android.view.WindowManager
 import com.github.ajalt.timberkt.Timber
 import com.jakewharton.rxbinding2.widget.textChanges
@@ -91,13 +89,15 @@ class ProductListActivity : BaseActivity() {
     }
 
     private fun setupView() {
-        adapter = ProductListAdapter(productList, R.layout.product_adapter_layout , object : BaseRecyclerViewAdapter.OnItemClickListener<ProductListResponse.Data.Product> {
-            override fun onItemClick(item: ProductListResponse.Data.Product, view: View) {
+
+        adapter = ProductListAdapter(productList, object : ProductListAdapter.OnItemClickListener{
+            override fun onItemClick(p1: Int, item: ProductListResponse.Data.Product) {
                 viewModel.onItemSelected(item.id)
             }
         })
-        rv_product.adapter = adapter
+
         val layoutManager =  GridLayoutManager(this@ProductListActivity, 2)
+        rv_product.adapter = adapter
         rv_product.layoutManager = layoutManager
         rv_product.isNestedScrollingEnabled = false
         rv_product.addOnScrollListener(object : PaginationScrollListener(layoutManager){
@@ -131,7 +131,8 @@ class ProductListActivity : BaseActivity() {
             }.addTo(disposable)
 
         swipe_refresh_layout.setOnRefreshListener {
-            isLoading = false
+            adapter.list.clear()
+            isLoading = true
             isLastPage = false
             offset = 0
             limit = pageSize
