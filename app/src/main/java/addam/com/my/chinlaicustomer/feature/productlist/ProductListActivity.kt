@@ -125,6 +125,7 @@ class ProductListActivity : BaseActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if(et_search.hasFocus()){
+                    Timber.d { "$it" }
                     adapter.filter.filter(it)
                     isLastPage = it.isNotEmpty()
                 }
