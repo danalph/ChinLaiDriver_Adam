@@ -4,12 +4,12 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		xmlns:bind="http://schemas.android.com/apk/res-auto"
-		tools:context="addam.com.my.chinlaicustomer.feature.myorder.MyOrderActivity">
+		tools:context="addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity">
 	
 	<data>
 		<variable
 				name="viewModel"
-				type="addam.com.my.chinlaicustomer.feature.myorder.MyOrderViewModel"/>
+				type="addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListViewModel"/>
 	</data>
 	
 	<LinearLayout

@@ -112,19 +112,13 @@ class MyOrderDetailActivity : BaseActivity() {
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
             }
-
             override fun onTabUnselected(p0: TabLayout.Tab?) {
 
             }
-
             override fun onTabSelected(p0: TabLayout.Tab?) {
                 viewpager.currentItem = p0?.position!!
             }
-
         })
-
-
-
     }
 
     private fun setupViewPager(){

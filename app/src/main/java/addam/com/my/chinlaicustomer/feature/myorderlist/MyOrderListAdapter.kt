@@ -1,9 +1,7 @@
-package addam.com.my.chinlaicustomer.feature.myorder
+package addam.com.my.chinlaicustomer.feature.myorderlist
 
 import addam.com.my.chinlaicustomer.R
-import addam.com.my.chinlaicustomer.databinding.InvoiceDetailRowItemBinding
 import addam.com.my.chinlaicustomer.databinding.MyOrderRowAdapterBinding
-import addam.com.my.chinlaicustomer.rest.model.InvoiceItem
 import addam.com.my.chinlaicustomer.rest.model.MyOrderResponse
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
@@ -11,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import com.squareup.picasso.Picasso
 
 /**
  * Created by owner on 31/03/2019

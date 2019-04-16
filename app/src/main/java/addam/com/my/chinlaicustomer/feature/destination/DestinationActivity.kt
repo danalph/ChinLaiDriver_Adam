@@ -215,8 +215,8 @@ class DestinationActivity : BaseActivity(), DestinationItemModel.DestinationItem
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_TAKE_PHOTO -> {
-//                    viewModel.imageBase64.set(BaseConverter.resizeImageAndConvert(pictureImagePath, 512))
-//                    viewModel.uploadPhoto()
+//                    listViewModel.imageBase64.set(BaseConverter.resizeImageAndConvert(pictureImagePath, 512))
+//                    listViewModel.uploadPhoto()
                     viewModel.convertBase64(pictureImagePath)
                 }
             }
