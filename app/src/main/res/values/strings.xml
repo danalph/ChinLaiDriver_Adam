@@ -143,7 +143,7 @@
 	<string name="reset_password">Reset Password</string>
 	<string name="paid">PAID</string>
 	<string name="unpaid">UNPAID</string>
-	<string name="search_invoice">Search Invoice No.</string>
+	<string name="search_invoice">Search Inv No.</string>
 	<string name="all">ALL</string>
 	<string name="subtotal">SubTotal</string>
 	<string name="taxes_not_included">(Taxes not included)</string>

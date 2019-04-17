@@ -35,6 +35,7 @@
     <color name="disable_color">#C5D5E2</color>
     <color name="enable_color">@color/colorPrimary</color>
     <color name="pinTextColor">#808DA7</color>
+    <color name="labelColor">#757676</color>
 
     <!--Color Palettes-->
     <!--<color name="purple_dark_grey">@color/colorPrimary</color>-->

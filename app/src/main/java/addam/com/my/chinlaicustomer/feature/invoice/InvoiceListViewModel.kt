@@ -9,8 +9,10 @@ import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.InvoiceListResponse
 import addam.com.my.chinlaicustomer.rest.model.Invoices
 import addam.com.my.chinlaicustomer.utilities.ObservableString
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
+import android.os.Build
 import com.github.ajalt.timberkt.Timber
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -26,20 +28,19 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
     var name = ObservableString("")
     var isLoading = ObservableBoolean(false)
 
-    var originalList = mutableListOf<Invoices>()
+    var response : MutableLiveData<InvoiceListResponse> = MutableLiveData()
+    var monthSortList: MutableList<InvoiceMonthModel> = mutableListOf()
+
+    var originalList: MutableList<Invoices> = mutableListOf()
     val filteredList: MutableList<Invoices> = mutableListOf()
     val oldFilteredList: MutableList<Invoices> = mutableListOf()
-
-    lateinit var callback: InvoiceCallback
 
     var startActivityEvent = StartActivityEvent()
     init {
         name.set(appPreference.getUser().name)
 
-//        originalList = dummySearchData()
-//        oldFilteredList.addAll(originalList)
-
         getList()
+//        val dummy = dummyData()
     }
 
 
@@ -51,7 +52,7 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
         isLoading.set(true)
         callList().subscribeBy(onSuccess = {
             if(it.status){
-                setData(it.data.INVs)
+                response.value = it
             }else isLoading.set(false)
         }, onError = {
             Timber.e{it.message.toString()}
@@ -59,18 +60,7 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
         })
     }
 
-    private fun setData(list: List<Invoices>) {
-//        This for sorted static list
-        val monthSortedList = sortMonth(list)
-
-        originalList = list.toMutableList()
-        oldFilteredList.clear()
-        oldFilteredList.addAll(originalList)
-        callback.updateUI()
-        isLoading.set(false)
-    }
-
-    private fun sortMonth(list: List<Invoices>): Map<Int, List<Invoices>> {
+    fun sortMonth(list: List<Invoices>): MutableList<InvoiceMonthModel> {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val calendar = GregorianCalendar.getInstance()
 
@@ -80,47 +70,34 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
             calendar.get(Calendar.MONTH)
         }
 
+        val monthGroup = mutableListOf<InvoiceMonthModel>()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            groups.forEach{ key, value ->
+                val groupedList = InvoiceMonthModel(getMonth(key), value.map { Invoices(it.id, it.docNum, it.date, it.amount, it.status) }.toMutableList())
+                monthGroup.add(groupedList)
+            }
+        }
 
-        return groups
+        Timber.d{monthGroup.toString() }
+        return monthGroup
     }
 
-    fun dummyData(): MutableList<InvoiceMonthModel>{
-        val models = mutableListOf<Invoices>()
-        val marchItem = Invoices("1","INV 1000", "2018-03-11 10:30:22", "2000", "1")
-        val marchItemUnpaid = Invoices("2","INV 567", "2018-03-12 10:30:22", "9000", "2")
-        val aprilItem = Invoices("3","INV 2345", "2018-04-11 10:30:22", "13000", "1")
-        val aprilItemUnpaid = Invoices("4","INV 789", "2018-04-12 10:30:22", "9000", "2")
-        val mayItem = Invoices("5","INV 2325", "2018-05-11 10:30:22", "13000", "1")
-        val mayItemUnpaid = Invoices("6","INV 589", "2018-05-12 10:30:22", "9000", "2")
-
-        models.add(marchItem)
-        models.add(aprilItem)
-        models.add(marchItemUnpaid)
-        models.add(aprilItemUnpaid)
-        models.add(mayItem)
-        models.add(mayItemUnpaid)
-
-//        Timber.d{sortMonth(models).toString()}
-
-        val month = InvoiceMonthModel("March", models)
-        val collection = mutableListOf<InvoiceMonthModel>()
-        collection.add(month)
-        return collection
-    }
-
-    fun dummySearchData(): MutableList<Invoices>{
-        val models = mutableListOf<Invoices>()
-        val marchItem = Invoices("1","INV 1000", "2018-03-11 10:30:22", "2000", "1")
-        val marchItemUnpaid = Invoices("2","INV 567", "2018-03-12 10:30:22", "9000", "2")
-        val aprilItem = Invoices("3","INV 2345", "2018-04-11 10:30:22", "13000", "1")
-        val aprilItemUnpaid = Invoices("4","INV 789", "2018-04-12 10:30:22", "9000", "2")
-
-        models.add(marchItem)
-        models.add(aprilItem)
-        models.add(marchItemUnpaid)
-        models.add(aprilItemUnpaid)
-
-        return models
+    private fun getMonth(key: Int): String {
+        when (key){
+            0 -> return "January"
+            1 -> return "February"
+            2 -> return "March"
+            3 -> return "April"
+            4 -> return "May"
+            5 -> return "June"
+            6 -> return "July"
+            7 -> return "August"
+            8 -> return "September"
+            9 -> return "October"
+            10 -> return "November"
+            11 -> return "December"
+        }
+        return "0"
     }
 
     fun search(query: String): Completable = Completable.create {
@@ -134,7 +111,7 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
 
     fun filterStatus(status: String): Completable = Completable.create{
         val filter = originalList.filter { invoices ->
-            invoices.status.contains(status)
+            invoices.status == status
         }.toList()
         filteredList.clear()
         filteredList.addAll(filter)
@@ -151,7 +128,31 @@ class InvoiceListViewModel(private val schedulerProvider: SchedulerProvider, pri
         ), hasResults = false, clearHistory = false)
     }
 
-    interface InvoiceCallback{
-        fun updateUI()
+    fun dummyData(): MutableList<InvoiceMonthModel>{
+        val models = mutableListOf<Invoices>()
+        val marchItem = Invoices("1","INV 1000", "2018-03-11 10:30:22", "2000", "1")
+        val marchItemUnpaid = Invoices("2","INV 567", "2018-03-12 10:30:22", "9000", "2")
+        val aprilItem = Invoices("3","INV 2345", "2018-04-11 10:30:22", "13000", "1")
+        val aprilItemUnpaid = Invoices("4","INV 789", "2018-04-12 10:30:22", "9000", "2")
+        val mayItem = Invoices("5","INV 2325", "2018-05-11 10:30:22", "13000", "1")
+        val mayItemUnpaid = Invoices("6","INV 589", "2018-05-12 10:30:22", "9000", "2")
+        val decItemPaid = Invoices("7","INV 1000", "2018-12-11 10:30:22", "2000", "1")
+        val decItemUnpaid = Invoices("8","INV 1000", "2018-12-22 10:30:22", "2000", "2")
+
+        models.add(marchItem)
+        models.add(aprilItem)
+        models.add(marchItemUnpaid)
+        models.add(aprilItemUnpaid)
+        models.add(mayItem)
+        models.add(mayItemUnpaid)
+        models.add(decItemPaid)
+        models.add(decItemUnpaid)
+
+        sortMonth(models)
+
+        val month = InvoiceMonthModel("March", models)
+        val collection = mutableListOf<InvoiceMonthModel>()
+        collection.add(month)
+        return collection
     }
 }

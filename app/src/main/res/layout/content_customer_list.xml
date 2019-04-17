@@ -24,6 +24,8 @@
 					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
+					android:focusable="true"
+					android:focusableInTouchMode="true"
 					android:padding="@dimen/space_small_8dp"
 					android:background="@color/colorRed"
 					android:weightSum="2">
