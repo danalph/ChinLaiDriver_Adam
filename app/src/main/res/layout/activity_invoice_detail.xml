@@ -54,7 +54,9 @@
 							android:id="@+id/header_layout"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/space_medium_16dp"
+							android:layout_gravity="center_vertical"
+							android:paddingTop="@dimen/space_small_8dp"
+							android:paddingBottom="@dimen/space_small_8dp"
 							android:paddingStart="@dimen/space_medium_16dp"
 							android:paddingEnd="@dimen/space_medium_16dp">
 						<TextView
@@ -83,6 +85,7 @@
 								style="@style/BaseTextView.RalewayRegular"
 								app:layout_constraintTop_toTopOf="parent"
 								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
 								android:paddingStart="@dimen/space_tiny_4dp"
 								android:paddingEnd="@dimen/space_tiny_4dp"
 								android:textAllCaps="true"
@@ -107,7 +110,10 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:orientation="vertical"
-							android:padding="@dimen/space_small_8dp">
+							android:paddingTop="@dimen/space_small_8dp"
+							android:paddingBottom="@dimen/space_small_8dp"
+							android:paddingStart="@dimen/space_medium_16dp"
+							android:paddingEnd="@dimen/space_medium_16dp">
 						<!--Company Name Row-->
 						<android.support.constraint.ConstraintLayout
 								android:id="@+id/row_company_name"
@@ -388,7 +394,7 @@
 							app:layout_constraintEnd_toStartOf="@id/txt_amount"
 							android:textAlignment="textStart"
 							android:textColor="@color/black"
-							android:textSize="@dimen/large_text_18sp"
+							android:textSize="@dimen/medium_text_16sp"
 							android:text="@string/company_total"/>
 					
 					<addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
