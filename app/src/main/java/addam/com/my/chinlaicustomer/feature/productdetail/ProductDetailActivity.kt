@@ -12,6 +12,7 @@ import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
@@ -58,6 +59,11 @@ class ProductDetailActivity : BaseActivity() {
                 listImages.add(SlideModel(R.drawable.img_no_image))
             }
             slider.setImageList(listImages)
+            slider.setItemClickListener(object : ItemClickListener{
+                override fun onItemSelected(position: Int) {
+                    viewModel.onViewImages()
+                }
+            })
         }
 
         viewModel.startActivityEvent.observe(this, object : StartActivityEvent.StartActivityObserver{

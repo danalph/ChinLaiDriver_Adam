@@ -94,8 +94,6 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
             .subscribe(object : CompletableObserver{
                 override fun onComplete() {
                     isLoading.set(false)
-                    /*startActivityEvent.value = StartActivityModel(
-                        Router.Destination.CART , hasResults = false, clearHistory = false)*/
                     addToCartEvent.value = true
                 }
 
@@ -113,5 +111,20 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
 
     fun onOpenCart(){
         startActivityEvent.value = StartActivityModel(Router.Destination.CART, hasResults = false, clearHistory = false)
+    }
+
+    fun onViewImages(){
+        Timber.e("image clicked")
+        if (detailResponse.value?.data?.productImages!!.isNotEmpty()){
+
+            val list = arrayListOf<String>()
+            for (item in detailResponse.value?.data?.productImages!!){
+                item?.path?.let { list.add(it) }
+            }
+
+            startActivityEvent.value = StartActivityModel(Router.Destination.IMAGE_VIEWER,
+                hashMapOf(Pair(Router.Parameter.IMAGES, list)),
+                hasResults = false, clearHistory = false)
+        }
     }
 }

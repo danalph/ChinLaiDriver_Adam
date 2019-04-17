@@ -28,7 +28,9 @@ data class MyOrderResponse(
             @SerializedName("status")
             val status: String,
             @SerializedName("total_items")
-            val totalItems: String
+            val totalItems: String,
+            @SerializedName("DO")
+            val dO: String
         ) {
             fun getStatusColor(): Int{
                 return when(status){

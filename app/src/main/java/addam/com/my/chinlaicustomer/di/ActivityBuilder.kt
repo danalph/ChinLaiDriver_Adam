@@ -10,6 +10,8 @@ import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivityModule
 import addam.com.my.chinlaicustomer.feature.error.ErrorActivity
 import addam.com.my.chinlaicustomer.feature.error.ErrorActivityModule
+import addam.com.my.chinlaicustomer.feature.imageviewer.ViewImageActivity
+import addam.com.my.chinlaicustomer.feature.imageviewer.ViewImageActivityModule
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListModule
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
@@ -103,4 +105,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(SalesOrderActivityModule::class)])
     abstract fun bindSalesOrderActivity(): SalesOrderActivity
+
+    @ContributesAndroidInjector(modules = [(ViewImageActivityModule::class)])
+    abstract fun bindViewImageActivity(): ViewImageActivity
 }

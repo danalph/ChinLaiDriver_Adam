@@ -15,10 +15,6 @@ data class ViewDeliveryHeaderModel(
     var date: ObservableString = ObservableString(""),
     var status: ObservableString = ObservableString("")
 ){
-    fun getStatusName(): String{
-        return StatusHelper.getStatus(status.get()!!)
-    }
-
     fun getStatusColor(): Int{
         return StatusHelper.getStatusColor(status.get()!!)
     }

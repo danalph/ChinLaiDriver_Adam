@@ -17,11 +17,12 @@ class StatusHelper{
 
         fun getStatusColor(status: String): Int{
             return when(status){
-                "0" -> R.color.colorRed
-                "1" -> R.color.colorGreen
-                "2" -> R.color.colorYellow
-                "3" -> R.color.colorBlue
-                "4" -> R.color.colorOrange
+                "pending" -> R.color.grey
+                "confirmed" -> R.color.colorYellow
+                "processing" -> R.color.colorLightRed
+                "delivering" -> R.color.colorLightBlue
+                "completed" -> R.color.colorBlue
+                "unknown" -> R.color.colorGreen
                 else -> R.color.colorRed
             }
         }

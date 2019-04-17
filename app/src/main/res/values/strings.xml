@@ -133,7 +133,7 @@
 	<string name="my_statement">My Statement</string>
 	<string name="category">Category</string>
 	<string name="product_list">Product List</string>
-	<string name="search_item_name">Search Item Name</string>
+	<string name="search_item_name">Search SO No.</string>
 	<string name="browse_product">Browse Product</string>
 	<string name="download_multiple">Download Multiple?</string>
 	<string name="download">Download</string>
