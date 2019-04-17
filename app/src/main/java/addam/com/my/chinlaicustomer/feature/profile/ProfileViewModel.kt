@@ -20,8 +20,8 @@ class ProfileViewModel(
     var contact = ObservableString("010-471123932")
     var address = ObservableString("18-01, Tower B, Vertical Business Suite, Jalan Kerinchi, Bangsar South, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur")
     var password = ObservableString("********")
-    var salesPerson = ObservableString("KENJI")
-    var salesPersonContact = ObservableString("012-203329123")
+    var salesPerson = ObservableString("")
+    var salesPersonContact = ObservableString("")
 
     val startActivityEvent: StartActivityEvent = StartActivityEvent()
 
