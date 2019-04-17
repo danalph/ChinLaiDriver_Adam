@@ -38,7 +38,7 @@
 					style="@style/BaseTextView.OpenSansSemiBold"
 					android:textSize="@dimen/medium_text_16sp"
 					android:textColor="@color/black"
-					android:text="@{`Order #` + model.id}"
+					android:text="@{model.docNum}"
 					tools:text="Order #32542"/>
 			<TextView
 					android:id="@+id/tv_created_date"
@@ -50,7 +50,7 @@
 					style="@style/BaseTextView.OpenSansRegular"
 					android:textSize="@dimen/small_text_12sp"
 					android:textColor="@color/grey"
-					android:text="@{`Created on ` + model.created}"
+					android:text="@{model.created}"
 					tools:text="Created on 218-04-06 11:03AM"/>
 			<TextView
 					android:id="@+id/tv_order_number"
@@ -58,7 +58,8 @@
 					app:layout_constraintTop_toBottomOf="@id/tv_created_date"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@{model.docNum}"
+					android:visibility="@{model.trackOrderVisibility}"
+					android:text="@{model.DO}"
 					tools:text="DO no : 18-037655"/>
 			<TextView
 					android:id="@+id/tv_total_item"

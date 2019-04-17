@@ -39,8 +39,10 @@
 				app:layout_constraintEnd_toStartOf="@id/btn_product_cancel"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				style="@style/BaseTextView.OpenSansBold"
+				style="@style/BaseTextView.OpenSansRegular"
 				android:textColor="@color/black"
+				android:ellipsize="end"
+				android:lines="3"
 				android:layout_marginStart="@dimen/space_small_8dp"
 				tools:text="Power Drill (4500)"/>
 		<TextView

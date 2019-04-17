@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="addam.com.my.chinlaicustomer.feature.imageviewer.ViewImageActivity">
+	<data>
+		<variable
+				name="viewModel"
+				type="addam.com.my.chinlaicustomer.feature.imageviewer.ViewImageViewModel"/>
+		<variable
+				name="toolbarModel"
+				type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel"/>
+	</data>
+	
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" >
+		<include layout="@layout/toolbar_with_back"
+		         android:id="@+id/toolbar"
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         app:model="@{toolbarModel}"/>
+		<!-- ExtendedViewPager is a custom view and must be referred to by its full package name in XML -->
+		<addam.com.my.chinlaicustomer.widgets.ExtendedViewPager
+				android:layout_below="@id/toolbar"
+				android:id="@+id/view_pager"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		<TextView
+				android:id="@+id/tv_position"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:padding="5dp"
+				android:textColor="@color/white"
+				android:layout_marginBottom="10dp"
+				android:background="@color/black"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+	
+	</RelativeLayout>
+
+</layout>

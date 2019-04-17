@@ -5,6 +5,7 @@ import addam.com.my.chinlaicustomer.feature.customerdetail.CustomerDetailActivit
 import addam.com.my.chinlaicustomer.feature.dashboard.DashboardActivity
 import addam.com.my.chinlaicustomer.feature.destination.DestinationActivity
 import addam.com.my.chinlaicustomer.feature.error.ErrorActivity
+import addam.com.my.chinlaicustomer.feature.imageviewer.ViewImageActivity
 import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
@@ -43,7 +44,8 @@ class Router {
         CUSTOMER_LIST,
         CUSTOMER_DETAIL,
         ERROR,
-        SALES_ORDER
+        SALES_ORDER,
+        IMAGE_VIEWER
     }
 
     enum class Parameter{
@@ -66,7 +68,8 @@ class Router {
         ITEM_DATE,
         ITEM_AMOUNT,
         ITEM_STATUS,
-        ITEM_NUM
+        ITEM_NUM,
+        IMAGES
     }
 
     companion object {
@@ -91,6 +94,7 @@ class Router {
                 Destination.CUSTOMER_DETAIL -> CustomerDetailActivity::class.java
                 Destination.ERROR -> ErrorActivity::class.java
                 Destination.SALES_ORDER -> SalesOrderActivity::class.java
+                Destination.IMAGE_VIEWER -> ViewImageActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

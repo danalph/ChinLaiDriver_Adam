@@ -75,6 +75,8 @@
 								style="@style/BaseTextView.RalewayRegular"
 								app:layout_constraintTop_toTopOf="parent"
 								app:layout_constraintEnd_toEndOf="parent"
+								android:paddingStart="@dimen/space_tiny_4dp"
+								android:paddingEnd="@dimen/space_tiny_4dp"
 								android:textAllCaps="true"
 								android:textAlignment="textEnd"
 								android:textColor="@color/white"
@@ -108,6 +110,7 @@
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
 									android:textAlignment="textStart"
+									android:textColor="@color/labelColor"
 									android:textSize="@dimen/small_text_10sp"
 									android:text="@string/company_name"/>
 							
@@ -133,6 +136,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
+									android:textColor="@color/labelColor"
 									android:layout_gravity="end"
 									android:textAlignment="viewEnd"
 									android:textSize="@dimen/small_text_10sp"
@@ -175,6 +179,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
+									android:textColor="@color/labelColor"
 									android:textAlignment="textStart"
 									android:textSize="@dimen/small_text_10sp"
 									android:text="@string/company_account"/>
@@ -201,6 +206,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
+									android:textColor="@color/labelColor"
 									android:layout_gravity="end"
 									android:textAlignment="viewEnd"
 									android:textSize="@dimen/small_text_10sp"
@@ -243,6 +249,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
+									android:textColor="@color/labelColor"
 									android:textAlignment="textStart"
 									android:textSize="@dimen/small_text_10sp"
 									android:text="@string/company_do"/>
@@ -269,6 +276,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
+									android:textColor="@color/labelColor"
 									android:layout_gravity="end"
 									android:textAlignment="viewEnd"
 									android:textSize="@dimen/small_text_10sp"
@@ -314,6 +322,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									style="@style/BaseTextView.OpenSansBody"
+									android:textColor="@color/labelColor"
 									android:textAlignment="textStart"
 									android:textSize="@dimen/small_text_10sp"
 									android:text="@string/company_billing_address"/>
@@ -324,7 +333,7 @@
 							          android:layout_gravity="center_vertical"
 							          android:singleLine="false"
 							          android:textColor="@color/black"
-							          android:textSize="@dimen/medium_text_16sp"
+							          android:textSize="@dimen/small_text_12sp"
 							          android:text="@{viewModel.billingAddress}"
 							          tools:text="KOkFONGsalkasjd"/>
 						</LinearLayout>

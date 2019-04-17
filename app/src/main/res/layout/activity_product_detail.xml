@@ -63,25 +63,19 @@
 					app:layout_behavior="@string/appbar_scrolling_view_behavior"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
-				<!--<ss.com.bannerslider.Slider
-						android:id="@+id/banner_slider"
-						android:layout_width="match_parent"
-						android:layout_height="200dp"
-						app:slider_selectedSlideIndicator="@drawable/round_shadow_black"
-						app:slider_unselectedSlideIndicator="@drawable/round_shadow_white"/>-->
 				<com.denzcoskun.imageslider.ImageSlider
 						android:id="@+id/slider"
 						android:layout_width="match_parent"
 						android:layout_height="300dp"
 						app:auto_cycle="true"
 						app:period="5000"
-						app:delay="0"
-						/>
+						app:delay="0"/>
 				<LinearLayout
 						android:layout_below="@id/slider"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_margin="@dimen/space_medium_16dp"
+						android:layout_marginTop="@dimen/space_medium_16dp"
+						android:layout_marginBottom="@dimen/space_medium_16dp"
 						android:orientation="vertical">
 					<TextView
 							android:id="@+id/tv_title"
@@ -90,9 +84,13 @@
 							android:text="@{model.product.description1}"
 							android:textSize="@dimen/large_text_18sp"
 							android:layout_marginTop="@dimen/space_small_8dp"
+							android:layout_marginStart="@dimen/space_medium_16dp"
+							android:layout_marginEnd="@dimen/space_medium_16dp"
 							android:textColor="@color/black"/>
 					<TextView
 							android:id="@+id/tv_price"
+							android:layout_marginStart="@dimen/space_medium_16dp"
+							android:layout_marginEnd="@dimen/space_medium_16dp"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:text="@{`RM ` + viewModel.price}"
@@ -100,16 +98,24 @@
 							android:textSize="@dimen/large_text_18sp"
 							android:layout_marginTop="@dimen/space_small_8dp"
 							android:textColor="@color/colorRed"/>
+					<View
+							android:layout_width="match_parent"
+							android:layout_height="@dimen/space_small_8dp"
+							android:background="@color/grey_bg"/>
+					
 					<TextView
 							android:id="@+id/tv_detail_title"
+							android:layout_marginStart="@dimen/space_medium_16dp"
+							android:layout_marginEnd="@dimen/space_medium_16dp"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:text="@string/details"
 							android:textSize="@dimen/medium_text_16sp"
-							android:layout_marginTop="@dimen/space_small_8dp"
 							android:textColor="@color/black"/>
 					<TextView
 							android:id="@+id/tv_detail_content"
+							android:layout_marginStart="@dimen/space_medium_16dp"
+							android:layout_marginEnd="@dimen/space_medium_16dp"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/space_small_8dp"
