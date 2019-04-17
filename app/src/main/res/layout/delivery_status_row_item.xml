@@ -25,9 +25,10 @@
 				app:layout_constraintStart_toEndOf="@id/iv_icon"
 				android:layout_marginStart="@dimen/space_small_12dp"
 				android:textSize="@dimen/medium_text_16sp"
+				android:textColor="@color/black"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@{item.text}"
+				android:text="@{item.action}"
 				tools:text="DO/Pickup initiated"/>
 		<TextView
 				android:id="@+id/tv_date"
