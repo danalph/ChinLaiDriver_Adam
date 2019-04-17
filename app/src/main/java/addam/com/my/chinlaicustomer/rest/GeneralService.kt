@@ -85,9 +85,9 @@ interface GeneralService {
     @GET("mobile/order/{orderId}")
     fun getSalesOrderDetail(@Path("orderId") orderId: String): Single<SalesOrderDetailResponse>
 
-    @GET("mobile/order/{orderId}/driver")
+    @GET("mobile/deliver_order/{orderId}/driver")
     fun getOrderDriverDetail(@Path("orderId") orderId: String): Single<OrderDriverDetailResponse>
 
-    @GET("mobile/order/{orderId}/pod")
+    @GET("mobile/deliver_order/{orderId}/pod")
     fun getOrderDeliveryStatus(@Path("orderId") orderId: String): Single<OrderDeliveryStatusResponse>
 }
