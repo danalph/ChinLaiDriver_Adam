@@ -32,12 +32,13 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
 
     var price = ObservableString("")
 
-
     val detailResponse = MutableLiveData<ProductDetailsResponse>()
 
     val startActivityEvent: StartActivityEvent = StartActivityEvent()
 
     val addToCartEvent: GenericSingleEvent = GenericSingleEvent()
+
+    val editQuantityEvent: GenericSingleEvent = GenericSingleEvent()
 
     val isLoading = ObservableBoolean()
 
@@ -126,5 +127,9 @@ class ProductDetailViewModel(private val schedulerProvider: SchedulerProvider, p
                 hashMapOf(Pair(Router.Parameter.IMAGES, list)),
                 hasResults = false, clearHistory = false)
         }
+    }
+
+    fun onEditQuantityEvent(){
+        editQuantityEvent.value = true
     }
 }

@@ -22,16 +22,18 @@ import kotlinx.android.synthetic.main.fragment_order_delivery_status.*
 class OrderDeliveryStatusFragment : Fragment() {
 
     lateinit var model: List<OrderDeliveryStatusResponse.Data.POD>
+    lateinit var dO: OrderDeliveryStatusResponse.Data.DO
     lateinit var adapter: DeliveryStatusAdapter
     lateinit var binding: FragmentOrderDeliveryStatusBinding
     lateinit var recyclerView: RecyclerView
 
     companion object {
         @JvmStatic
-        fun newInstance(model: List<OrderDeliveryStatusResponse.Data.POD>?) =
+        fun newInstance(model: List<OrderDeliveryStatusResponse.Data.POD>?, dO: OrderDeliveryStatusResponse.Data.DO ) =
             OrderDeliveryStatusFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("model", OrderDeliveryStatusResponse.Data.ListPOD(model!!))
+                    putParcelable("do", dO)
                 }
             }
     }
@@ -41,6 +43,7 @@ class OrderDeliveryStatusFragment : Fragment() {
         arguments?.let {
             val lists: OrderDeliveryStatusResponse.Data.ListPOD = it.getParcelable("model")!!
             model = lists.list
+            dO = it.getParcelable("do")!!
         }
     }
 
@@ -57,10 +60,100 @@ class OrderDeliveryStatusFragment : Fragment() {
 
     private fun setupView() {
         recyclerView = binding.rvDeliveryStatus
-        adapter = DeliveryStatusAdapter(model)
+        adapter = DeliveryStatusAdapter(dO, sortStatus(model))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.addItemDecoration(DividerItemDecoration(activity,  LinearLayoutManager.HORIZONTAL))
+        recyclerView.addItemDecoration(DividerItemDecoration(activity,  LinearLayoutManager.VERTICAL))
     }
 
+    private fun sortStatus(list: List<OrderDeliveryStatusResponse.Data.POD>): List<OrderDeliveryStatusResponse.Data.POD> {
+        val newList = arrayListOf<OrderDeliveryStatusResponse.Data.POD>()
+        var hasDeliver = false
+        var hasUpdate = false
+        var hasTrip = false
+        var hasPacking = false
+        var hasCreate = false
+
+        var deliverAdded = false
+        var updateAdded = false
+        var tripAdded = false
+        var packingAdded = false
+        var createAdded = false
+
+        for (item in list){
+            when(item.action){
+                "deliver" -> hasDeliver = true
+                "update" -> hasUpdate = true
+                "trip" -> hasTrip = true
+                "packing" -> hasPacking = true
+                "create" -> hasCreate = true
+            }
+
+            if (hasCreate && !createAdded){
+                if (item.action == "create"){
+                    newList.add(item)
+                    createAdded = true
+                }
+            }
+
+            if (hasPacking && !packingAdded){
+                if (item.action == "packing"){
+                    newList.add(item)
+                    packingAdded = true
+                }
+            }
+
+            if (hasTrip && !tripAdded){
+                if (!hasPacking && !packingAdded){
+                    newList.add(OrderDeliveryStatusResponse.Data.POD("packing", "", "", ""))
+                    packingAdded = true
+                }
+                if (item.action == "trip"){
+                    newList.add(item)
+                    tripAdded = true
+                }
+
+            }
+
+            if (hasUpdate && !updateAdded){
+                if (!hasPacking && !packingAdded){
+                    newList.add(OrderDeliveryStatusResponse.Data.POD("packing", "", "", ""))
+                    packingAdded = true
+                }
+
+                if (!hasTrip && !tripAdded){
+                    newList.add(OrderDeliveryStatusResponse.Data.POD("trip", "", "", ""))
+                    tripAdded = true
+                }
+
+                if (item.action == "update"){
+                    newList.add(item)
+                    updateAdded = true
+                }
+            }
+
+            if (hasDeliver && !deliverAdded){
+                if (!hasPacking && !packingAdded){
+                    newList.add(OrderDeliveryStatusResponse.Data.POD("packing", "", "", ""))
+                    packingAdded = true
+                }
+
+                if (!hasTrip && !tripAdded){
+                    newList.add(OrderDeliveryStatusResponse.Data.POD("trip", "", "", ""))
+                    tripAdded = true
+                }
+
+                if (!hasUpdate && !updateAdded){
+                    newList.add(OrderDeliveryStatusResponse.Data.POD("update", "", "", ""))
+                    updateAdded = true
+                }
+
+                if (item.action == "deliver"){
+                    newList.add(item)
+                    deliverAdded = true
+                }
+            }
+        }
+        return newList
+    }
 }

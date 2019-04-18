@@ -194,4 +194,7 @@
 	<string name="order_success">Order successfully created</string>
 	<string name="my_cart">My Cart</string>
 	<string name="no_information_available">No information available</string>
+	<string name="set_quantity">Set Quantity</string>
+	<string name="ok">OK</string>
+	<string name="item_quantity">Quantity</string>
 </resources>

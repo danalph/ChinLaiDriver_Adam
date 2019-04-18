@@ -74,7 +74,7 @@ class MyOrderDetailActivity : BaseActivity() {
         viewModel.orderDeliveryStatus.observe(this){
             it?:return@observe
             adapter.run {
-                this.addFragment(OrderDeliveryStatusFragment.newInstance(it.data!!.pOD), "Delivery Status")
+                this.addFragment(OrderDeliveryStatusFragment.newInstance(it.data!!.pOD, it.data!!.dO!!), "Delivery Status")
                 notifyDataSetChanged()
             }
         }

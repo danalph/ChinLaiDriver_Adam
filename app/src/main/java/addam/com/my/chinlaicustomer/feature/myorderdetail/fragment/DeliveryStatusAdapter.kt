@@ -14,7 +14,7 @@ import android.view.ViewGroup
 /**
  * Created by Addam on 21/1/2019.
  */
-class DeliveryStatusAdapter(var models: List<OrderDeliveryStatusResponse.Data.POD>): RecyclerView.Adapter<DeliveryStatusAdapter.ViewHolder>() {
+class DeliveryStatusAdapter(val dO: OrderDeliveryStatusResponse.Data.DO, var models: List<OrderDeliveryStatusResponse.Data.POD>): RecyclerView.Adapter<DeliveryStatusAdapter.ViewHolder>() {
 
     private var layoutInflater: LayoutInflater? = null
 
@@ -39,6 +39,14 @@ class DeliveryStatusAdapter(var models: List<OrderDeliveryStatusResponse.Data.PO
     }
 
     override fun onBindViewHolder(holder: ViewHolder, p1: Int) {
-        holder.mBinding.item = models[p1]
+        val item = models[p1]
+        holder.mBinding.item = item
+        holder.mBinding.tvStatus.text = when(item.action){
+            "create" -> "#${dO.docNum} Initiated"
+            "packing" -> "Preparing to deliver"
+            "trip" -> "#${dO.docNum} Driver assigned and delivering "
+            "deliver" -> "Delivered to Destination"
+            else -> ""
+        }
     }
 }

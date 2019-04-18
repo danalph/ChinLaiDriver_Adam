@@ -12,15 +12,16 @@ import addam.com.my.chinlaicustomer.databinding.ActivityCartBinding
 import addam.com.my.chinlaicustomer.rest.model.BranchesResponse
 import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
-import android.app.Dialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.github.ajalt.timberkt.Timber
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cart.*
@@ -41,6 +42,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         AndroidInjection.inject(this)
         val binding: ActivityCartBinding = DataBindingUtil.setContentView(this, R.layout.activity_cart)
         binding.viewModel = viewModel
@@ -108,7 +110,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     }
 
     private fun setupView() {
-        adapter = CartAdapter(list, this)
+        adapter = CartAdapter(this@CartActivity, list, this)
         rv_cart.layoutManager = LinearLayoutManager(this@CartActivity)
         rv_cart.adapter = adapter
     }
