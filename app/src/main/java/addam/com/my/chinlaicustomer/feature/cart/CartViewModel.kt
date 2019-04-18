@@ -85,7 +85,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
         isLoading.set(true)
         val listOfGoods = arrayListOf<CreateOrderRequest.Good>()
         for (item in list){
-            val goods = CreateOrderRequest.Good(item.id.toString(),item.productQuantity.toString())
+            val goods = CreateOrderRequest.Good(item.productId.toString(),item.productQuantity.toString())
             listOfGoods.add(goods)
         }
         val orderRequest = CreateOrderRequest(branchId, appPreference.getUser().id, listOfGoods, salesPersonId)

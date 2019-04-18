@@ -126,10 +126,7 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
                 listViewModel.viewDetail(item.id, 2)
             }
             override fun onItemClick(p1: Int, item: MyOrderResponse.Data.SO) {
-                if (item.status != "pending" && item.status != "confirmed")
-                    listViewModel.viewDetail(item.id, 0)
-                else
-                    listViewModel.viewSalesOrderDetail(item.id)
+                listViewModel.viewSalesOrderDetail(item.id)
             }
         })
 

@@ -4,13 +4,17 @@ import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.GenericSingleEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
 import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityProductDetailBinding
+import addam.com.my.chinlaicustomer.utilities.KeyboardManager
 import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackButtonModel
 import addam.com.my.chinlaicustomer.utilities.observe
+import addam.com.my.chinlaicustomer.widgets.CustomQuantityDialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
@@ -31,6 +35,7 @@ class ProductDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         AndroidInjection.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
         binding.viewModel = viewModel
@@ -80,6 +85,16 @@ class ProductDetailActivity : BaseActivity() {
                Toast.makeText(this@ProductDetailActivity, "Product added to cart.", Toast.LENGTH_SHORT).show()
             }
         }
+
+        viewModel.editQuantityEvent.observe(this, object : GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                CustomQuantityDialog.showDialog(this@ProductDetailActivity, object : CustomQuantityDialog.QuantityCallBack{
+                    override fun onSetQuantity(quantity: String) {
+                        viewModel.counter.set(Integer.parseInt(quantity))
+                    }
+                })
+            }
+        })
     }
 
     private fun setupView() {

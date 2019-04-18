@@ -2,7 +2,9 @@ package addam.com.my.chinlaicustomer.feature.cart
 
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.database.Cart
+import addam.com.my.chinlaicustomer.widgets.CustomQuantityDialog
 import android.annotation.SuppressLint
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,7 @@ import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
 
-class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter.OnItemClickListener) : RecyclerView.Adapter<CartAdapter.CartViewHolder>(){
+class CartAdapter(val context: Context, var list: ArrayList<Cart>,  var itemClickListener: CartAdapter.OnItemClickListener) : RecyclerView.Adapter<CartAdapter.CartViewHolder>(){
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CartViewHolder {
         val inflater = LayoutInflater.from(p0.context)
@@ -50,25 +52,37 @@ class CartAdapter(var list: ArrayList<Cart>,  var itemClickListener: CartAdapter
         p0.tvProductName.text = item.productName
         p0.tvQuantity.text = quantity.toString()
         p0.tvProductPrice.text = setPrice(item.productPrice)
+
         p0.btnPlus.setOnClickListener {
-            if (quantity >= 1){
-                quantity += 1
-                p0.tvQuantity.text = quantity.toString()
-                item.productQuantity = quantity
+            if (p0.tvQuantity.text.toString().toInt() >= 1){
+                var qty = p0.tvQuantity.text.toString().toInt()
+                qty += 1
+                p0.tvQuantity.text = qty.toString()
+                item.productQuantity = qty
                 itemClickListener.onItemClick()
             }
         }
         p0.btnMinus.setOnClickListener {
-            if (item.productQuantity > 1){
-                quantity -= 1
-                p0.tvQuantity.text = quantity.toString()
-                item.productQuantity = quantity
+            if (p0.tvQuantity.text.toString().toInt() > 1){
+                var qty = p0.tvQuantity.text.toString().toInt()
+                qty -= 1
+                p0.tvQuantity.text = qty.toString()
+                item.productQuantity = qty
                 itemClickListener.onItemClick()
             }
         }
 
         p0.btnCancel.setOnClickListener {
             delete(p1,item)
+        }
+
+        p0.tvQuantity.setOnClickListener { CustomQuantityDialog.showDialog(context, object : CustomQuantityDialog.QuantityCallBack{
+            override fun onSetQuantity(quantity: String) {
+                p0.tvQuantity.text = quantity
+                item.productQuantity = quantity.toInt()
+                itemClickListener.onItemClick()
+            }
+        })
         }
     }
 
