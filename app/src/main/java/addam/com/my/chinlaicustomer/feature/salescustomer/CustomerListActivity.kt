@@ -15,12 +15,14 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -116,6 +118,9 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
         if(appPreference.getCustomerName().isNotEmpty()){
             current_customer.text = appPreference.getCustomerName()
             layout_nav_customer.visibility = View.VISIBLE
+        }else{
+            drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            Toast.makeText(this, "Please select a customer", Toast.LENGTH_SHORT).show()
         }
 
     }
