@@ -10,7 +10,7 @@
 	<android.support.constraint.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:padding="@dimen/small_text_12sp">
+			android:padding="@dimen/space_small_8dp">
 		
 		<android.support.constraint.Guideline
 				android:layout_width="wrap_content"
@@ -40,9 +40,10 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				style="@style/BaseTextView.OpenSansRegular"
+				android:textSize="@dimen/medium_text_14sp"
 				android:textColor="@color/black"
 				android:ellipsize="end"
-				android:lines="3"
+				android:lines="2"
 				android:layout_marginStart="@dimen/space_small_8dp"
 				tools:text="Power Drill (4500)"/>
 		<TextView
@@ -79,11 +80,12 @@
 					android:background="@drawable/bg_white_outline_gray"/>
 			<TextView
 					android:id="@+id/tv_quantity"
-					android:layout_width="@dimen/space_large_24dp"
+					android:minWidth="@dimen/space_large_24dp"
+					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
 					style="@style/BaseTextView.OpenSansRegular"
 					android:textSize="@dimen/small_text_12sp"
-					tools:text="100"
+					tools:text="1000000"
 					android:textColor="@color/black"
 					android:background="@drawable/bg_white_outline_gray"
 					android:gravity="center"/>

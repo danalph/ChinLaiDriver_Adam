@@ -151,6 +151,7 @@
 						style="@style/BaseTextView.OpenSansBold"
 						android:textSize="@dimen/large_text_24sp"
 						tools:text="100"
+						android:onClick="@{() -> viewModel.onEditQuantityEvent()}"
 						android:text="@{viewModel.counter +``}"
 						android:textColor="@color/black"
 						android:gravity="center"/>
