@@ -28,21 +28,13 @@ class ProfileActivity : BaseActivity() {
         val binding: ActivityProfileBinding= DataBindingUtil.setContentView(this, R.layout.activity_profile)
         binding.viewModel = viewModel
         binding.toolbarModel = ToolbarWithBackModel(getString(R.string.title_activity_profile),true, this::onBackPressed)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         setupEvents()
     }
 
     private fun setupEvents() {
-        try{
-            val user = appPreference.getUser()
-            val address = user.address1 + ", " + user.address2 + ", " + user.address3 + ", " + user.areaName + ", " + user.postcode + ", " + user.stateName
-            viewModel.name.set(user.name)
-            viewModel.contact.set(user.person_contact)
-            viewModel.address.set(address)
-        }catch (e: Exception){
-            Timber.e { e.toString() }
-        }
+        setupUser()
 
         viewModel.startActivityEvent.observe(this, object: StartActivityEvent.StartActivityObserver{
             override fun onStartActivity(data: StartActivityModel) {
@@ -55,5 +47,27 @@ class ProfileActivity : BaseActivity() {
 
         })
 
+    }
+
+    private fun setupUser() {
+        try{
+            if(appPreference.getSalesId() == "0"){
+                val user = appPreference.getUser()
+                val address = user.address1 + ", " + user.address2 + ", " + user.address3 + ", " + user.areaName + ", " + user.postcode + ", " + user.stateName
+                viewModel.name.set(user.name)
+                viewModel.contact.set(user.person_contact)
+                viewModel.address.set(address)
+                viewModel.isSalesPerson.set(false)
+            }else{
+                val salesData = appPreference.getSalesPerson()
+                val name = salesData.firstName + " " + salesData.lastName
+                viewModel.name.set(name)
+                viewModel.contact.set(salesData.contact)
+                viewModel.address.set(salesData.address)
+                viewModel.isSalesPerson.set(true)
+            }
+        }catch (e: Exception){
+            Timber.e { e.toString() }
+        }
     }
 }
