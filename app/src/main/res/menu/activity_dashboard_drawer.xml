@@ -27,13 +27,13 @@
     
         <item
                 android:id="@+id/customers"
-                android:icon="@drawable/ic_user"
+                android:icon="@drawable/ic_group"
                 android:title="@string/my_customers"
                 android:visible="false"/>
         
         <item
             android:id="@+id/logout"
-            android:icon="@drawable/ic_shutdown"
+            android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
     </group>
 

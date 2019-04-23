@@ -17,6 +17,7 @@ class AppPreference() {
         const val IS_LOGGED_IN = "isLogin"
         const val id = "id"
         const val name = "name"
+        const val lastname = "lastname"
         const val personName = "person"
         const val contact = "contact"
         const val address1 = "address1"
@@ -68,6 +69,7 @@ class AppPreference() {
         val edit = prefs.edit()
         edit.putString(salesId, data.id)
         edit.putString(name, data.firstName)
+        edit.putString(lastname, data.lastName)
         edit.putString(contact, data.contact)
         edit.putString(address, data.address)
         edit.apply()
@@ -122,5 +124,13 @@ class AppPreference() {
 
     fun getSalesId(): String{
         return prefs.getString(salesId, "0")!!
+    }
+
+    fun getSalesPerson(): SalesData{
+        return SalesData(prefs.getString(salesId, "0")!!,
+            prefs.getString(name, "")!!,
+            prefs.getString(lastname, "")!!,
+            prefs.getString(contact, ""),
+            prefs.getString(address, "")!!)
     }
 }
