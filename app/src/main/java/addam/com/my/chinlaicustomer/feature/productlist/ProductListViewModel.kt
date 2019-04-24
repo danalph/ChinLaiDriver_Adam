@@ -20,9 +20,9 @@ class ProductListViewModel(private val schedulerProvider: SchedulerProvider, pri
     val productsResponse = MutableLiveData<ProductListResponse>()
     var isLoading = ObservableBoolean(false)
 
-    fun getItem(id: String, offset: Int, limit: Int){
+    fun getItem(id: String, offset: Int, limit: Int,  filter: String){
         isLoading.set(true)
-        generalRepository.getProductList(id, offset.toString(), limit.toString(), "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"\"}]")
+        generalRepository.getProductList(id, offset.toString(), limit.toString(), "id", "DESC", "[{\"field\":\"name\",\"operator\":\"%\",\"value\":\"$filter\"}]")
             .compose(schedulerProvider.getSchedulersForSingle()).subscribeBy(
                 onSuccess = {
                     if (it.status){

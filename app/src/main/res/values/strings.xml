@@ -197,4 +197,6 @@
 	<string name="set_quantity">Set Quantity</string>
 	<string name="ok">OK</string>
 	<string name="item_quantity">Quantity</string>
+	<string name="search_product_name">Search product name</string>
+	<string name="search">Search</string>
 </resources>

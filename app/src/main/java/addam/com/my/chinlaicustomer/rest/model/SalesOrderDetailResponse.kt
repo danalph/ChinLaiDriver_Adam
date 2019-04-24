@@ -1,6 +1,7 @@
 package addam.com.my.chinlaicustomer.rest.model
 
 import com.google.gson.annotations.SerializedName
+import java.text.DecimalFormat
 
 data class SalesOrderDetailResponse(
     @SerializedName("data")
@@ -60,6 +61,16 @@ data class SalesOrderDetailResponse(
             var unitPrice: String?,
             @SerializedName("uom")
             var uom: String?
-        )
+        ){
+            fun formatPrice(): String{
+                val format = DecimalFormat("#0.00")
+                return format.format(unitPrice?.toDouble())
+            }
+
+            fun formatAmount(): String{
+                val format = DecimalFormat("#0.00")
+                return format.format(amount)
+            }
+        }
     }
 }

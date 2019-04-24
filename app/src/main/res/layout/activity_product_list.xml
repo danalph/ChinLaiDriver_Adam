@@ -31,11 +31,13 @@
 					android:id="@+id/ll_search"
 					android:background="@color/colorRed"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
 				<EditText
+						android:layout_weight="1"
 						android:id="@+id/et_search"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
+						android:layout_width="0dp"
+						android:layout_height="@dimen/edittext_phone__height"
 						android:background="@color/white"
 						android:layout_marginStart="@dimen/space_small_12dp"
 						android:layout_marginEnd="@dimen/space_small_12dp"
@@ -44,8 +46,21 @@
 						android:padding="@dimen/space_small_8dp"
 						android:inputType="text"
 						android:drawablePadding="@dimen/space_tiny_4dp"
-						android:hint="@string/search_item_name"
+						android:imeOptions="actionDone"
+						android:hint="@string/search_product_name"
 						android:drawableStart="@drawable/ic_search"/>
+				<TextView
+						android:id="@+id/btn_search"
+						android:text="@string/search"
+						android:textAllCaps="true"
+						android:gravity="center"
+						style="@style/BaseTextView.RalewayBold"
+						android:layout_marginEnd="@dimen/space_small_12dp"
+						android:layout_marginBottom="@dimen/space_tiny_4dp"
+						android:layout_marginTop="@dimen/space_tiny_4dp"
+						android:textColor="@color/white"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"/>
 			</LinearLayout>
 		</android.support.design.widget.AppBarLayout>
 		

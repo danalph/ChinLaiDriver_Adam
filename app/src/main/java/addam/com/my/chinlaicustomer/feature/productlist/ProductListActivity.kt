@@ -37,9 +37,8 @@ class ProductListActivity : BaseActivity() {
     lateinit var adapter: ProductListAdapter
     private val productList = arrayListOf<ProductListResponse.Data.Product>()
     private val disposable = CompositeDisposable()
-    private val pageSize = 20
     private var offset = 0
-    private var limit = pageSize
+    private var limit = 20
     private var isLastPage: Boolean = false
     private var isLoading: Boolean = false
     var productId = ""
@@ -53,7 +52,7 @@ class ProductListActivity : BaseActivity() {
         binding.toolbarModel = ToolbarWithBackButtonModel(getString(R.string.product_list), true,true,
             R.drawable.ic_shopping_cart, this::onCartPressed, this::onBackPressed)
         productId = intent.getStringExtra(Router.Parameter.CATEGORY_ID.name)
-        viewModel.getItem(productId, offset, limit)
+        viewModel.getItem(productId, offset, limit,"")
         setupView()
         setupObserver()
     }
@@ -111,12 +110,18 @@ class ProductListActivity : BaseActivity() {
 
             override fun loadMoreItems() {
                 isLoading = true
-                offset = limit + 1
-                limit += pageSize
-                viewModel.getItem(productId, offset, limit)
+                offset += limit
+                viewModel.getItem(productId, offset, limit, et_search.text.toString().trim())
             }
 
         })
+
+        btn_search.setOnClickListener {
+            if(et_search.text.toString().isNotEmpty()){
+                KeyboardManager.hideKeyboard(this@ProductListActivity)
+                refreshList(et_search.text.toString().trim())
+            }
+        }
 
         et_search
             .textChanges()
@@ -125,20 +130,33 @@ class ProductListActivity : BaseActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if(et_search.hasFocus()){
-                    Timber.d { "$it" }
-                    adapter.filter.filter(it)
-                    isLastPage = it.isNotEmpty()
+                    if (it.isEmpty()){
+                        refreshList("")
+                    }
+                    /*if(it.isNotEmpty()){
+                        Timber.d { "$it" }
+                        rv_product.adapter = filteredAdapter
+                        viewModel.getFilteredItem(productId, offset, limit, it.toString())
+                    }
+                    else{
+                        rv_product.adapter = adapter
+                        viewModel.getItem(productId, offset, limit)
+                    }
+                    isLastPage = it.isNotEmpty()*/
                 }
             }.addTo(disposable)
 
         swipe_refresh_layout.setOnRefreshListener {
-            adapter.list.clear()
-            isLoading = true
-            isLastPage = false
-            offset = 0
-            limit = pageSize
-            viewModel.getItem(productId, offset, limit)
+            refreshList("")
         }
+    }
+
+    private fun refreshList(filter: String){
+        adapter.list.clear()
+        isLoading = true
+        isLastPage = false
+        offset = 0
+        viewModel.getItem(productId, offset, limit,filter)
     }
 
     private fun onCartPressed(){
