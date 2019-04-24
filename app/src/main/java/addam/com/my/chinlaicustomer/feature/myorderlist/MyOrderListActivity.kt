@@ -50,10 +50,8 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
     private val disposable = CompositeDisposable()
 
     private val categories = arrayOf("All", "Pending", "Confirmed", "Processing", "Delivering", "Completed")
-
-    private val pageSize = 20
     private var offset = 0
-    private var limit = pageSize
+    private var limit = 20
     private var isLastPage: Boolean = false
     private var isLoading: Boolean = false
 
@@ -144,8 +142,7 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 
             override fun loadMoreItems() {
                 isLoading = true
-                offset = limit + 1
-                limit += pageSize
+                offset += limit
                 listViewModel.getOrder(offset, limit, "all", false)
             }
 
@@ -183,7 +180,6 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
             isLoading = true
             isLastPage = false
             offset = 0
-            limit = pageSize
             listViewModel.getOrder(offset, limit, "all", true)
         }
     }
