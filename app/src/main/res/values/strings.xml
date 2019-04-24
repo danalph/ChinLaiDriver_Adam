@@ -176,12 +176,12 @@
 	<string name="company_account">Account No.</string>
 	<string name="company_do">DO No.</string>
 	<string name="company_term">Term</string>
-	<string name="days">Days</string>
+	<string name="days">\u0020Days</string>
 	<string name="company_billing_address">Billing Address</string>
 	<string name="company_total">Total Amount</string>
-	<string name="rm">RM</string>
+	<string name="rm">RM\u0020</string>
 	<string name="title_activity_invoice_detail">Invoice Details</string>
-	<string name="discount">Disc(%)</string>
+	<string name="discount">Disc(%)\u0020</string>
 	<string name="qty">QTY</string>
 	<string name="unit">Unit</string>
 	<string name="company_roc">ROC</string>

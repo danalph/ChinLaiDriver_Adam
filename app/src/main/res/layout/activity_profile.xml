@@ -7,6 +7,7 @@
 	<data>
 		<variable name="viewModel" type="addam.com.my.chinlaicustomer.feature.profile.ProfileViewModel"/>
 		<variable name="toolbarModel" type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel"/>
+		<import type="android.view.View"/>
 	</data>
 	
 	<android.support.constraint.ConstraintLayout
@@ -44,16 +45,19 @@
 				android:background="@color/colorPrimary">
 
 			<TextView
-					android:layout_width="wrap_content"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					style="@style/BaseTextView.OpenSansBold"
+					style="@style/BaseTextView.OpenSansSemiBold"
 					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
 					app:layout_constraintBottom_toBottomOf="parent"
 					android:layout_marginStart="@dimen/space_large_24dp"
+					android:layout_marginEnd="@dimen/space_large_24dp"
 					android:layout_marginBottom="@dimen/space_medium_16dp"
-					android:textSize="@dimen/massive_text_32sp"
+					android:textSize="@dimen/large_text_20sp"
 					android:textColor="@color/white"
-					android:text="@{viewModel.name}"/>
+					android:text="@{viewModel.name}"
+					tools:text="AVANCEBOLTalkasjdaldksajdaldkasaj"/>
 		</android.support.constraint.ConstraintLayout>
 		
 		<LinearLayout android:layout_width="0dp"
@@ -151,7 +155,8 @@
 						  android:paddingTop="@dimen/space_small_8dp"
 						  android:paddingBottom="@dimen/space_small_8dp"
 						  android:paddingStart="@dimen/space_large_24dp"
-						  android:paddingEnd="@dimen/space_large_24dp">
+						  android:paddingEnd="@dimen/space_large_24dp"
+					android:visibility="@{viewModel.isSalesPerson? View.GONE: View.VISIBLE}">
 				<ImageView
 						android:id="@+id/img_password"
 						android:layout_width="@dimen/text_icon_size"
@@ -203,87 +208,8 @@
 				  android:layout_height="@dimen/space_small_8dp"
 				  android:background="@color/colorGreyPrimary"
 				  android:layout_marginStart="@dimen/space_large_24dp"
-				  android:layout_marginEnd="@dimen/space_large_24dp"/>
-			
-			<LinearLayout android:layout_width="match_parent"
-			              android:layout_height="wrap_content"
-			              android:paddingTop="@dimen/space_small_8dp"
-			              android:paddingBottom="@dimen/space_small_8dp"
-			              android:paddingStart="@dimen/space_large_24dp"
-			              android:paddingEnd="@dimen/space_large_24dp"
-			              android:orientation="horizontal">
-				<ImageView android:layout_width="@dimen/text_icon_size"
-				           android:layout_height="@dimen/text_icon_size"
-				           android:layout_gravity="center"
-				           app:srcCompat="@drawable/ic_salesman"/>
-				<LinearLayout android:layout_width="match_parent"
-				              android:layout_height="wrap_content"
-				              android:orientation="vertical"
-				              android:paddingStart="@dimen/space_small_8dp"
-				              android:paddingEnd="@dimen/space_small_8dp">
-					<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							style="@style/BaseTextView.OpenSansBody"
-							android:textAlignment="textStart"
-							android:textSize="@dimen/small_text_10sp"
-							android:text="@string/sales_person"/>
-					<TextView android:layout_width="wrap_content"
-					          android:layout_height="wrap_content"
-					          style="@style/BaseTextView.OpenSansRegular"
-					          android:singleLine="false"
-					          android:textAlignment="textStart"
-					          android:textSize="@dimen/medium_text_16sp"
-					          android:textColor="@color/black"
-					          android:text="@{viewModel.salesPerson}"
-					          tools:text="asldkajdaldakdjasdslakdjasdasdlkj"/>
-				</LinearLayout>
-			</LinearLayout>
-			<View android:layout_width="match_parent"
-			      android:layout_height="@dimen/space_small_8dp"
-			      android:background="@color/colorGreyPrimary"
-			      android:layout_marginStart="@dimen/space_large_24dp"
-			      android:layout_marginEnd="@dimen/space_large_24dp"/>
-			
-			<LinearLayout android:layout_width="match_parent"
-			              android:layout_height="wrap_content"
-			              android:paddingTop="@dimen/space_small_8dp"
-			              android:paddingBottom="@dimen/space_small_8dp"
-			              android:paddingStart="@dimen/space_large_24dp"
-			              android:paddingEnd="@dimen/space_large_24dp"
-			              android:orientation="horizontal">
-				<ImageView android:layout_width="@dimen/text_icon_size"
-				           android:layout_height="@dimen/text_icon_size"
-				           android:layout_gravity="center"
-				           app:srcCompat="@drawable/ic_old_phone"/>
-				<LinearLayout android:layout_width="match_parent"
-				              android:layout_height="wrap_content"
-				              android:orientation="vertical"
-				              android:paddingStart="@dimen/space_small_8dp"
-				              android:paddingEnd="@dimen/space_small_8dp">
-					<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							style="@style/BaseTextView.OpenSansBody"
-							android:textAlignment="textStart"
-							android:textSize="@dimen/small_text_10sp"
-							android:text="@string/sales_person_contact"/>
-					<TextView android:layout_width="wrap_content"
-					          android:layout_height="wrap_content"
-					          style="@style/BaseTextView.OpenSansRegular"
-					          android:singleLine="false"
-					          android:textAlignment="textStart"
-					          android:textSize="@dimen/medium_text_16sp"
-					          android:textColor="@color/black"
-					          android:text="@{viewModel.salesPersonContact}"
-					          tools:text="asldkajdaldakdjasdslakdjasdasdlkj"/>
-				</LinearLayout>
-			</LinearLayout>
-			<View android:layout_width="match_parent"
-			      android:layout_height="@dimen/space_small_8dp"
-			      android:background="@color/colorGreyPrimary"
-			      android:layout_marginStart="@dimen/space_large_24dp"
-			      android:layout_marginEnd="@dimen/space_large_24dp"/>
+				  android:layout_marginEnd="@dimen/space_large_24dp"
+					android:visibility="@{viewModel.isSalesPerson? View.GONE: View.VISIBLE}"/>
 		</LinearLayout>
 
 

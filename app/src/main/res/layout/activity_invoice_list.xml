@@ -56,11 +56,12 @@
 						android:background="@android:color/transparent"
 						android:textSize="@dimen/medium_text_14sp"
 						android:textColor="@color/black"
-						android:text="@string/customer"/>
+						android:text="@string/customer"
+						tools:text="saldsakdajddda"/>
 				<View
 						android:id="@+id/focus_thief"
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"/>
+						android:layout_height="2dp"/>
 			</LinearLayout>
 		</android.support.design.widget.NavigationView>
 	

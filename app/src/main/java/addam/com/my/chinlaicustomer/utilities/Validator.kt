@@ -10,6 +10,7 @@ open class Validator {
         companion object {
             fun validate(reason: CharSequence): Boolean = reason.isNotEmpty()
             fun validateEmail(reason: CharSequence): Boolean = reason.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(reason).matches()
+            fun validatePassword(reason: CharSequence): Boolean = reason.length>5
         }
     }
     class StatusValidator{

@@ -34,8 +34,8 @@ class ResetPasswordViewModel(
     var finishActivityEvent = FinishActivityEvent()
 
     init{
-        newPassword.observe().map { Validator.ReasonValidator.validate(it) }.subscribe { newPasswordVerify.set(it) }
-        newPasswordConfirm.observe().map { Validator.ReasonValidator.validate(it) }.subscribe { newPasswordConfirmVerify.set(it) }
+        newPassword.observe().map { Validator.ReasonValidator.validatePassword(it) }.subscribe { newPasswordVerify.set(it) }
+        newPasswordConfirm.observe().map { Validator.ReasonValidator.validatePassword(it) }.subscribe { newPasswordConfirmVerify.set(it) }
         io.reactivex.Observable.combineLatest(newPasswordVerify.observe(), newPasswordConfirmVerify.observe(),
             BiFunction { a: Boolean, b: Boolean -> a&&b }).subscribe { isFormValid.set(it) }
     }
@@ -100,7 +100,9 @@ class ResetPasswordViewModel(
     }
 
     fun onResetClicked(){
-        encryptNewPassword()
+        if(newPassword.get().toString() == newPasswordConfirm.get().toString()){
+            encryptNewPassword()
+        }else callback.isError("Please ensure both passwords are the same")
     }
 
     interface ResetPasswordCallback{

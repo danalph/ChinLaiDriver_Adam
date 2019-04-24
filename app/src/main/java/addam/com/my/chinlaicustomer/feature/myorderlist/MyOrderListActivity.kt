@@ -29,8 +29,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_my_order.*
-import kotlinx.android.synthetic.main.app_bar_dashboard.*
 import kotlinx.android.synthetic.main.content_my_order.*
+import kotlinx.android.synthetic.main.layout_my_order.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -110,6 +110,14 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+        if(appPreference.getSalesId() != "0"){
+            nav_view.menu.findItem(R.id.customers).isVisible = true
+        }
+
+        if(appPreference.getCustomerName().isNotEmpty()){
+            current_customer.text = appPreference.getCustomerName()
+            layout_nav_customer.visibility = View.VISIBLE
+        }
 
         adapter = MyOrderListAdapter(list, object: MyOrderListAdapter.OnItemClickListener{
             override fun onTrackClick(item: MyOrderResponse.Data.SO) {

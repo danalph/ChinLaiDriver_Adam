@@ -7,6 +7,7 @@ import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.database.DatabaseRepository
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
 
 /**
  * Created by Addam on 14/1/2019.
@@ -16,12 +17,12 @@ class ProfileViewModel(
     private val appPreference: AppPreference) : ViewModel(){
 
 
-    var name = ObservableString("BALA")
-    var contact = ObservableString("010-471123932")
-    var address = ObservableString("18-01, Tower B, Vertical Business Suite, Jalan Kerinchi, Bangsar South, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur")
+    var name = ObservableString("")
+    var contact = ObservableString("")
+    var address = ObservableString("")
     var password = ObservableString("********")
-    var salesPerson = ObservableString("KENJI")
-    var salesPersonContact = ObservableString("012-203329123")
+
+    var isSalesPerson = ObservableBoolean(false)
 
     val startActivityEvent: StartActivityEvent = StartActivityEvent()
 

@@ -103,7 +103,6 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
         if(appPreference.getSalesId() != "0"){
             nav_view.menu.findItem(R.id.customers).isVisible = true
-            nav_view.menu.findItem(R.id.profile).isVisible = false
         }
         setupRecyclerView()
 
