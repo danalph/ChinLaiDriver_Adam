@@ -41,6 +41,8 @@
 					android:layout_marginEnd="@dimen/space_small_8dp"
 					android:textColor="@color/black"
 					android:textSize="@dimen/small_text_12sp"
+					android:lines="2"
+					android:ellipsize="end"
 					android:text="@{item.description1}"
 					tools:text="Power Drill (4500)"/>
 			<TextView
@@ -53,6 +55,8 @@
 					android:layout_marginStart="@dimen/space_small_8dp"
 					android:textColor="@color/black"
 					android:textSize="@dimen/small_text_12sp"
+					android:lines="1"
+					android:ellipsize="end"
 					android:text="@{item.description2}"
 					tools:text="Power Drill (4500)"/>
 			<addam.com.my.chinlaicustomer.widgets.CustomTextViewPrefix
