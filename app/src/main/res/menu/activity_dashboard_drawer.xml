@@ -22,7 +22,7 @@
         
         <item
                 android:id="@+id/btn_item_sales_price_history"
-                android:icon="@drawable/ic_invoice"
+                android:icon="@drawable/ic_item_sales_price_history"
                 android:title="@string/item_sales_price_history"/>
         <item
             android:id="@+id/btn_my_statement"
@@ -32,12 +32,6 @@
             android:id="@+id/profile"
             android:icon="@drawable/ic_user"
             android:title="@string/profile" />
-    <!---->
-        <!--<item-->
-                <!--android:id="@+id/customers"-->
-                <!--android:icon="@drawable/ic_group"-->
-                <!--android:title="@string/my_customers"-->
-                <!--android:visible="false"/>-->
         
         <item
             android:id="@+id/logout"
@@ -83,7 +77,7 @@
                         android:title="@string/my_invoice"/>
                 <item
                         android:id="@+id/customer_item_sales_price_history"
-                        android:icon="@drawable/ic_invoice"
+                        android:icon="@drawable/ic_item_sales_price_history"
                         android:title="@string/item_sales_price_history"/>
                 <item
                         android:id="@+id/customer_statement"
