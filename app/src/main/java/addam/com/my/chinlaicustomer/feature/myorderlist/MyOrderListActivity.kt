@@ -110,14 +110,7 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        if(appPreference.getSalesId() != "0"){
-            nav_view.menu.findItem(R.id.customers).isVisible = true
-        }
-
-        if(appPreference.getCustomerName().isNotEmpty()){
-            current_customer.text = appPreference.getCustomerName()
-            layout_nav_customer.visibility = View.VISIBLE
-        }
+        setupNavigationLayout(nav_view, appPreference)
 
         adapter = MyOrderListAdapter(list, object: MyOrderListAdapter.OnItemClickListener{
             override fun onTrackClick(item: MyOrderResponse.Data.SO) {
