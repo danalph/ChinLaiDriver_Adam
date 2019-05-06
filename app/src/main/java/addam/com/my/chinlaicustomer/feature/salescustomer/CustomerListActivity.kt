@@ -57,6 +57,7 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
         val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
         headerBind.name = viewModel.name.get().toString()
+        headerBind.isSalesPerson = appPreference.getSalesId() != "0"
 
         setSupportActionBar(toolbar)
         setupView()
