@@ -8,6 +8,7 @@ import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
 import android.content.Context
 import android.content.Intent
@@ -194,6 +195,12 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
             R.id.profile, R.id.sales_profile -> {
                 if(className != ProfileActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.PROFILE))
+                    overridePendingTransition(0,0)
+                }
+            }
+            R.id.btn_item_sales_price_history, R.id.customer_item_sales_price_history ->{
+                if(className != ItemSalesPriceHistoryActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.HISTORY))
                     overridePendingTransition(0,0)
                 }
             }
