@@ -5,15 +5,19 @@ import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.databinding.ActivityItemSalesPriceHistoryBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
+import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.Product
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
+import addam.com.my.chinlaicustomer.utilities.observe
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_item_sales_price_history.*
+import kotlinx.android.synthetic.main.content_item_sales_price_history.*
 import kotlinx.android.synthetic.main.layout_item_sales_price_history.*
 import javax.inject.Inject
 
@@ -23,6 +27,9 @@ class ItemSalesPriceHistoryActivity : BaseActivity(), NavigationView.OnNavigatio
 
     @Inject
     lateinit var appPreference: AppPreference
+
+    lateinit var adapter: ItemSalesPriceAdapter
+    var list = listOf<Product>()
 
     lateinit var binding: ActivityItemSalesPriceHistoryBinding
 
@@ -39,6 +46,25 @@ class ItemSalesPriceHistoryActivity : BaseActivity(), NavigationView.OnNavigatio
 
         setSupportActionBar(toolbar)
         setupView()
+        setupRecyclerView()
+        setupEvents()
+    }
+
+    private fun setupEvents() {
+        viewModel.products.observe(this){
+            it?:return@observe
+            adapter.run {
+                this.models = it.toMutableList()
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        adapter = ItemSalesPriceAdapter(list.toMutableList())
+
+        history_list.layoutManager = LinearLayoutManager(this)
+        history_list.adapter = adapter
     }
 
     private fun setupView() {

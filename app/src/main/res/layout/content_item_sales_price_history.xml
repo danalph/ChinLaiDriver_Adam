@@ -8,11 +8,97 @@
 		<variable
 				name="viewModel"
 				type="addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryViewModel"/>
+		<import type="android.view.View"/>
 	</data>
 	
 	<android.support.constraint.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 		
+		<LinearLayout
+				android:id="@+id/layout_header"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:focusable="true"
+				android:focusableInTouchMode="true"
+				android:orientation="horizontal"
+				android:padding="@dimen/space_small_8dp"
+				android:background="@color/colorRed"
+				android:weightSum="6"
+				android:visibility="@{viewModel.hasSearched? View.VISIBLE:View.INVISIBLE}">
+			<EditText
+					android:id="@+id/et_product_search"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="5"
+					style="@style/BaseTextView.RalewayRegular"
+					android:padding="@dimen/space_small_8dp"
+					android:background="@drawable/rounded_background"
+					android:drawableStart="@drawable/ic_search"
+					android:drawablePadding="@dimen/space_small_8dp"
+					android:hint="@string/search_product_name"
+					android:text="@={viewModel.searchText}"/>
+			
+			<ImageButton
+					android:layout_width="@dimen/space_large_40dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="0.5"
+					android:layout_gravity="center_vertical"
+					android:background="@android:color/transparent"
+					app:srcCompat="@drawable/ic_action_calendar_month"
+					android:onClick="@{() -> viewModel.onCalendarClicked()}"/>
+			
+			<ImageButton
+					android:layout_width="@dimen/space_large_40dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="0.5"
+					android:layout_gravity="center_vertical"
+					android:background="@android:color/transparent"
+					android:tint="@color/white"
+					app:srcCompat="@drawable/ic_search"
+					android:onClick="@{() -> viewModel.onSearchClicked()}"/>
+		</LinearLayout>
+		<android.support.v7.widget.RecyclerView
+				android:id="@+id/history_list"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/layout_header"
+				android:visibility="@{viewModel.hasSearched? View.VISIBLE:View.GONE}"/>
+		
+		<android.support.v7.widget.CardView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginStart="@dimen/space_medium_16dp"
+				android:layout_marginEnd="@dimen/space_medium_16dp"
+				android:elevation="@dimen/space_tiny_2dp"
+				android:visibility="@{viewModel.hasSearched? View.GONE:View.VISIBLE}">
+			
+			<EditText
+					android:id="@+id/et_product_search_start"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					style="@style/BaseTextView.RalewayRegular"
+					android:padding="@dimen/space_small_8dp"
+					android:background="@drawable/rounded_background"
+					android:hint="@string/search_product_name"
+					android:text="@={viewModel.searchText}"/>
+			<ImageButton
+					android:layout_width="@dimen/space_large_40dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="end|center"
+					android:padding="@dimen/space_tiny_6dp"
+					android:background="@color/colorRed"
+					app:srcCompat="@drawable/ic_search"
+					android:tint="@color/white"
+					android:onClick="@{() -> viewModel.onSearchClicked()}"/>
+		</android.support.v7.widget.CardView>
 	</android.support.constraint.ConstraintLayout>
 </layout>

@@ -96,7 +96,7 @@ interface GeneralService {
 
     @GET("mobile/products/")
     fun getSearchProduct(
-        @Query("filter") filter: String
+        @Query("filters") filter: String
     ): Single<SearchProductHistoryResponse>
 
     @POST("mobile/product_history")

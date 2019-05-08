@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+		<variable
+				name="item"
+				type="addam.com.my.chinlaicustomer.rest.model.salesitemhistory.Product"/>
+	</data>
+	
+	<android.support.v7.widget.CardView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:elevation="@dimen/space_tiny_2dp">
+		<android.support.constraint.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="@dimen/space_tiny_4dp"
+				android:paddingBottom="@dimen/space_tiny_4dp"
+				android:paddingStart="@dimen/space_medium_16dp"
+				android:paddingEnd="@dimen/space_medium_16dp">
+			
+			<ImageView
+					android:id="@+id/img_product"
+					android:layout_width="@dimen/default_icon_size"
+					android:layout_height="@dimen/default_icon_size"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					tools:srcCompat="@drawable/img_no_image"/>
+			
+			<TextView
+					android:id="@+id/item_name"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					style="@style/BaseTextView.OpenSansRegular"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintStart_toEndOf="@id/img_product"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginStart="@dimen/space_small_8dp"
+					android:layout_marginEnd="@dimen/space_small_8dp"
+					android:textColor="@color/black"
+					android:textSize="@dimen/small_text_12sp"
+					android:lines="2"
+					android:ellipsize="end"
+					android:text="@{item.description_1}"
+					tools:text="Power Drill (4500)"/>
+			<TextView
+					android:id="@+id/item_name_cn"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					style="@style/BaseTextView.OpenSansRegular"
+					app:layout_constraintTop_toBottomOf="@+id/item_name"
+					app:layout_constraintStart_toEndOf="@+id/img_product"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginStart="@dimen/space_small_8dp"
+					android:textColor="@color/black"
+					android:textSize="@dimen/small_text_12sp"
+					android:lines="1"
+					android:ellipsize="end"
+					android:text="@{item.code}"
+					tools:text="Power Drill (4500)"/>
+		</android.support.constraint.ConstraintLayout>
+	</android.support.v7.widget.CardView>
+
+</layout>
