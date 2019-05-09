@@ -200,7 +200,7 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
             }
             R.id.btn_item_sales_price_history, R.id.customer_item_sales_price_history ->{
                 if(className != ItemSalesPriceHistoryActivity::class.java.simpleName){
-                    startActivity(this, Router.getClass(Router.Destination.HISTORY))
+                    startActivity(this, Router.getClass(Router.Destination.SEARCH_PRODUCT))
                     overridePendingTransition(0,0)
                 }
             }

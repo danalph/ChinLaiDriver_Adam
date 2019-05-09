@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by owner on 09/05/2019
  */
-class ItemSalesPriceAdapter(var models: MutableList<Product> ):
+class ItemSalesPriceAdapter(var models: MutableList<Product> , var onItemSelectListener: OnItemSelectListener):
     RecyclerView.Adapter<ItemSalesPriceAdapter.ProductViewHolder>() {
     private var layoutInflater: LayoutInflater? = null
 
@@ -44,6 +44,8 @@ class ItemSalesPriceAdapter(var models: MutableList<Product> ):
                 .fit()
                 .into(holder.mBinding.imgProduct)
 
+        holder.mBinding.layoutCard.setOnClickListener {onItemSelectListener.onItemSelected(item)}
+
         holder.mBinding.item = item
     }
 
@@ -57,5 +59,9 @@ class ItemSalesPriceAdapter(var models: MutableList<Product> ):
         constructor(mBinding: ProductHistoryRowItemBinding): super(mBinding.root){
             this.mBinding = mBinding
         }
+    }
+
+    interface OnItemSelectListener{
+        fun onItemSelected(item: Product)
     }
 }

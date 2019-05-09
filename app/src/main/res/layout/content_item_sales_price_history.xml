@@ -40,7 +40,9 @@
 					android:drawableStart="@drawable/ic_search"
 					android:drawablePadding="@dimen/space_small_8dp"
 					android:hint="@string/search_product_name"
-					android:text="@={viewModel.searchText}"/>
+					android:text="@={viewModel.searchText}"
+					android:singleLine="true"
+					android:maxLines="1"/>
 			
 			<ImageButton
 					android:layout_width="@dimen/space_large_40dp"
@@ -89,7 +91,9 @@
 					android:padding="@dimen/space_small_8dp"
 					android:background="@drawable/rounded_background"
 					android:hint="@string/search_product_name"
-					android:text="@={viewModel.searchText}"/>
+					android:text="@={viewModel.searchText}"
+					android:singleLine="true"
+					android:maxLines="1"/>
 			<ImageButton
 					android:layout_width="@dimen/space_large_40dp"
 					android:layout_height="wrap_content"

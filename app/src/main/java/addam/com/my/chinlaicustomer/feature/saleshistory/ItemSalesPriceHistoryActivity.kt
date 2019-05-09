@@ -3,6 +3,9 @@ package addam.com.my.chinlaicustomer.feature.saleshistory
 import addam.com.my.chinlaicustomer.AppPreference
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
+import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.StartActivityEvent
+import addam.com.my.chinlaicustomer.core.event.StartActivityModel
 import addam.com.my.chinlaicustomer.databinding.ActivityItemSalesPriceHistoryBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
 import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.Product
@@ -15,6 +18,9 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import com.applandeo.materialcalendarview.CalendarView
+import com.applandeo.materialcalendarview.builders.DatePickerBuilder
+import com.applandeo.materialcalendarview.listeners.OnSelectDateListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_item_sales_price_history.*
 import kotlinx.android.synthetic.main.content_item_sales_price_history.*
@@ -58,10 +64,32 @@ class ItemSalesPriceHistoryActivity : BaseActivity(), NavigationView.OnNavigatio
                 notifyDataSetChanged()
             }
         }
+
+        viewModel.startActivityEvent.observe(this@ItemSalesPriceHistoryActivity, object : StartActivityEvent.StartActivityObserver{
+            override fun onStartActivity(data: StartActivityModel) {
+                startActivity(this@ItemSalesPriceHistoryActivity, Router.getClass(data.to), data.parameters, clearHistory = false)
+            }
+
+            override fun onStartActivityForResult(data: StartActivityModel) {
+                startActivity(this@ItemSalesPriceHistoryActivity, Router.getClass(data.to), data.parameters, clearHistory = false)
+            }
+
+        })
     }
 
     private fun setupRecyclerView() {
-        adapter = ItemSalesPriceAdapter(list.toMutableList())
+        adapter = ItemSalesPriceAdapter(list.toMutableList(), object : ItemSalesPriceAdapter.OnItemSelectListener {
+            override fun onItemSelected(item: Product) {
+//                Toast.makeText(baseContext,item.description_1, Toast.LENGTH_SHORT).show()
+//                val newFragment = DatePickerFragment()
+//                newFragment.show(supportFragmentManager, "datePicker")
+                val builder = DatePickerBuilder(this@ItemSalesPriceHistoryActivity,
+                    OnSelectDateListener { viewModel.onDateSelected(it, item) }).pickerType(CalendarView.RANGE_PICKER)
+                val datePicker = builder.build()
+                datePicker.show()
+            }
+
+        })
 
         history_list.layoutManager = LinearLayoutManager(this)
         history_list.adapter = adapter

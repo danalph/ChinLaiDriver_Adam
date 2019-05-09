@@ -47,6 +47,7 @@ class Router {
         ERROR,
         SALES_ORDER,
         IMAGE_VIEWER,
+        SEARCH_PRODUCT,
         HISTORY
     }
 
@@ -71,7 +72,9 @@ class Router {
         ITEM_AMOUNT,
         ITEM_STATUS,
         ITEM_NUM,
-        IMAGES
+        IMAGES,
+        START_DATE,
+        END_DATE
     }
 
     companion object {
@@ -97,7 +100,7 @@ class Router {
                 Destination.ERROR -> ErrorActivity::class.java
                 Destination.SALES_ORDER -> SalesOrderActivity::class.java
                 Destination.IMAGE_VIEWER -> ViewImageActivity::class.java
-                Destination.HISTORY -> ItemSalesPriceHistoryActivity::class.java
+                Destination.SEARCH_PRODUCT -> ItemSalesPriceHistoryActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }
