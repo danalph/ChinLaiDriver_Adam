@@ -34,6 +34,8 @@ import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivityModule
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListModule
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemHistoryActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemHistoryModule
 import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryActivity
 import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryModule
 import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
@@ -113,4 +115,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ItemSalesPriceHistoryModule::class)])
     abstract fun bindItemSalesPriceHistoryActivity(): ItemSalesPriceHistoryActivity
+
+    @ContributesAndroidInjector(modules = [(ItemHistoryModule::class)])
+    abstract fun bindItemHistoryActivity(): ItemHistoryActivity
 }

@@ -17,6 +17,7 @@ import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemHistoryActivity
 import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryActivity
 import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
 import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginActivity
@@ -101,6 +102,7 @@ class Router {
                 Destination.SALES_ORDER -> SalesOrderActivity::class.java
                 Destination.IMAGE_VIEWER -> ViewImageActivity::class.java
                 Destination.SEARCH_PRODUCT -> ItemSalesPriceHistoryActivity::class.java
+                Destination.HISTORY -> ItemHistoryActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

@@ -201,4 +201,7 @@
 	<string name="search">Search</string>
 	<string name="item_sales_price_history">Item Sales Price History</string>
 	<string name="browse_customer">Browse My Customers</string>
+	<string name="sales_price">Sales Price</string>
+	<string name="uom">UOM</string>
+	<string name="total">Total</string>
 </resources>

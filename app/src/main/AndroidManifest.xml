@@ -26,9 +26,14 @@
 			android:usesCleartextTraffic="true"
 			tools:ignore="GoogleAppIndexingWarning"
 			tools:replace="android:allowBackup">
-		<activity android:name=".feature.saleshistory.ItemSalesPriceHistoryActivity"
+		<activity android:name=".feature.saleshistory.ItemHistoryActivity"
 		          android:screenOrientation="portrait"
 		          android:theme="@style/AppTheme.NoActionBar">
+		</activity>
+		<activity
+				android:name=".feature.saleshistory.ItemSalesPriceHistoryActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 		<activity
 				android:name=".feature.imageviewer.ViewImageActivity"
