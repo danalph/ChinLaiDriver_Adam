@@ -1,6 +1,8 @@
 package addam.com.my.chinlaicustomer.feature.saleshistory
 
 import addam.com.my.chinlaicustomer.AppPreference
+import addam.com.my.chinlaicustomer.core.event.FinishActivityEvent
+import addam.com.my.chinlaicustomer.core.event.FinishActivityEventModel
 import addam.com.my.chinlaicustomer.core.util.SchedulerProvider
 import addam.com.my.chinlaicustomer.rest.GeneralRepository
 import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.Item
@@ -9,6 +11,7 @@ import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.ProductHistoryRe
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableBoolean
 import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -21,6 +24,8 @@ class ItemHistoryViewModel(val appPreference: AppPreference, val schedulerProvid
     var start = ObservableString("")
     var end = ObservableString("")
     val items = MutableLiveData<List<Item>>()
+    val isLoading = ObservableBoolean(true)
+    val finishActivityEvent = FinishActivityEvent()
 
     private fun callItemHistory(): Single<ProductHistoryResponse> {
         return generalRepository.getProductHistory(
@@ -35,9 +40,13 @@ class ItemHistoryViewModel(val appPreference: AppPreference, val schedulerProvid
         callItemHistory().subscribeBy(onSuccess = {
             if(it.status){
                 items.postValue(it.data.items)
+                isLoading.set(false)
+            }else{
+                isLoading.set(false)
+                finishActivityEvent.value = FinishActivityEventModel()
             }
         }, onError = {
-
+            isLoading.set(false)
         })
     }
 }

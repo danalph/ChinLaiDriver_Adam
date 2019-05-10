@@ -2,6 +2,8 @@ package addam.com.my.chinlaicustomer.feature.saleshistory
 
 import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.Router
+import addam.com.my.chinlaicustomer.core.event.FinishActivityEvent
+import addam.com.my.chinlaicustomer.core.event.FinishActivityEventModel
 import addam.com.my.chinlaicustomer.databinding.ActivityItemHistoryBinding
 import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.Item
 import addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel
@@ -10,6 +12,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_item_history.*
 import javax.inject.Inject
@@ -45,6 +48,18 @@ class ItemHistoryActivity : AppCompatActivity() {
                 notifyDataSetChanged()
             }
         }
+
+        viewModel.finishActivityEvent.observe(this@ItemHistoryActivity, object: FinishActivityEvent.FinishActivityObserver{
+            override fun onFinishActivity(data: FinishActivityEventModel) {
+                Toast.makeText(baseContext, "No History Found", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+
+            override fun onFinishActivityForResult(data: FinishActivityEventModel) {
+                finish()
+            }
+
+        })
     }
 
     private fun setupRecyclerView() {

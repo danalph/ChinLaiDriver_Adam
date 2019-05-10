@@ -11,6 +11,7 @@
 		<variable
 				name="toolbarModel"
 				type="addam.com.my.chinlaicustomer.utilities.model.ToolbarWithBackModel"/>
+		<import type="android.view.View"/>
 	</data>
 	
 	<android.support.constraint.ConstraintLayout
@@ -42,9 +43,19 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				app:layout_constraintTop_toBottomOf="@+id/toolbar"
-				app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-				app:layout_constraintRight_toRightOf="@+id/right_guideline"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
 				android:layout_marginTop="@dimen/space_small_8dp"/>
+		
+		<ProgressBar
+				style="@style/Widget.AppCompat.ProgressBar"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				android:visibility="@{viewModel.isLoading? View.VISIBLE : View.GONE}"/>
 	</android.support.constraint.ConstraintLayout>
 
 </layout>

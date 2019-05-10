@@ -27,7 +27,11 @@ import kotlinx.android.synthetic.main.content_item_sales_price_history.*
 import kotlinx.android.synthetic.main.layout_item_sales_price_history.*
 import javax.inject.Inject
 
-class ItemSalesPriceHistoryActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class ItemSalesPriceHistoryActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, ItemSalesPriceHistoryViewModel.Callback {
+    override fun onSearchClicked() {
+        KeyboardManager.hideKeyboard(this)
+    }
+
     @Inject
     lateinit var viewModel: ItemSalesPriceHistoryViewModel
 
@@ -96,6 +100,7 @@ class ItemSalesPriceHistoryActivity : BaseActivity(), NavigationView.OnNavigatio
     }
 
     private fun setupView() {
+        viewModel.callback = this
         KeyboardManager.hideKeyboard(this)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.title = getString(R.string.item_sales_price_history)

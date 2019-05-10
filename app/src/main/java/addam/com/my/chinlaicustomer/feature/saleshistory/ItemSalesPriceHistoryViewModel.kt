@@ -27,6 +27,8 @@ class ItemSalesPriceHistoryViewModel(val schedulerProvider: SchedulerProvider, v
     val products = MutableLiveData<List<Product>>()
 
     val startActivityEvent = StartActivityEvent()
+    val isLoading = ObservableBoolean(false)
+    lateinit var callback: Callback
 
     fun onCalendarClicked(){
 
@@ -34,10 +36,15 @@ class ItemSalesPriceHistoryViewModel(val schedulerProvider: SchedulerProvider, v
 
     fun onSearchClicked(){
         hasSearched.set(true)
+        isLoading.set(true)
+        callback.onSearchClicked()
         callProductList().subscribeBy(onSuccess = {
-            products.postValue(it.data.products)
+            if(it.status){
+                products.postValue(it.data.products)
+            }
+            isLoading.set(false)
         }, onError = {
-
+            isLoading.set(false)
         })
     }
 
@@ -60,5 +67,9 @@ class ItemSalesPriceHistoryViewModel(val schedulerProvider: SchedulerProvider, v
             Pair(Router.Parameter.START_DATE, start),
             Pair(Router.Parameter.END_DATE, end)
         ), hasResults = false)
+    }
+
+    interface Callback{
+        fun onSearchClicked()
     }
 }
