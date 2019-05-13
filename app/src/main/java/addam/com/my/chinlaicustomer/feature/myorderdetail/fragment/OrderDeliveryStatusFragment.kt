@@ -69,13 +69,11 @@ class OrderDeliveryStatusFragment : Fragment() {
     private fun sortStatus(list: List<OrderDeliveryStatusResponse.Data.POD>): List<OrderDeliveryStatusResponse.Data.POD> {
         val newList = arrayListOf<OrderDeliveryStatusResponse.Data.POD>()
         var hasDeliver = false
-        var hasUpdate = false
         var hasTrip = false
         var hasPacking = false
         var hasCreate = false
 
         var deliverAdded = false
-        var updateAdded = false
         var tripAdded = false
         var packingAdded = false
         var createAdded = false
@@ -83,7 +81,6 @@ class OrderDeliveryStatusFragment : Fragment() {
         for (item in list){
             when(item.action){
                 "deliver" -> hasDeliver = true
-                "update" -> hasUpdate = true
                 "trip" -> hasTrip = true
                 "packing" -> hasPacking = true
                 "create" -> hasCreate = true
@@ -115,23 +112,6 @@ class OrderDeliveryStatusFragment : Fragment() {
 
             }
 
-            if (hasUpdate && !updateAdded){
-                if (!hasPacking && !packingAdded){
-                    newList.add(OrderDeliveryStatusResponse.Data.POD("packing", "", "", ""))
-                    packingAdded = true
-                }
-
-                if (!hasTrip && !tripAdded){
-                    newList.add(OrderDeliveryStatusResponse.Data.POD("trip", "", "", ""))
-                    tripAdded = true
-                }
-
-                if (item.action == "update"){
-                    newList.add(item)
-                    updateAdded = true
-                }
-            }
-
             if (hasDeliver && !deliverAdded){
                 if (!hasPacking && !packingAdded){
                     newList.add(OrderDeliveryStatusResponse.Data.POD("packing", "", "", ""))
@@ -141,11 +121,6 @@ class OrderDeliveryStatusFragment : Fragment() {
                 if (!hasTrip && !tripAdded){
                     newList.add(OrderDeliveryStatusResponse.Data.POD("trip", "", "", ""))
                     tripAdded = true
-                }
-
-                if (!hasUpdate && !updateAdded){
-                    newList.add(OrderDeliveryStatusResponse.Data.POD("update", "", "", ""))
-                    updateAdded = true
                 }
 
                 if (item.action == "deliver"){

@@ -99,9 +99,10 @@ class CartAdapter(val context: Context, var list: ArrayList<Cart>,  var itemClic
 
     fun getSelectedItem() : ArrayList<Cart>{
         val selectedList = arrayListOf<Cart>()
-        list.forEach { if (it.isChecked){
-            selectedList.add(it)
-        }
+        list.forEach {
+            if (it.isChecked){
+                selectedList.add(it)
+            }
         }
         return selectedList
     }
