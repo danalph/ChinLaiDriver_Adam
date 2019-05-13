@@ -21,7 +21,6 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import com.jakewharton.rxbinding2.widget.textChanges
 import dagger.android.AndroidInjection
@@ -58,6 +57,7 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
         val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
         headerBind.name = viewModel.name.get().toString()
+        headerBind.isSalesPerson = appPreference.getSalesId() != "0"
 
         setSupportActionBar(toolbar)
         setupView()
@@ -111,14 +111,9 @@ class CustomerListActivity : BaseActivity(), NavigationView.OnNavigationItemSele
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        if(appPreference.getSalesId() != "0"){
-            nav_view.menu.findItem(R.id.customers).isVisible = true
-        }
+        setupNavigationLayout(nav_view, appPreference)
 
-        if(appPreference.getCustomerName().isNotEmpty()){
-            current_customer.text = appPreference.getCustomerName()
-            layout_nav_customer.visibility = View.VISIBLE
-        }else{
+        if(!appPreference.getCustomerName().isNotEmpty()){
             drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             Toast.makeText(this, "Please select a customer", Toast.LENGTH_SHORT).show()
         }

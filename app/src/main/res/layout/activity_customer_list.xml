@@ -33,31 +33,6 @@
 				android:fitsSystemWindows="true"
 				app:menu="@menu/activity_dashboard_drawer">
 			
-			<LinearLayout
-					android:id="@+id/layout_nav_customer"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:layout_gravity="bottom"
-					android:layout_margin="@dimen/space_small_8dp"
-					android:visibility="gone">
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						style="@style/BaseTextView.OpenSansBold"
-						android:background="@android:color/transparent"
-						android:textSize="@dimen/medium_text_16sp"
-						android:text="@string/customer"/>
-				<TextView
-						android:id="@+id/current_customer"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						style="@style/BaseTextView.OpenSansRegular"
-						android:background="@android:color/transparent"
-						android:textSize="@dimen/medium_text_14sp"
-						android:textColor="@color/black"
-						android:text="@string/customer"/>
-			</LinearLayout>
 		</android.support.design.widget.NavigationView>
 	</android.support.v4.widget.DrawerLayout>
 </layout>

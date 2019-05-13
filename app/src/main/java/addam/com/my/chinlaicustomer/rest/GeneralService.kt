@@ -4,6 +4,9 @@ import addam.com.my.chinlaicustomer.rest.model.*
 import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryDetailResponse
 import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDeliveryStatusResponse
 import addam.com.my.chinlaicustomer.rest.model.deliverydetails.OrderDriverDetailResponse
+import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.ProductHistoryRequest
+import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.ProductHistoryResponse
+import addam.com.my.chinlaicustomer.rest.model.salesitemhistory.SearchProductHistoryResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -90,4 +93,12 @@ interface GeneralService {
 
     @GET("mobile/order/{orderId}")
     fun getSalesOrderDetail(@Path("orderId") orderId: String): Single<SalesOrderDetailResponse>
+
+    @GET("mobile/products/")
+    fun getSearchProduct(
+        @Query("filters") filter: String
+    ): Single<SearchProductHistoryResponse>
+
+    @POST("mobile/product_history")
+    fun getProductHistory(@Body productHistoryRequest: ProductHistoryRequest): Single<ProductHistoryResponse>
 }

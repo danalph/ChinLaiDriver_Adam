@@ -8,13 +8,14 @@ import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.WindowManager
 
 /**
  * Created by Addam on 7/1/2019.
@@ -25,7 +26,7 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
 //        if (toolbar == null) {
 //            Timber.e { "Toolbar is null" }
@@ -166,48 +167,70 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
     fun setNavigation(item: MenuItem, appPreference: AppPreference, className: String){
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.btn_browse_product -> {
+            R.id.btn_browse_product, R.id.sales_products -> {
                 if(className != DashboardActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.DASHBOARD),clearHistory = true)
                     overridePendingTransition(0,0)
                 }
             }
-            R.id.btn_my_order -> {
+            R.id.btn_my_order, R.id.customer_order -> {
                 if(className != MyOrderListActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.MY_ORDER), clearHistory = true)
                     overridePendingTransition(0,0)
                 }
             }
-            R.id.btn_my_invoice -> {
+            R.id.btn_my_invoice, R.id.customer_invoices -> {
                 if(className != InvoiceListActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.INVOICE), clearHistory = true)
                     overridePendingTransition(0,0)
                 }
             }
-            R.id.btn_my_statement -> {
+            R.id.btn_my_statement, R.id.customer_statement -> {
                 if(className != StatementActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.STATEMENT), clearHistory = true)
                     overridePendingTransition(0,0)
                 }
             }
-            R.id.profile -> {
+            R.id.profile, R.id.sales_profile -> {
                 if(className != ProfileActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.PROFILE))
                     overridePendingTransition(0,0)
                 }
             }
-            R.id.customers ->{
+            R.id.btn_item_sales_price_history, R.id.customer_item_sales_price_history ->{
+                if(className != ItemSalesPriceHistoryActivity::class.java.simpleName){
+                    startActivity(this, Router.getClass(Router.Destination.SEARCH_PRODUCT))
+                    overridePendingTransition(0,0)
+                }
+            }
+            R.id.sales_customer ->{
                 if(className != CustomerListActivity::class.java.simpleName){
                     startActivity(this, Router.getClass(Router.Destination.CUSTOMER_LIST), clearHistory = true)
                     overridePendingTransition(0,0)
                 }
             }
-            R.id.logout -> {
+            R.id.logout, R.id.sales_logout -> {
                 appPreference.setLoggedIn(false)
                 appPreference.logout()
                 appPreference.resetSales()
                 startActivity(this, Router.getClass(Router.Destination.LOGIN), clearHistory = true)
             }
+        }
+    }
+
+    fun setupNavigationLayout(view: NavigationView, appPreference: AppPreference){
+        if(appPreference.getSalesId() != "0"){
+//            view.menu.findItem(R.id.customers).isVisible = true
+            view.menu.setGroupVisible(R.id.menu_customer, false)
+            view.menu.setGroupVisible(R.id.menu_sales, true)
+
+            if(appPreference.getCustomerName().isNotEmpty()){
+                view.menu.findItem(R.id.customer_name).title = appPreference.getCustomerName()
+            }
+
+        }else{
+            view.menu.setGroupVisible(R.id.menu_customer, true)
+            view.menu.setGroupVisible(R.id.menu_sales, false)
         }
     }
 }
