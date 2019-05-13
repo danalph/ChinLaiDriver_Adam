@@ -16,7 +16,6 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.WindowManager
 
 /**
  * Created by Addam on 7/1/2019.
@@ -27,7 +26,7 @@ open class BaseActivity: AppCompatActivity(), PermissionHelper.PermissionSuccess
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
 //        if (toolbar == null) {
 //            Timber.e { "Toolbar is null" }
