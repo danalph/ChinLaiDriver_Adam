@@ -5,28 +5,28 @@ import addam.com.my.chinlaicustomer.R
 import addam.com.my.chinlaicustomer.core.BaseActivity
 import addam.com.my.chinlaicustomer.databinding.ActivityStatementBinding
 import addam.com.my.chinlaicustomer.databinding.NavHeaderDashboardBinding
-import addam.com.my.chinlaicustomer.rest.model.StatementResponseModel
+import addam.com.my.chinlaicustomer.rest.model.StatementListResponse
 import addam.com.my.chinlaicustomer.utilities.KeyboardManager
+import addam.com.my.chinlaicustomer.utilities.observe
+import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Color
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_statement.*
 import kotlinx.android.synthetic.main.app_bar_dashboard.*
 import kotlinx.android.synthetic.main.content_statement.*
 import javax.inject.Inject
 
+
 class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
-    StatementAdapter.OnItemClickListener, StatementAdapter.OnItemSelectListener {
+    StatementAdapter.OnItemClickListener {
+
     @Inject
     lateinit var viewModel: StatementViewModel
 
@@ -35,7 +35,7 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     lateinit var binding: ActivityStatementBinding
     lateinit var adapter: StatementAdapter
-    lateinit var snackbar: Snackbar
+    private var model = arrayListOf<StatementListResponse.Data.Statement>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +50,33 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
         setSupportActionBar(toolbar)
         setupView()
+        setupObserver()
         setupRecyclerView()
 
+    }
+
+    private fun setupObserver() {
+        viewModel.statementListItem.observe(this) {
+            it ?: return@observe
+            adapter.run {
+                models.clear()
+                models.addAll(it)
+                notifyDataSetChanged()
+            }
+        }
+
+        viewModel.statementUrl.observe(this){
+            it?: return@observe
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(it)
+            startActivity(i)
+        }
     }
 
     private fun setupRecyclerView() {
         statement_list.layoutManager = LinearLayoutManager(baseContext)
 
-        adapter = StatementAdapter(viewModel.setDummyModels(), this, this)
+        adapter = StatementAdapter(model, this)
         statement_list.adapter = adapter
 
     }
@@ -74,17 +93,6 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
         setupNavigationLayout(nav_view, appPreference)
-
-        snackbar = Snackbar.make(layout_statement, getString(R.string.download_multiple), Snackbar.LENGTH_INDEFINITE)
-        val view = snackbar.view
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            view.setBackgroundColor(resources.getColor(R.color.black, null))
-        }else view.setBackgroundColor(resources.getColor(R.color.black))
-        val text = view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
-        text.setTextColor(Color.parseColor("#ffffff"))
-        snackbar.setAction(R.string.download) {
-            viewModel.getDownloads(adapter.models)
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -95,37 +103,7 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.statement, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.action_delete){
-            val iterate = adapter.models.toList()
-            for (model in iterate){
-                if(model.isSelected){
-                    adapter.removeItemAt(iterate.indexOf(model))
-                }
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onItemDownload(position: Int, item: StatementResponseModel) {
+    override fun onItemDownload(position: Int, item: StatementListResponse.Data.Statement) {
         viewModel.getDownload(item)
-    }
-
-    override fun onItemSelect(position: Int, item: StatementResponseModel) {
-        var selected = 0
-        val iterate = adapter.models.toList()
-        for (model in iterate){
-            if (model.isSelected){
-                selected += 1
-            }
-        }
-        if (selected > 1){
-            snackbar.show()
-        }else snackbar.dismiss()
     }
 }

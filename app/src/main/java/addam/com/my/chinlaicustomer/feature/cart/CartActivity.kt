@@ -37,7 +37,7 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     lateinit var appPreference: AppPreference
 
     lateinit var adapter: CartAdapter
-    private var list = arrayListOf<Cart>()
+    private var itemList = arrayListOf<Cart>()
     private lateinit var branchesResponse: BranchesResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,9 +54,9 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
     }
 
     private fun setupObserver() {
-
         viewModel.cartItems.observe(this){
             it?:return@observe
+            itemList = it as ArrayList<Cart>
             adapter.run {
                 list.clear()
                 list.addAll(it)
@@ -107,10 +107,16 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
             }
 
         })
+
+        viewModel.eventItemUpdated.observe(this@CartActivity, object: GenericSingleEvent.EventObserver{
+            override fun onPerformEvent() {
+                finish()
+            }
+        })
     }
 
     private fun setupView() {
-        adapter = CartAdapter(this@CartActivity, list, this)
+        adapter = CartAdapter(this@CartActivity, itemList, this)
         rv_cart.layoutManager = LinearLayoutManager(this@CartActivity)
         rv_cart.adapter = adapter
     }
@@ -168,5 +174,13 @@ class CartActivity : BaseActivity(), CartAdapter.OnItemClickListener{
 
     private fun onCartPressed(){
         Timber.d { "Cart open" }
+    }
+
+    override fun onBackPressed() {
+        viewModel.onUpdateItem(itemList)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

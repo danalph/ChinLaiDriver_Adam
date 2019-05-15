@@ -74,4 +74,8 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
     fun getSearchProduct(filter: String): Single<SearchProductHistoryResponse> = api.getSearchProduct(filter)
 
     fun getProductHistory(productHistoryRequest: ProductHistoryRequest): Single<ProductHistoryResponse> = api.getProductHistory(productHistoryRequest)
+
+    fun getStatementList(customerId: String): Single<StatementListResponse> = api.getStatementList(customerId)
+
+    fun getStatement(statementId: String): Single<StatementResponse> = api.getStatement(statementId)
 }

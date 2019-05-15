@@ -44,7 +44,7 @@ class DeliveryStatusAdapter(val dO: OrderDeliveryStatusResponse.Data.DO, var mod
         holder.mBinding.tvStatus.text = when(item.action){
             "create" -> "#${dO.docNum} Initiated"
             "packing" -> "Preparing to deliver"
-            "trip" -> "#${dO.docNum} Driver assigned and delivering "
+            "trip" -> "#${dO.docNum} Driver assigned and delivering"
             "deliver" -> "Delivered to Destination"
             else -> ""
         }

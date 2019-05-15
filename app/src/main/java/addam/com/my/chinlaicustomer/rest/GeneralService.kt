@@ -101,4 +101,10 @@ interface GeneralService {
 
     @POST("mobile/product_history")
     fun getProductHistory(@Body productHistoryRequest: ProductHistoryRequest): Single<ProductHistoryResponse>
+
+    @GET("mobile/customer/{customerId}/statements")
+    fun getStatementList(@Path("customerId") customerId: String): Single<StatementListResponse>
+
+    @GET("mobile/statement/{statementId}")
+    fun getStatement(@Path("statementId") statementId: String): Single<StatementResponse>
 }

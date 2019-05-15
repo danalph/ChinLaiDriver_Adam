@@ -115,7 +115,7 @@ class MyOrderListActivity : BaseActivity(), NavigationView.OnNavigationItemSelec
 
         adapter = MyOrderListAdapter(list, object: MyOrderListAdapter.OnItemClickListener{
             override fun onTrackClick(item: MyOrderResponse.Data.SO) {
-                listViewModel.viewDetail(item.id, 2)
+                listViewModel.viewDetail(item.dOId, 2)
             }
             override fun onItemClick(p1: Int, item: MyOrderResponse.Data.SO) {
                 listViewModel.viewSalesOrderDetail(item.id)

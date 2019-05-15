@@ -36,7 +36,6 @@ data class OrderDeliveryStatusResponse(
                     "create" -> R.drawable.icon_order_create
                     "packing" -> R.drawable.icon_order_packing
                     "trip" -> R.drawable.icon_order_trip
-                    "update" -> R.drawable.icon_order_trip
                     "delivered" -> R.drawable.icon_order_delivered
                     else -> R.drawable.icon_order_delivered
                 }

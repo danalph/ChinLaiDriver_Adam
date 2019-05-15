@@ -24,4 +24,6 @@ class DatabaseRepository @Inject constructor(private val userDao: UserDao, priva
     fun deleteCartById(customerId: String) = cartDao.deleteCartById(customerId)
 
     fun getCartById(customerId: String):Single<List<Cart>> = cartDao.getCartById(customerId)
+
+    fun updateCartQuantityById(quantity: Int, id: Long) = cartDao.updateCartQuantityById(quantity, id)
 }
