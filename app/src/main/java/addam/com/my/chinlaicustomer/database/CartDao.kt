@@ -22,4 +22,7 @@ interface CartDao{
 
     @Query("DELETE FROM cart WHERE customer_id = (:customerId)")
     fun deleteCartById(customerId: String)
+
+    @Query("UPDATE cart SET product_quantity=:quantity WHERE id=:id")
+    fun updateCartQuantityById(quantity: Int, id: Long)
 }

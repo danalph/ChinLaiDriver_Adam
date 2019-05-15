@@ -14,6 +14,7 @@ import addam.com.my.chinlaicustomer.rest.model.CreateOrderRequest
 import addam.com.my.chinlaicustomer.utilities.ObservableString
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import com.github.ajalt.timberkt.Timber
 import io.reactivex.Completable
@@ -23,6 +24,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.text.DecimalFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CartViewModel(private val schedulerProvider: SchedulerProvider, private val databaseRepository: DatabaseRepository, private val appPreference: AppPreference, private val generalRepository: GeneralRepository): ViewModel(){
 
@@ -34,6 +37,7 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
     val eventSuccess = GenericSingleEvent()
     val eventError = GenericSingleEvent()
     val eventDelete = GenericSingleEvent()
+    val eventItemUpdated = GenericSingleEvent()
     val isLoading = ObservableBoolean()
 
     init {
@@ -146,4 +150,26 @@ class CartViewModel(private val schedulerProvider: SchedulerProvider, private va
             })
     }
 
+    fun onUpdateItem(list: List<Cart>){
+        Completable.fromAction {
+            list.forEach {
+                databaseRepository.updateCartQuantityById(it.productQuantity, it.id)
+            }
+        }.observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object: CompletableObserver{
+                override fun onComplete() {
+                    eventItemUpdated.value = true
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+                    Timber.e { "error on saving" }
+                }
+
+            })
+    }
 }
