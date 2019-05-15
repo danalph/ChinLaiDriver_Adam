@@ -17,8 +17,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
-import android.widget.TextView
-import android.view.View
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_statement.*
 import kotlinx.android.synthetic.main.app_bar_dashboard.*
