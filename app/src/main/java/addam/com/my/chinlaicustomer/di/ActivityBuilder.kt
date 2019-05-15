@@ -20,12 +20,10 @@ import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivityModule
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivityModule
-import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
-import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivityModule
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivityModule
-import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
-import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivityModule
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivityModule
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordModule
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
@@ -36,6 +34,12 @@ import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivityModule
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListModule
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemHistoryActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemHistoryModule
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryModule
+import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
+import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivityModule
 import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginActivity
 import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginModule
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
@@ -108,4 +112,10 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ViewImageActivityModule::class)])
     abstract fun bindViewImageActivity(): ViewImageActivity
+
+    @ContributesAndroidInjector(modules = [(ItemSalesPriceHistoryModule::class)])
+    abstract fun bindItemSalesPriceHistoryActivity(): ItemSalesPriceHistoryActivity
+
+    @ContributesAndroidInjector(modules = [(ItemHistoryModule::class)])
+    abstract fun bindItemHistoryActivity(): ItemHistoryActivity
 }

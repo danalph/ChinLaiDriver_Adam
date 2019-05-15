@@ -17,6 +17,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.widget.TextView
 import android.view.View
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_statement.*
@@ -44,10 +45,10 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         binding = DataBindingUtil.setContentView(this, R.layout.activity_statement)
         binding.viewModel = viewModel
 
-        val headerBind: NavHeaderDashboardBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard, binding.navView, false)
+        val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
         headerBind.name = viewModel.name.get().toString()
+        headerBind.isSalesPerson = appPreference.getSalesId() != "0"
 
         setSupportActionBar(toolbar)
         setupView()
@@ -82,7 +83,8 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    private fun setupView() {
+
+    private fun setupView(){
         KeyboardManager.hideKeyboard(this)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.title = getString(R.string.my_statement)
@@ -92,14 +94,7 @@ class StatementActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        if (appPreference.getSalesId() != "0") {
-            nav_view.menu.findItem(R.id.customers).isVisible = true
-        }
-
-        if (appPreference.getCustomerName().isNotEmpty()) {
-            current_customer.text = appPreference.getCustomerName()
-            layout_nav_customer.visibility = View.VISIBLE
-        }
+        setupNavigationLayout(nav_view, appPreference)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

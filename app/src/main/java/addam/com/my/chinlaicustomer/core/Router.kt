@@ -10,13 +10,15 @@ import addam.com.my.chinlaicustomer.feature.invoice.InvoiceListActivity
 import addam.com.my.chinlaicustomer.feature.invoicedetail.InvoiceDetailActivity
 import addam.com.my.chinlaicustomer.feature.login.LoginActivity
 import addam.com.my.chinlaicustomer.feature.map.MapActivity
-import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
 import addam.com.my.chinlaicustomer.feature.myorderdetail.MyOrderDetailActivity
+import addam.com.my.chinlaicustomer.feature.myorderlist.MyOrderListActivity
 import addam.com.my.chinlaicustomer.feature.password.ResetPasswordActivity
 import addam.com.my.chinlaicustomer.feature.productdetail.ProductDetailActivity
 import addam.com.my.chinlaicustomer.feature.productlist.ProductListActivity
 import addam.com.my.chinlaicustomer.feature.profile.ProfileActivity
 import addam.com.my.chinlaicustomer.feature.salescustomer.CustomerListActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemHistoryActivity
+import addam.com.my.chinlaicustomer.feature.saleshistory.ItemSalesPriceHistoryActivity
 import addam.com.my.chinlaicustomer.feature.salesorder.SalesOrderActivity
 import addam.com.my.chinlaicustomer.feature.salesperson.SalesLoginActivity
 import addam.com.my.chinlaicustomer.feature.statement.StatementActivity
@@ -45,7 +47,9 @@ class Router {
         CUSTOMER_DETAIL,
         ERROR,
         SALES_ORDER,
-        IMAGE_VIEWER
+        IMAGE_VIEWER,
+        SEARCH_PRODUCT,
+        HISTORY
     }
 
     enum class Parameter{
@@ -69,7 +73,9 @@ class Router {
         ITEM_AMOUNT,
         ITEM_STATUS,
         ITEM_NUM,
-        IMAGES
+        IMAGES,
+        START_DATE,
+        END_DATE
     }
 
     companion object {
@@ -95,6 +101,8 @@ class Router {
                 Destination.ERROR -> ErrorActivity::class.java
                 Destination.SALES_ORDER -> SalesOrderActivity::class.java
                 Destination.IMAGE_VIEWER -> ViewImageActivity::class.java
+                Destination.SEARCH_PRODUCT -> ItemSalesPriceHistoryActivity::class.java
+                Destination.HISTORY -> ItemHistoryActivity::class.java
                 else -> {
                     TODO("Implement Default case")
                 }

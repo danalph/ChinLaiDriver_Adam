@@ -83,10 +83,10 @@
 							android:layout_height="wrap_content"
 							android:text="@{model.product.description1}"
 							android:textSize="@dimen/large_text_18sp"
-							android:layout_marginTop="@dimen/space_small_8dp"
 							android:layout_marginStart="@dimen/space_medium_16dp"
 							android:layout_marginEnd="@dimen/space_medium_16dp"
-							android:textColor="@color/black"/>
+							android:textColor="@color/black"
+							tools:text="aslkdajaslkjda"/>
 					<TextView
 							android:id="@+id/tv_price"
 							android:layout_marginStart="@dimen/space_medium_16dp"
@@ -96,8 +96,9 @@
 							android:text="@{`RM ` + viewModel.price}"
 							style="@style/BaseTextView.OpenSansBold"
 							android:textSize="@dimen/large_text_18sp"
-							android:layout_marginTop="@dimen/space_small_8dp"
-							android:textColor="@color/colorRed"/>
+							android:layout_marginTop="@dimen/space_tiny_6dp"
+							android:textColor="@color/colorRed"
+							tools:text="asldkajdaldkaj"/>
 					<View
 							android:layout_width="match_parent"
 							android:layout_height="@dimen/space_small_8dp"
@@ -105,6 +106,7 @@
 					
 					<TextView
 							android:id="@+id/tv_detail_title"
+							android:layout_marginTop="@dimen/space_tiny_6dp"
 							android:layout_marginStart="@dimen/space_medium_16dp"
 							android:layout_marginEnd="@dimen/space_medium_16dp"
 							android:layout_width="match_parent"

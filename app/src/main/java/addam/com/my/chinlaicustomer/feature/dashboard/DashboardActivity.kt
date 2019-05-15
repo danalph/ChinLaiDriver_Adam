@@ -55,7 +55,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         val headerBind: NavHeaderDashboardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header_dashboard,binding.navView, false)
         binding.navView.addHeaderView(headerBind.root)
         headerBind.name = viewModel.name.get().toString()
-
+        headerBind.isSalesPerson = appPreference.getSalesId() != "0"
         setSupportActionBar(toolbar)
         setupView()
         setupObserver()
@@ -101,18 +101,11 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        if(appPreference.getSalesId() != "0"){
-            nav_view.menu.findItem(R.id.customers).isVisible = true
-        }
+        setupNavigationLayout(nav_view, appPreference)
         setupRecyclerView()
 
         swipe_refresh_layout.setOnRefreshListener {
             viewModel.getCategoryList()
-        }
-
-        if(appPreference.getCustomerName().isNotEmpty()){
-            current_customer.text = appPreference.getCustomerName()
-            layout_nav_customer.visibility = View.VISIBLE
         }
     }
 
