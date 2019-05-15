@@ -90,4 +90,10 @@ interface GeneralService {
 
     @GET("mobile/order/{orderId}")
     fun getSalesOrderDetail(@Path("orderId") orderId: String): Single<SalesOrderDetailResponse>
+
+    @GET("mobile/customer/{customerId}/statements")
+    fun getStatementList(@Path("customerId") customerId: String): Single<StatementListResponse>
+
+    @GET("mobile/statement/{statementId}")
+    fun getStatement(@Path("statementId") statementId: String): Single<StatementResponse>
 }

@@ -67,4 +67,8 @@ class GeneralRepository @Inject constructor(private val api: GeneralService){
     fun getOrderDriverDetail(orderId: String): Single<OrderDriverDetailResponse> = api.getOrderDriverDetail(orderId)
 
     fun getOrderDeliveryStatus(orderId: String): Single<OrderDeliveryStatusResponse> = api.getOrderDeliveryStatus(orderId)
+
+    fun getStatementList(customerId: String): Single<StatementListResponse> = api.getStatementList(customerId)
+
+    fun getStatement(statementId: String): Single<StatementResponse> = api.getStatement(statementId)
 }
